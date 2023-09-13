@@ -22,20 +22,25 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		moving = false;
+		Animation.SetBool ("walk", false);
 		if (Input.GetKey (KeyCode.A) == true) {
 			this.transform.Translate (-speed, 0, 0);
 			moving = true;
+			Animation.SetBool ("walk", true);
 		} else if (Input.GetKey (KeyCode.D) == true) {
 			this.transform.Translate (speed, 0, 0);
 			moving = true;
+			Animation.SetBool ("walk", true);
 		}
 			
 		if (Input.GetKey (KeyCode.W) == true) {
 			this.transform.Translate (0, speed, 0);
 			moving = true;
+			Animation.SetBool ("walk", true);
 		} else if (Input.GetKey (KeyCode.S) == true) {
 			this.transform.Translate (0, -speed, 0);
 			moving = true;
+			Animation.SetBool ("walk", true);
 		}
 
 		if(Input.mousePosition.x-(Display.main.systemWidth/2)>=0 & Input.mousePosition.y-(Display.main.systemHeight/2)>= 0)
@@ -43,53 +48,39 @@ public class PlayerMovement : MonoBehaviour {
 			Debug.Log ("e");
 		}
 		if (Input.mousePosition.x - (Display.main.systemWidth / 2) - ((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2))  > Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - ((this.transform.position.y / camerasizey)* (Display.main.systemHeight/2)))) {
-			//Debug.Log ("Right" + (Input.mousePosition.x - (Display.main.systemWidth / 2) + this.transform.position.x) + (Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) + this.transform.position.y)));
 			//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
 			//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
 			direction = "right";
-			if (moving == true) {
-				Animation.SetBool ("right", true);
-			}
+			Debug.Log ("Right");
+			Animation.SetBool ("right", true);
 			Animation.SetBool ("left", false);
 			Animation.SetBool ("up", false);
 			Animation.SetBool ("down", false);
 
 		} else if (Input.mousePosition.x - (Display.main.systemWidth / 2) - ((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2)) < -Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - ((this.transform.position.y / camerasizey)* (Display.main.systemHeight/2)))) {
-			//Debug.Log ("Left" + (Input.mousePosition.x - (Display.main.systemWidth / 2) + this.transform.position.x) + (-Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) + this.transform.position.y)));
 			direction = "left";
-			if (moving == true) {
-				Animation.SetBool ("left", true);
-			}
+			Debug.Log ("Left");
+			Animation.SetBool ("left", true);
 			Animation.SetBool ("right", false);
 			Animation.SetBool ("up", false);
 			Animation.SetBool ("down", false);
 
 		} else if (Mathf.Abs(Input.mousePosition.x - (Display.main.systemWidth / 2) - ((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2))) < Input.mousePosition.y - (Display.main.systemHeight / 2)  - ((this.transform.position.y / camerasizey)* (Display.main.systemHeight/2))) {
-			//Debug.Log ("Up" + (Mathf.Abs(Input.mousePosition.x - (Display.main.systemWidth / 2) + this.transform.position.x)) + (Input.mousePosition.y - (Display.main.systemHeight / 2) + this.transform.position.y));
 			direction = "up";
-			if (moving == true) {
-				Animation.SetBool ("up", true);
-			}
+			Debug.Log ("up");
+			Animation.SetBool ("up", true);
 			Animation.SetBool ("right", false);
 			Animation.SetBool ("left", false);
 			Animation.SetBool ("down", false);
 
 		} else if (-Mathf.Abs(Input.mousePosition.x - (Display.main.systemWidth / 2) - ((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2))) > Input.mousePosition.y - (Display.main.systemHeight / 2)  - ((this.transform.position.y / camerasizey)* (Display.main.systemHeight/2))) {
-			//Debug.Log ("Down" + (-Mathf.Abs(Input.mousePosition.x - (Display.main.systemWidth / 2) + this.transform.position.x)) + (Input.mousePosition.y - (Display.main.systemHeight / 2) + this.transform.position.y));
 			direction = "down";
-			if (moving == true) {
-				Animation.SetBool ("down", true);
-			}
+			Debug.Log ("down");
+			Animation.SetBool ("down", true);
 			Animation.SetBool ("right", false);
 			Animation.SetBool ("left", false);
 			Animation.SetBool ("up", false);
 
-		}
-		if (moving == false) {
-			Animation.SetBool ("down", false);
-			Animation.SetBool ("right", false);
-			Animation.SetBool ("left", false);
-			Animation.SetBool ("up", false);
 		}
 
 
