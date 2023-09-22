@@ -7,17 +7,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 	float angle;
+	float dashDirection;
 	float speed;
+	public float duration;
+	float durationLim;
 	Animator Animation;
 	public CameraMovement camMov;
 	string direction;
 	bool moving;
-	bool dashing;
+	public bool dashing;
 	public float camerasizex;
 	public float camerasizey;
 	// Use this for initialization
 	void Start () {
 		speed = 0.05f;
+		dashDirection = 0f;
+		durationLim = 15;
+		duration = durationLim;
 		direction = "down";
 		moving = false;
 		dashing = false;
@@ -29,34 +35,68 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		moving = false;
+
+		Angle();
+		Debug.Log (angle);
+
 		Animation.SetBool ("walk", false);
-		if (Input.GetKey (KeyCode.A) == true) {
+		if (Input.GetKey (KeyCode.A) == true && dashing == false) {
 			this.transform.Translate (-speed, 0, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
-		} else if (Input.GetKey (KeyCode.D) == true) {
+		} else if (Input.GetKey (KeyCode.D) == true  && dashing == false) {
 			this.transform.Translate (speed, 0, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		}
 
-		if (Input.GetKey (KeyCode.W) == true) {
+		if (Input.GetKey (KeyCode.W) == true  && dashing == false) {
 			this.transform.Translate (0, speed, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
-		} else if (Input.GetKey (KeyCode.S) == true) {
+		} else if (Input.GetKey (KeyCode.S) == true  && dashing == false) {
 			this.transform.Translate (0, -speed, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		}
-		if (Input.GetKeyDown (KeyCode.LeftShift) == true) {
+		if (Input.GetKeyDown (KeyCode.LeftShift) == true  && dashing == false) {
 			dashing = true;
 			Animation.SetBool ("dash", true);
 			Animation.Play ("Dash");
 		}
 
-		if(dashing = true){
+		if (dashing == true && duration > 0) {
 			moving = true;
+			if (duration == durationLim) {
+				dashDirection = angle;
+			}
+			duration -= 1;
+			if(Input.GetKey(KeyCode.LeftShift) == true)
+			{
+				duration += 0.3f;
+			}
+			if (dashDirection >= 337.5 | dashDirection <= 22.5) {
+				this.transform.Translate (0, 3 * speed, 0);
+			} else if (dashDirection >= 22.5 && dashDirection <= 67.5) {
+				this.transform.Translate (1.5f * speed, 1.5f * speed, 0);
+			} else if (dashDirection >= 67.5 && dashDirection <= 112.5) {
+				this.transform.Translate (3 * speed, 0, 0);
+			} else if (dashDirection >= 112.5 && dashDirection <= 157.5) {
+				this.transform.Translate (1.5f * speed, -1.5f * speed, 0);
+			} else if (dashDirection >= 157.5 && dashDirection <= 202.5) {
+				this.transform.Translate (0, -3 * speed, 0);
+			} else if (dashDirection >= 202.5 && dashDirection <= 247.5) {
+				this.transform.Translate (-1.5f * speed, -1.5f * speed, 0);
+			} else if (dashDirection >= 247.5 && dashDirection <= 292.5) {
+				this.transform.Translate (-3 * speed, 0, 0);
+			} else if (dashDirection >= 292.5 && dashDirection <= 337.5) {
+				this.transform.Translate (-1.5f * speed, 1.5f * speed, 0);
+			}
+
+		} else {
+			duration = durationLim;
+			Animation.SetBool ("dash", false);
+			dashing = false;
 		}
 
 
@@ -65,8 +105,6 @@ public class PlayerMovement : MonoBehaviour {
 			//Debug.Log ("e");
 		}
 
-		Angle();
-		Debug.Log (angle);
 		if (angle >= 45 && angle <= 135) {
 			//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
 			//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
