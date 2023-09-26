@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint 1 - Last Edited Sprint 1
+Purpose: This script manages to movement of the camera to always move with the character to be on screen no matter what. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +19,7 @@ public class CameraMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		/* Comment: This section allows the camera to move with the player by comparing their locations. */
 		//Debug.Log (Player.transform.position.y + " " + ((locY) * 2 * playerMovement.camerasizey + playerMovement.camerasizey) + " " + ((locY) * 2 * playerMovement.camerasizey - playerMovement.camerasizey));
 		if (Player.transform.position.y > ((locY) * 2 * playerMovement.camerasizey + playerMovement.camerasizey)) {
 			locY += 1 ;

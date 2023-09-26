@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint 1 - Last Edited Sprint 2
+Purpose: This script manages the control of the playable character by adding controls for various actions with suitable animations. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
@@ -13,6 +15,7 @@ public class PlayerMovement : MonoBehaviour {
 	float durationLim;
 	Animator Animation;
 	public CameraMovement camMov;
+	public GameObject Slime;
 	string direction;
 	bool moving;
 	public bool dashing;
@@ -37,8 +40,9 @@ public class PlayerMovement : MonoBehaviour {
 		moving = false;
 
 		Angle();
-		Debug.Log (angle);
+		//Debug.Log (angle);
 
+		/* This section checks input to allow the player to move */
 		Animation.SetBool ("walk", false);
 		if (Input.GetKey (KeyCode.A) == true && dashing == false) {
 			this.transform.Translate (-speed, 0, 0);
@@ -59,6 +63,7 @@ public class PlayerMovement : MonoBehaviour {
 			moving = true;
 			Animation.SetBool ("walk", true);
 		}
+		/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
 		if (Input.GetKeyDown (KeyCode.LeftShift) == true  && dashing == false) {
 			dashing = true;
 			Animation.SetBool ("dash", true);
@@ -99,7 +104,7 @@ public class PlayerMovement : MonoBehaviour {
 			dashing = false;
 		}
 
-
+		/* This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor. */
 		if(Input.mousePosition.x-(Display.main.systemWidth/2)>=0 & Input.mousePosition.y-(Display.main.systemHeight/2)>= 0)
 		{
 			//Debug.Log ("e");
@@ -138,7 +143,10 @@ public class PlayerMovement : MonoBehaviour {
 			Animation.SetBool ("right", false);
 			Animation.SetBool ("left", false);
 			Animation.SetBool ("up", false);
+		}
 
+		if(Input.GetKeyDown (KeyCode.Mouse0) == true){
+			Object.Instantiate (Slime);
 		}
 		//-(camMov.locX * camerasizex)
 		//-(camMov.locY * camerasizey) (((this.transform.position.y -(camMov.locY * camerasizey))/ camerasizey)
@@ -146,6 +154,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	}
+	/* This function provides the angle of the mouse cursor from the character.*/
 	public void Angle () {
 		if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) >= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {
 			angle = (Mathf.Atan (Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2))) / (Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))))) * Mathf.Rad2Deg);
