@@ -1,8 +1,5 @@
-﻿/*Created: Sprint 1 - Last Edited Sprint 2
+﻿/*Created: Sprint 1 - Last Edited Sprint 3
 Purpose: This script manages the control of the playable character by adding controls for various actions with suitable animations. */
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +18,8 @@ public class PlayerMovement : MonoBehaviour {
 	public bool dashing;
 	public float camerasizex;
 	public float camerasizey;
+	public float hp;
+	public float maxhp;
 	// Use this for initialization
 	void Start () {
 		speed = 0.05f;
@@ -33,6 +32,8 @@ public class PlayerMovement : MonoBehaviour {
 		camerasizex = 12f;
 		camerasizey = 8f;
 		Animation = GetComponent<Animator>();
+		maxhp = 100;
+		hp = maxhp;
 	}
 
 	// Update is called once per frame
@@ -153,7 +154,9 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
+
 	}
+
 	/* This function provides the angle of the mouse cursor from the character.*/
 	public void Angle () {
 		if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) >= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {
@@ -169,4 +172,7 @@ public class PlayerMovement : MonoBehaviour {
 			angle = (270 + Mathf.Atan ((Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2)))) / Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)))) * Mathf.Rad2Deg);
 		}
 	}
+
+					
+					
 }
