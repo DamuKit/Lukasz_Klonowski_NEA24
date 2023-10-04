@@ -18,12 +18,18 @@ public class SlimeMovement : MonoBehaviour {
 		location = (camMov.locX + "." + camMov.locY);
 		Debug.Log (location);
 		speed = 0.03f;
+		player = GameObject.FindGameObjectWithTag ("Player");
+		Player = player.GetComponent<PlayerMovement> ();
 	}
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
 	void Update () {
+			
 		if(location == (camMov.locX + "." + camMov.locY))
 		{
+			RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position, player.transform.position);
+			Debug.DrawRay (transform.position, (player.transform.position - transform.position), Color.white, 10); 
+
 			//Debug.Log ("nearby");
 			//Debug.Log (camMov.locX + "." + camMov.locY);
 			//Debug.Log (location);;

@@ -221,7 +221,8 @@ Prefab:
         type: 2}
       propertyPath: Slime
       value: 
-      objectReference: {fileID: 2099002812}
+      objectReference: {fileID: 1889647419703508, guid: b5c3e949b78194441bea43caa4b8a0ac,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
   m_IsPrefabAsset: 0
@@ -10156,11 +10157,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2099002812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1889647419703508, guid: b5c3e949b78194441bea43caa4b8a0ac,
-    type: 2}
-  m_PrefabInternal: {fileID: 1950210166}
 --- !u!4 &2099002813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4840377618036442, guid: b5c3e949b78194441bea43caa4b8a0ac,
