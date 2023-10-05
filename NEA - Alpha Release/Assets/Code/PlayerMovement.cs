@@ -146,9 +146,9 @@ public class PlayerMovement : MonoBehaviour {
 			Animation.SetBool ("up", false);
 		}
 
-		if(Input.GetKey (KeyCode.Mouse0) == true){
+		/*if(Input.GetKey (KeyCode.Mouse0) == true){
 			Object.Instantiate (Slime, new Vector3(0, 0, 0), Quaternion.identity);
-		}
+		}*/
 		//-(camMov.locX * camerasizex)
 		//-(camMov.locY * camerasizey) (((this.transform.position.y -(camMov.locY * camerasizey))/ camerasizey)
 

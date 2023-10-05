@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61860139188096952}
   - component: {fileID: 114431581643283328}
   - component: {fileID: 50413899699764822}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1889647419703508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.96, y: 16.2, z: -1}
+  m_LocalPosition: {x: -4.93, y: 14.55, z: -2.0976562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0008587837, y: -0.167552}
+  m_Offset: {x: 0.0008587837, y: -0.08682871}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.49562728, y: 0.17061806}
+  m_Size: {x: 0.49562728, y: 0.33206463}
   m_EdgeRadius: 0
 --- !u!95 &95815123514173984
 Animator:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee869ec955ad71409939c8cdf0cd498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camMov: {fileID: 114194529193837820, guid: 0319795d57eda744099fcce5162f9049, type: 2}
+  camMov: {fileID: 0}
   Player: {fileID: 114430032501499830, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
   player: {fileID: 1735780680989752, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
 --- !u!212 &212395837201028268
