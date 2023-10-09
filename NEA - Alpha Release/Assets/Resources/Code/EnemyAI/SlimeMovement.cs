@@ -24,7 +24,6 @@ public class SlimeMovement : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
-
 	}
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
@@ -66,7 +65,7 @@ public class SlimeMovement : MonoBehaviour {
 			} else {
 				delay -= 1;
 			}
-				
+
 		}
 	}
 	private void OnCollisionEnter2D(Collision2D other) {
