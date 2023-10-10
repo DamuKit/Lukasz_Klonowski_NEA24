@@ -15,13 +15,15 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject Slime;
 	int loops;
 	private GameObject Enemies;
+	public RoomLoader roomLoader;
 
 	// Use this for initialization
 	void Start () {
-		Enemies = GameObject.Find ("Enemies");
+		Enemies = GameObject.Find("Enemies");
 		Cam = GameObject.FindGameObjectWithTag("MainCamera");
 		camMov = Cam.GetComponent<CameraMovement> ();
-		stats = GameObject.Find ("StatController").GetComponent<StatsStorage> ();
+		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
+		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		Random.InitState (stats.seed + stats.seedoffset);
 		stats.seedoffset += 1;
 		Debug.Log (Random.value);
@@ -36,8 +38,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		limiter = Mathf.RoundToInt((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points);
+		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1]);
 		Debug.Log (limiter);
+		Debug.Log (stats.Rooms [roomLoader.room, 1]);
 		rand = Random.value;
 		//roomlocation = camMov.locX.ToString() + "." + camMov.locY.ToString();
 		/*Debug.Log (Locations.FindIndex (a => a == roomlocation));
@@ -49,7 +52,7 @@ public class EnemySpawner : MonoBehaviour {
 			Debug.Log (Locations.Count - 1);
 
 		}			*/
-		if(stats.localDifficulty < 10){
+		if(stats.localDifficulty < 10000){
 			if (dedicatedPoints >= limiter) {
 				Destroy (this.gameObject);
 			}
@@ -61,7 +64,7 @@ public class EnemySpawner : MonoBehaviour {
 			if (loops < 1) {
 				Debug.Log (stats.EnemyID.Count);
 				Debug.Log (loops);
-				Object.Instantiate (stats.EnemyID[loops], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);
+				Object.Instantiate (stats.EnemyID[0], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);
 				dedicatedPoints += 20;
 
 			} 

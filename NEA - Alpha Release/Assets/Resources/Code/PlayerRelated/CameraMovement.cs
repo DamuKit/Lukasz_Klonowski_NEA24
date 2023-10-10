@@ -13,6 +13,7 @@ public class CameraMovement : MonoBehaviour {
 	void Start () {
 		locX = 0;
 		locY = 0;
+		Debug.Log (locX);
 		//Debug.Log ("E");
 		//Debug.Log (playerMovement.camerasizex);
 	}

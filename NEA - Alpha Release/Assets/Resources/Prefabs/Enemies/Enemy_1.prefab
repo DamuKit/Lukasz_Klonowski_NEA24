@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114431581643283328}
   - component: {fileID: 50413899699764822}
   m_Layer: 2
-  m_Name: Slime
+  m_Name: Enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   camMov: {fileID: 0}
   Player: {fileID: 114430032501499830, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
   player: {fileID: 1735780680989752, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
+  Cam: {fileID: 0}
 --- !u!212 &212395837201028268
 SpriteRenderer:
   m_ObjectHideFlags: 1
