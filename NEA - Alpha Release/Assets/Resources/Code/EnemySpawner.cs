@@ -60,8 +60,10 @@ public class EnemySpawner : MonoBehaviour {
 		if (rand < stats.Enemies[loops, 1]*0.01) {
 			if (loops < 1) {
 				Debug.Log (stats.EnemyID.Count);
-				Object.Instantiate (stats.EnemyID [loops], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);
+				Debug.Log (loops);
+				Object.Instantiate (stats.EnemyID[loops], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);
 				dedicatedPoints += 20;
+
 			} 
 			loops = 0;
 			//Debug.Log ("A");

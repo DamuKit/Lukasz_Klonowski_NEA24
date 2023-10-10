@@ -40,6 +40,7 @@ public class StatsStorage : MonoBehaviour {
 		Debug.Log (EnemyID.Count);
 		Locations.Add ("0.0");
 		Locations.Add ("1.0");
+		Random.InitState (seed);
 	}
 
 	// Update is called once per frame
@@ -52,7 +53,7 @@ public class StatsStorage : MonoBehaviour {
 			room = Locations.FindIndex(a => a == roomlocation);
 		} else {
 			Locations.Add (roomlocation);
-			Object.Instantiate (Rooms[0], new Vector3 (camMov.locX * 24, camMov.locY * 16), Quaternion.identity, Tilemaps.transform);
+			Object.Instantiate (Rooms[Mathf.RoundToInt((Rooms.Count - 1) * Random.value - 0.5f)], new Vector3 (camMov.locX * 24, camMov.locY * 16), Quaternion.identity, Tilemaps.transform);
 			Debug.Log (camMov.locX * 24 + " , " + camMov.locY * 16);
 			//Debug.Log (Locations [Locations.Count - 1]);
 			//Debug.Log (Locations.Count - 1);
