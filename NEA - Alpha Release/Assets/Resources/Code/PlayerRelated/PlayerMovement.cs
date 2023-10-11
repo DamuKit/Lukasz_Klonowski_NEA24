@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour {
 	public float camerasizey;
 	public float hp;
 	public float maxhp;
+	public bool invincible;
+	public bool ivFrames;
+	public int ivDuration;
+
 	// Use this for initialization
 	void Start () {
 		speed = 0.05f;
@@ -34,10 +38,24 @@ public class PlayerMovement : MonoBehaviour {
 		Animation = GetComponent<Animator>();
 		maxhp = 100;
 		hp = maxhp;
+		invincible = false;
+		ivFrames = false;
+		ivDuration = 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (ivFrames == true) {
+			invincible = true;
+			ivDuration = 100;
+			ivFrames = false;
+		}
+		if (ivDuration > 0) {
+			ivDuration -= 1;
+		} else{
+			invincible = false;
+		}
+
 		moving = false;
 
 		Angle();

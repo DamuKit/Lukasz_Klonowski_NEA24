@@ -6,16 +6,21 @@ using UnityEngine;
 
 public class SlimeMovement : MonoBehaviour {
 	bool onscreen = false;
+	public StatsStorage stats;
 	public CameraMovement camMov;
 	public PlayerMovement Player;
 	string location;
 	public GameObject player;
 	public GameObject Cam;
 	float angle;
-	float speed;
 	int delay;
+
+	float speed;
+	int health;
+	int damage;
 	// Use this for initialization
 	void Start () {
+		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Cam = GameObject.FindGameObjectWithTag("MainCamera");
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = (camMov.locX + "." + camMov.locY);
@@ -24,6 +29,8 @@ public class SlimeMovement : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
+		health = stats.Enemies [1, 3];
+		damage = stats.Enemies [1, 4];
 	}
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
@@ -67,10 +74,14 @@ public class SlimeMovement : MonoBehaviour {
 			}
 
 		}
+		if (health <= 0) {
+			Destroy (this.gameObject);
+		}
 	}
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "Player") {
-			Player.hp -= 10;
+		if (other.gameObject.tag == "Player" & Player.invincible == false) {
+			Player.hp -= damage;
+			Player.ivFrames = true;
 			//Destroy (this.gameObject);
 		}
 	}

@@ -13,9 +13,9 @@ public class StatsStorage : MonoBehaviour {
 	public List<GameObject> RoomID = new List<GameObject>();
 	public List<GameObject> EnemyID = new List<GameObject> ();
 
-	/* array listing enemy id, raw probability, points used, raw hp, location for use in other code*/
+	/* array listing enemy id, raw probability, points used, raw hp, damage*/
 	//public string[,] Enemies = new string[,] {{"Slime","0.5","20","5"},{"N/A","1","1","1"}};
-	public int[,] Enemies = new int[,] {{0,50,20,5,0},{9999,100,1,1,0}};
+	public int[,] Enemies = new int[,] {{0,50,20,5,10},{9999,100,1,1,0}};
 	/* array listing room id, number of spawners */
 	public int[,] Rooms = new int[,] {{0, 2},{1, 2},{2,3}};
 
