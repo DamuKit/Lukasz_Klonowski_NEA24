@@ -25,7 +25,11 @@ public class SlimeMovement : MonoBehaviour {
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = (camMov.locX + "." + camMov.locY);
 		//Debug.Log (location);
-		speed = 0.03f;
+		if(this.gameObject.name.Contains("(Clone)")){
+			this.gameObject.name = (this.gameObject.name.Substring (0, this.gameObject.name.Length - 7));
+			Debug.Log (this.gameObject.name);
+		}
+		speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(6)),5] * 0.01f;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
@@ -35,7 +39,7 @@ public class SlimeMovement : MonoBehaviour {
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
 	void Update () {
-			
+		Debug.Log (speed);
 		if (location == (camMov.locX + "." + camMov.locY)) {
 			
 			if (delay == 0) {
