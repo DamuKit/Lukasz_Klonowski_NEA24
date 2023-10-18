@@ -53,31 +53,45 @@ public class SlimeMovement : MonoBehaviour {
 					//Debug.Log (location);;
 					/* Calculates angle from enemy to player */
 					angle = Mathf.Rad2Deg * (Mathf.Atan (Mathf.Abs ((0.5f + 0.5f * Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y)) * (player.transform.position.x - this.transform.position.x) / (player.transform.position.y - this.transform.position.y) + ((0.5f + 0.5f * -Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y))) * (player.transform.position.y - this.transform.position.y) / (player.transform.position.x - this.transform.position.x)))) + 45 * (2 - 2 * Mathf.Sign (player.transform.position.x - this.transform.position.x) + 1 - Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y));
-					if (angle >= 337.5 | angle <= 22.5) {
-						this.transform.Translate (0, speed, 0);
-					} else if (angle >= 22.5 && angle <= 67.5) {
-						this.transform.Translate (0.5f * speed, 0.5f * speed, 0);
-					} else if (angle >= 67.5 && angle <= 112.5) {
-						this.transform.Translate (speed, 0, 0);
-					} else if (angle >= 112.5 && angle <= 157.5) {
-						this.transform.Translate (0.5f * speed, -0.5f * speed, 0);
-					} else if (angle >= 157.5 && angle <= 202.5) {
-						this.transform.Translate (0, -speed, 0);
-					} else if (angle >= 202.5 && angle <= 247.5) {
-						this.transform.Translate (-0.5f * speed, -0.5f * speed, 0);
-					} else if (angle >= 247.5 && angle <= 292.5) {
-						this.transform.Translate (-speed, 0, 0);
-					} else if (angle >= 292.5 && angle <= 337.5) {
-						this.transform.Translate (-0.5f * speed, 0.5f * speed, 0);
-					}
+
 				} else {
-					delay = 100;
+					RaycastHit2D Gather = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), transform.parent.GetChild (transform.GetSiblingIndex () - stats.Rooms[stats.room,1]).position - transform.position - new Vector3(0, 0.1f));
+					Debug.DrawRay (this.gameObject.transform.position - new Vector3 (0, 0.1f), transform.parent.GetChild (transform.GetSiblingIndex () - stats.Rooms[stats.room,1]).position - transform.position - new Vector3 (0, 0.1f), Color.white, 10);
+					Debug.Log (Gather.collider.name);
+					//Debug.Log (transform.GetSiblingIndex ());
+					//(transform.parent.GetChild (transform.GetSiblingIndex () + 1))
+
+					if (Gather.collider.name == "GameObject") {
+						Debug.Log ("A");
+						angle = 90;
+					} else {
+						delay = 100;
+						angle = -1;
+
+					}
 				}
 			} else {
 				delay -= 1;
 			}
-
+			if (angle <= 360 & angle >= 337.5 | angle <= 22.5 & angle >= 0) {
+				this.transform.Translate (0, speed, 0);
+			} else if (angle >= 22.5 && angle <= 67.5) {
+				this.transform.Translate (0.5f * speed, 0.5f * speed, 0);
+			} else if (angle >= 67.5 && angle <= 112.5) {
+				this.transform.Translate (speed, 0, 0);
+			} else if (angle >= 112.5 && angle <= 157.5) {
+				this.transform.Translate (0.5f * speed, -0.5f * speed, 0);
+			} else if (angle >= 157.5 && angle <= 202.5) {
+				this.transform.Translate (0, -speed, 0);
+			} else if (angle >= 202.5 && angle <= 247.5) {
+				this.transform.Translate (-0.5f * speed, -0.5f * speed, 0);
+			} else if (angle >= 247.5 && angle <= 292.5) {
+				this.transform.Translate (-speed, 0, 0);
+			} else if (angle >= 292.5 && angle <= 337.5) {
+				this.transform.Translate (-0.5f * speed, 0.5f * speed, 0);
+			}
 		}
+
 		if (health <= 0) {
 			Destroy (this.gameObject);
 		}

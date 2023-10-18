@@ -6,7 +6,6 @@ public class RoomLoader : MonoBehaviour {
 	public StatsStorage stats;
 	private GameObject Tilemaps;
 	public string roomlocation;
-	public int room;
 	public int lastRoom;
 	//public GameObject Cam;
 	public CameraMovement camMov;
@@ -17,7 +16,7 @@ public class RoomLoader : MonoBehaviour {
 		//Cam = GameObject.Find ("Main Camera");
 		camMov = GameObject.Find ("Main Camera").GetComponent<CameraMovement> ();
 		Random.InitState (stats.seed);
-		room = 0;
+		stats.room = 0;
 		lastRoom = -1;
 	}
 	
@@ -33,21 +32,21 @@ public class RoomLoader : MonoBehaviour {
 			stats.room = stats.Locations.FindIndex(a => a == roomlocation);
 		} else {
 			stats.Locations.Add (roomlocation);
-			room = Mathf.RoundToInt ((stats.RoomID.Count - 1) * Random.value - 0.5f);
-			Debug.Log (room);
-			if (room == lastRoom) {
-				room -= 1;
-				if (room == -1){
-					room = 2;
+			stats.room = Mathf.RoundToInt ((stats.RoomID.Count - 1) * Random.value - 0.5f);
+			Debug.Log (stats.room);
+			if (stats.room == lastRoom) {
+				stats.room -= 1;
+				if (stats.room == -1){
+					stats.room = 2;
 				}
 			}
 
-			Object.Instantiate (stats.RoomID[room], new Vector3 (camMov.locX * 24, camMov.locY * 16), Quaternion.identity, Tilemaps.transform);
+			Object.Instantiate (stats.RoomID[stats.room], new Vector3 (camMov.locX * 24, camMov.locY * 16), Quaternion.identity, Tilemaps.transform);
 			Debug.Log (camMov.locX * 24 + " , " + camMov.locY * 16);
 			//Debug.Log (Locations [Locations.Count - 1]);
 			//Debug.Log (Locations.Count - 1);
 			//Object.Instantiate(
-			lastRoom = room;
+			lastRoom = stats.room;
 		}
 
 		
