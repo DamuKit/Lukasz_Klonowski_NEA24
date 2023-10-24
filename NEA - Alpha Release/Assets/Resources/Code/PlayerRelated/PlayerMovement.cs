@@ -1,11 +1,11 @@
-﻿/*Created: Sprint 1 - Last Edited Sprint 3
+﻿/*Created: Sprint 1 - Last Edited Sprint 4
 Purpose: This script manages the control of the playable character by adding controls for various actions with suitable animations. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-	float angle;
+	public float angle;
 	float dashDirection;
 	float speed;
 	public float duration;
@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		speed = 2.5f * Time.deltaTime;
+		Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
 			ivDuration = 100;
@@ -128,40 +130,41 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			//Debug.Log ("e");
 		}
+		if (hp > 0) {
+			if (angle >= 45 && angle <= 135) {
+				//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
+				//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
+				direction = "right";
+				//Debug.Log ("Right");
+				Animation.SetBool ("right", true);
+				Animation.SetBool ("left", false);
+				Animation.SetBool ("up", false);
+				Animation.SetBool ("down", false);
 
-		if (angle >= 45 && angle <= 135) {
-			//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
-			//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
-			direction = "right";
-			//Debug.Log ("Right");
-			Animation.SetBool ("right", true);
-			Animation.SetBool ("left", false);
-			Animation.SetBool ("up", false);
-			Animation.SetBool ("down", false);
+			} else if (angle >= 225 && angle <= 315) {
+				direction = "left";
+				//Debug.Log ("Left");
+				Animation.SetBool ("left", true);
+				Animation.SetBool ("right", false);
+				Animation.SetBool ("up", false);
+				Animation.SetBool ("down", false);
 
-		} else if (angle >= 225 && angle <= 315) {
-			direction = "left";
-			//Debug.Log ("Left");
-			Animation.SetBool ("left", true);
-			Animation.SetBool ("right", false);
-			Animation.SetBool ("up", false);
-			Animation.SetBool ("down", false);
+			} else if (angle >= 315 | angle <= 45) {
+				direction = "up";
+				//Debug.Log ("up");
+				Animation.SetBool ("up", true);
+				Animation.SetBool ("right", false);
+				Animation.SetBool ("left", false);
+				Animation.SetBool ("down", false);
 
-		} else if (angle >= 315 | angle <= 45) {
-			direction = "up";
-			//Debug.Log ("up");
-			Animation.SetBool ("up", true);
-			Animation.SetBool ("right", false);
-			Animation.SetBool ("left", false);
-			Animation.SetBool ("down", false);
-
-		} else if (angle >= 135 && angle <= 225) {
-			direction = "down";
-			//Debug.Log ("down");
-			Animation.SetBool ("down", true);
-			Animation.SetBool ("right", false);
-			Animation.SetBool ("left", false);
-			Animation.SetBool ("up", false);
+			} else if (angle >= 135 && angle <= 225) {
+				direction = "down";
+				//Debug.Log ("down");
+				Animation.SetBool ("down", true);
+				Animation.SetBool ("right", false);
+				Animation.SetBool ("left", false);
+				Animation.SetBool ("up", false);
+			}
 		}
 
 		/*if(Input.GetKey (KeyCode.Mouse0) == true){

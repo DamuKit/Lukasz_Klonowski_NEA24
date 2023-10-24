@@ -28,7 +28,7 @@ public class StatsStorage : MonoBehaviour {
 		room = 0;
 		Difficulty = 1;
 		points = 100;
-		seed = 1;
+		seed = 57;
 		localDifficulty = 0;
 		Debug.Log(RoomID.Count);
 		//Object.Instantiate (Rooms[0], this.gameObject.transform.position + new Vector3 (camMov.locX * 24, camMov.locX * 16), Quaternion.identity, Tilemaps.transform);

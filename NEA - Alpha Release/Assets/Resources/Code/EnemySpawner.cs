@@ -38,9 +38,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[stats.room, 1]);
+		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1]);
 		Debug.Log (limiter);
-		Debug.Log (stats.Rooms [stats.room, 1]);
+		Debug.Log (stats.Rooms [roomLoader.room, 1]);
 		rand = Random.value;
 		//roomlocation = camMov.locX.ToString() + "." + camMov.locY.ToString();
 		/*Debug.Log (Locations.FindIndex (a => a == roomlocation));

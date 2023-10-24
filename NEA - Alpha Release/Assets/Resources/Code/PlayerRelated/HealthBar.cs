@@ -16,5 +16,12 @@ public class HealthBar : MonoBehaviour {
 	void Update () {
 		Animation.SetFloat ("Hp%", Player.hp);
 
+		if(Player.hp <= 0 & Time.timeScale > 0){
+			Time.timeScale = Time.timeScale * 0.99f;
+			Debug.Log (Time.timeScale);
+			if (Time.timeScale < 0.00000001) {
+				Time.timeScale = 0;
+			}
+		}
 	}
 }
