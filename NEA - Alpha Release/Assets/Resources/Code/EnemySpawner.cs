@@ -26,9 +26,9 @@ public class EnemySpawner : MonoBehaviour {
 		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		Random.InitState (stats.seed + stats.seedoffset);
 		stats.seedoffset += 1;
-		Debug.Log (Random.value);
-		Debug.Log (Random.value);
-		Debug.Log (Random.value);
+		//Debug.Log (Random.value);
+		//Debug.Log (Random.value);
+		//Debug.Log (Random.value);
 		roomlocation = camMov.locX.ToString() + "." + camMov.locY.ToString();
 		limiter = Mathf.RoundToInt((0.05f * stats.room + 3 * stats.Difficulty + 0.1f * stats.localDifficulty) * stats.points);
 		loops = 0;
@@ -39,8 +39,8 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1]);
-		Debug.Log (limiter);
-		Debug.Log (stats.Rooms [roomLoader.room, 1]);
+		//Debug.Log (limiter);
+		//Debug.Log (stats.Rooms [roomLoader.room, 1]);
 		rand = Random.value;
 		//roomlocation = camMov.locX.ToString() + "." + camMov.locY.ToString();
 		/*Debug.Log (Locations.FindIndex (a => a == roomlocation));
@@ -62,8 +62,8 @@ public class EnemySpawner : MonoBehaviour {
 	private void summon(){
 		if (rand < stats.Enemies[loops, 1]*0.01) {
 			if (loops < 2) {
-				Debug.Log (stats.EnemyID.Count);
-				Debug.Log (loops);
+				//Debug.Log (stats.EnemyID.Count);
+				//Debug.Log (loops);
 				Object.Instantiate (stats.EnemyID[loops], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);
 				dedicatedPoints += 20;
 

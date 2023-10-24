@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 50413899699764822}
   m_Layer: 2
   m_Name: Enemy_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   camMov: {fileID: 0}
   Player: {fileID: 114430032501499830, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
+  roomLoader: {fileID: 0}
   player: {fileID: 1735780680989752, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
   Cam: {fileID: 0}
 --- !u!212 &212395837201028268

@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		speed = 2.5f * Time.deltaTime;
-		Debug.Log (speed);
+		//Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
 			ivDuration = 100;
@@ -193,7 +193,17 @@ public class PlayerMovement : MonoBehaviour {
 			angle = (270 + Mathf.Atan ((Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2)))) / Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)))) * Mathf.Rad2Deg);
 		}
 	}
-
+	void attack(){
+		Animation.Play ("Attack");
+	}
+	void itemEffect(int item){
+		if (item == 0) {
+			Debug.Log ("You Earned a Coin! Now time to Gamble!");
+		}
+		if (item == 1) {
+			hp += 25;
+		}
+	}
 					
 					
 }

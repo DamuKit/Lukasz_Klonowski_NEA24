@@ -7,6 +7,8 @@ using UnityEngine;
 public class SlimeMovement : MonoBehaviour {
 	bool onscreen = false;
 	public StatsStorage stats;
+	public Attacking attack;
+	bool IV;
 	public CameraMovement camMov;
 	public PlayerMovement Player;
 	public RoomLoader roomLoader;
@@ -23,6 +25,8 @@ public class SlimeMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
+		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
+		IV = false;
 		Cam = GameObject.FindGameObjectWithTag("MainCamera");
 		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		camMov = Cam.GetComponent<CameraMovement> ();
@@ -30,7 +34,7 @@ public class SlimeMovement : MonoBehaviour {
 		//Debug.Log (location);
 		if(this.gameObject.name.Contains("(Clone)")){
 			this.gameObject.name = (this.gameObject.name.Substring (0, this.gameObject.name.Length - 7));
-			Debug.Log (this.gameObject.name);
+			//Debug.Log (this.gameObject.name);
 		}
 		speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(6)),5] * 0.5f;
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -43,6 +47,7 @@ public class SlimeMovement : MonoBehaviour {
 		if (sibling < stats.Rooms [roomLoader.room, 1]) {
 			sibling += stats.Rooms [roomLoader.room, 1];
 		}
+
 	}
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
@@ -82,7 +87,7 @@ public class SlimeMovement : MonoBehaviour {
 
 					if (Gather.collider == null && Vector2.Distance(this.gameObject.transform.position,transform.parent.GetChild (sibling).position) > 0.6f) {
 						//Debug.Log (Gather.collider.name + "B");
-						Debug.Log ("A");
+						//Debug.Log ("A");
 		
 						angle = Mathf.Rad2Deg * (Mathf.Atan (Mathf.Abs ((0.5f + 0.5f * Mathf.Sign (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x) * Mathf.Sign (transform.parent.GetChild (sibling).transform.position.y - this.transform.position.y)) * (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x) / (transform.parent.GetChild (sibling).transform.position.y - this.transform.position.y) + ((0.5f + 0.5f * -Mathf.Sign (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x) * Mathf.Sign (transform.parent.GetChild (sibling).transform.position.y - this.transform.position.y))) * (transform.parent.GetChild (sibling).transform.position.y - this.transform.position.y) / (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x)))) + 45 * (2 - 2 * Mathf.Sign (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x) + 1 - Mathf.Sign (transform.parent.GetChild (sibling).transform.position.x - this.transform.position.x) * Mathf.Sign (transform.parent.GetChild (sibling).transform.position.y - this.transform.position.y));
 
@@ -90,7 +95,7 @@ public class SlimeMovement : MonoBehaviour {
 					} else {
 						delay = 100;
 						angle = -1;
-						Debug.Log ("B");
+						//Debug.Log ("B");
 					}
 				}
 			} else {
@@ -115,7 +120,12 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 
+		if (IV == true & attack.Attack == false) {
+			IV = false;
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+		}
 		if (health <= 0) {
+			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
 			Destroy (this.gameObject);
 		}
 	}
@@ -126,9 +136,16 @@ public class SlimeMovement : MonoBehaviour {
 			//Destroy (this.gameObject);
 		}
 	}
-	private void OnTriggerStay2D(Collision2D other) {
-		if (other.gameObject.name == "AttackHitBox") {
-			Destroy (this.gameObject);
+	void damaged(int dmg) {
+		if (IV == false) {
+			Debug.Log ("damaged");
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
+			health -= dmg;
+			Debug.Log (health);
+			IV = true;
+
+
 		}
 	}
+
 }

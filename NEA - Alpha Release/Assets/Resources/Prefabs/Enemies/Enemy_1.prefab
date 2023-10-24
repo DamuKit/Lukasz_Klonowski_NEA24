@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 50260474486748148}
   m_Layer: 2
   m_Name: Enemy_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   camMov: {fileID: 0}
   Player: {fileID: 0}
+  roomLoader: {fileID: 0}
   player: {fileID: 0}
   Cam: {fileID: 0}
 --- !u!212 &212961683832399758
