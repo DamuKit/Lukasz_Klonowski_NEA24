@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DropGenerator : MonoBehaviour {
 	public StatsStorage stats;
-
+	GameObject Items;
+	float rand;
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Random.InitState (stats.seed);
+		Items = GameObject.Find("Items");
 	}
 	
 	// Update is called once per frame
@@ -16,8 +18,12 @@ public class DropGenerator : MonoBehaviour {
 		
 	}
 	void Item(GameObject thing){
-		if(Random.value > 0.5){
-			
+		rand = Random.value;
+		if(rand >= 0.5f & rand < 0.8f){
+			Object.Instantiate (stats.ItemID [0], thing.transform.position, Quaternion.identity, Items.transform);		
+		}
+		else if(rand >= 0.8f & rand < 1){
+			Object.Instantiate (stats.ItemID [1], thing.transform.position, Quaternion.identity, Items.transform);		
 		}
 	}
 }

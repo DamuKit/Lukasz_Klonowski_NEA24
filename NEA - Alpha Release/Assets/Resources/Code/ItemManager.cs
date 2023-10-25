@@ -23,7 +23,7 @@ public class ItemManager : MonoBehaviour {
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Player") {
 			other.gameObject.SendMessage ("itemEffect", int.Parse(this.gameObject.name));
-			//Destroy (other.gameObject);
+			Destroy (this.gameObject);
 		}
 	}
 }
