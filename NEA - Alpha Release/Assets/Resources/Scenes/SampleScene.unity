@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 583931008}
   - component: {fileID: 583931010}
   m_Layer: 5
-  m_Name: TextMeshPro Text
+  m_Name: Textbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8593,7 +8593,7 @@ GameObject:
   - component: {fileID: 941495428}
   - component: {fileID: 941495431}
   m_Layer: 5
-  m_Name: TextMeshPro - InputField
+  m_Name: TextInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8765,6 +8765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
+  textbox: {fileID: 0}
 --- !u!1 &948338492
 GameObject:
   m_ObjectHideFlags: 0
