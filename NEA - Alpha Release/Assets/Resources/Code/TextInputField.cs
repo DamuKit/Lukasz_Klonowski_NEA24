@@ -19,6 +19,7 @@ public class TextInputField : MonoBehaviour {
 			textbox.textbox.Add (text);
 			Debug.Log (text);
 			input.text = "";
+
 		}
 	}
 }

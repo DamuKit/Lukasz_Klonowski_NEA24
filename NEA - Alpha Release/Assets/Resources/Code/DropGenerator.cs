@@ -6,16 +6,21 @@ public class DropGenerator : MonoBehaviour {
 	public StatsStorage stats;
 	GameObject Items;
 	float rand;
+	public int refreshSeed;
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Random.InitState (stats.seed);
+		refreshSeed = stats.seed;
 		Items = GameObject.Find("Items");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (refreshSeed != stats.seed) {
+			refreshSeed = stats.seed;
+			Random.InitState (stats.seed);
+		}
 	}
 	void Item(GameObject thing){
 		rand = Random.value;
