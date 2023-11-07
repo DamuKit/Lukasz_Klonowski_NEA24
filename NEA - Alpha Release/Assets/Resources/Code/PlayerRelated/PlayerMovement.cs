@@ -23,9 +23,15 @@ public class PlayerMovement : MonoBehaviour {
 	public bool invincible;
 	public bool ivFrames;
 	public int ivDuration;
+	public StatsStorage stats;
+	public float xp;
+	public int level;
+
+	float speedbuff;
 
 	// Use this for initialization
 	void Start () {
+		speedbuff = 0;
 		speed = 0.05f;
 		dashDirection = 0f;
 		durationLim = 15;
@@ -41,11 +47,14 @@ public class PlayerMovement : MonoBehaviour {
 		invincible = false;
 		ivFrames = false;
 		ivDuration = 0;
+		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
+		xp = 0;
+		level = 1;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		speed = 2.5f * Time.deltaTime;
+		speed = (2.5f + speedbuff) * Time.deltaTime;
 		//Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
@@ -175,7 +184,12 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-
+		if (xp >= level * level * 0.03f+ 100) {
+			xp -= level * level * 0.03f+ 100;
+			level += 1;
+			Debug.Log ("Level Up!");
+			GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damage += 0.25f;
+		}
 	}
 
 	/* This function provides the angle of the mouse cursor from the character.*/
@@ -197,13 +211,39 @@ public class PlayerMovement : MonoBehaviour {
 		Animation.Play ("Attack");
 	}
 	void itemEffect(int item){
-		if (item == 0) {
+		
+		switch (item) {
+		case(0):
 			Debug.Log ("You Earned a Coin! Now time to Gamble!");
-		}
-		if (item == 1) {
+			break;
+		case(1):
 			hp += 25;
+			if (hp > maxhp) {
+				hp = maxhp;
+			}
+			break;
+		case(2):
+			StartCoroutine ("damageBuff");
+			break;
+		case(3):
+			Debug.Log ("A");
+			StartCoroutine ("speedBuff");
+			break;
 		}
+
 	}
+	public IEnumerator damageBuff(){
+		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
+		yield return new WaitForSeconds (10f);
+		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff -= 1;
+	}
+	public IEnumerator speedBuff(){
+		speedbuff += 0.3f;
+		yield return new WaitForSeconds (10f);
+		speedbuff -= 0.3f;
+	}
+
+
 					
 					
 }

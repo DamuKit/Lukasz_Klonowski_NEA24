@@ -8,12 +8,16 @@ public class Attacking : MonoBehaviour {
 	public float cooldownLim;
 	public float counter;
 	public float attackduration;
+	public float damage;
+	public float damagebuff;
 	// Use this for initialization
 	void Start () {
 		playerMovement = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
 		Attack = false;
 		cooldownLim = 0;
 		attackduration = 0.5f;
+		damage = 5;
+		damagebuff = 0;
 	}
 	
 	// Update is called once per frame
@@ -42,7 +46,7 @@ public class Attacking : MonoBehaviour {
 
 	private void OnTriggerStay2D(Collider2D other) {
 		if (other.gameObject.tag == "Enemy" & Attack == true) {
-			other.gameObject.SendMessage ("damaged", 5);
+			other.gameObject.SendMessage ("damaged", damage);
 			//Destroy (other.gameObject);
 		}
 	}

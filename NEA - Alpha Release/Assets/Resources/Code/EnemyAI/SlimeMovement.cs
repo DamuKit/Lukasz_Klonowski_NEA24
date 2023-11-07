@@ -126,6 +126,7 @@ public class SlimeMovement : MonoBehaviour {
 		}
 		if (health <= 0) {
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
+			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (6)), 2] * 0.25f;
 			Destroy (this.gameObject);
 		}
 	}

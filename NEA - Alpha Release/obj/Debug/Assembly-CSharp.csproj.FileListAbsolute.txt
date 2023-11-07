@@ -1,4 +1,3 @@
-X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\Assembly-CSharp.dll
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\Assembly-CSharp.pdb
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\Boo.Lang.dll
@@ -157,5 +156,6 @@ X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\UnityEngine.
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\UnityEngine.HoloLens.xml
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
+X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\obj\Debug\Assembly-CSharp.dll
 X:\GitHub\Lukasz_Klonowski_NEA24\NEA - Alpha Release\obj\Debug\Assembly-CSharp.pdb
