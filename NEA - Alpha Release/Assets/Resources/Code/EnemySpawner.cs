@@ -38,7 +38,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1]);
+		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1] - stats.enemystatpoints);
+		Debug.Log (stats.enemystatpoints);
+		stats.enemystatpoints = 0;
 		//Debug.Log (limiter);
 		//Debug.Log (stats.Rooms [roomLoader.room, 1]);
 		rand = Random.value;

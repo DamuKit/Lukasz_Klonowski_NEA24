@@ -18,10 +18,12 @@ public class SlimeMovement : MonoBehaviour {
 	float angle;
 	int delay;
 	private int sibling;
+	public int statVariance;
+	public int baseSpeed;
 
-	float speed;
-	int health;
-	int damage;
+	public float speed;
+	public int health;
+	public int damage;
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -43,6 +45,21 @@ public class SlimeMovement : MonoBehaviour {
 		health = stats.Enemies [1, 3];
 		damage = stats.Enemies [1, 4];
 
+		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (6)), 5];
+
+		Random.InitState (stats.seed + stats.seedoffset);
+		stats.seedoffset += 1;
+
+		statVariance = -health - damage - baseSpeed;
+		//setting random stats
+		health = Mathf.RoundToInt(health * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
+		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f));
+		baseSpeed = Mathf.RoundToInt(baseSpeed * (Random.Range (0.75f, 1.5f) + stats.room * 0.01f));
+
+		//Debug.Log (health + " " + damage + " " + baseSpeed);
+		stats.enemystatpoints += Mathf.RoundToInt((statVariance + damage + health + baseSpeed) * 0.3f);
+		//Debug.Log (stats.enemystatpoints);
+
 		sibling = transform.GetSiblingIndex () - stats.Rooms [roomLoader.room, 1];
 		if (sibling < stats.Rooms [roomLoader.room, 1]) {
 			sibling += stats.Rooms [roomLoader.room, 1];
@@ -52,7 +69,7 @@ public class SlimeMovement : MonoBehaviour {
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
 	void Update () {
-		speed = stats.Enemies [int.Parse (this.gameObject.name.Substring (6)), 5] * 0.5f * Time.deltaTime;
+		speed = baseSpeed * 0.5f * Time.deltaTime;
 		sibling = transform.GetSiblingIndex () - stats.Rooms [roomLoader.room, 1];
 		if (sibling < stats.Rooms [roomLoader.room, 1]) {
 			sibling += stats.Rooms [roomLoader.room, 1];
@@ -130,13 +147,14 @@ public class SlimeMovement : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 	}
-	private void OnCollisionEnter2D(Collision2D other) {
+	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" & Player.invincible == false) {
 			Player.hp -= damage;
 			Player.ivFrames = true;
 			//Destroy (this.gameObject);
 		}
 	}
+
 	void damaged(int dmg) {
 		if (IV == false) {
 			Debug.Log ("damaged");

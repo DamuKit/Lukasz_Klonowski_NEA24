@@ -13,6 +13,7 @@ public class StatsStorage : MonoBehaviour {
 	public List<GameObject> RoomID = new List<GameObject>();
 	public List<GameObject> EnemyID = new List<GameObject> ();
 	public List<GameObject> ItemID = new List<GameObject> ();
+	public int enemystatpoints;
 
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,50,20,5,10,3},{1,100,45,7,15,5},{99999,999,999,999,999,999}};
@@ -39,6 +40,7 @@ public class StatsStorage : MonoBehaviour {
 		Debug.Log (EnemyID.Count);
 		Locations.Add ("0.0");
 		Locations.Add ("1.0");
+		enemystatpoints = 0;
 
 	}
 
