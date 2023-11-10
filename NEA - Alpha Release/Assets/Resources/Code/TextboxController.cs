@@ -25,7 +25,7 @@ public class TextboxController : MonoBehaviour {
 		textbox.Add("W, A, S, D to move");
 		textbox.Add("Left mouse to attack");
 		textbox.Add("Left Shift to dash");
-		textbox.Add("");
+		textbox.Add("Tab to hide chat");
 		textbox.Add("");
 		textbox.Add("");
 		textbox.Add("");

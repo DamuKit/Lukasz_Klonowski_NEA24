@@ -20,6 +20,7 @@ public class SlimeMovement : MonoBehaviour {
 	private int sibling;
 	public int statVariance;
 	public int baseSpeed;
+	int wonder;
 
 	public float speed;
 	public int health;
@@ -34,18 +35,17 @@ public class SlimeMovement : MonoBehaviour {
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = (camMov.locX + "." + camMov.locY);
 		//Debug.Log (location);
-		if(this.gameObject.name.Contains("(Clone)")){
-			this.gameObject.name = (this.gameObject.name.Substring (0, this.gameObject.name.Length - 7));
-			//Debug.Log (this.gameObject.name);
-		}
-		speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(6)),5] * 0.5f;
+		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
+
+
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
-		health = stats.Enemies [1, 3];
-		damage = stats.Enemies [1, 4];
 
-		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (6)), 5];
+		health = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 3];
+		damage = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 4];
+		//speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(1)),5] * 0.5f;
+		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 5];
 
 		Random.InitState (stats.seed + stats.seedoffset);
 		stats.seedoffset += 1;
@@ -64,12 +64,16 @@ public class SlimeMovement : MonoBehaviour {
 		if (sibling < stats.Rooms [roomLoader.room, 1]) {
 			sibling += stats.Rooms [roomLoader.room, 1];
 		}
+		wonder = 0;
 
 	}
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
 	void Update () {
 		speed = baseSpeed * 0.5f * Time.deltaTime;
+		if (wonder == 1) {
+			speed *= 0.5f;
+		}
 		sibling = transform.GetSiblingIndex () - stats.Rooms [roomLoader.room, 1];
 		if (sibling < stats.Rooms [roomLoader.room, 1]) {
 			sibling += stats.Rooms [roomLoader.room, 1];
@@ -82,6 +86,7 @@ public class SlimeMovement : MonoBehaviour {
 		if (location == (camMov.locX + "." + camMov.locY)) {
 			
 			if (delay == 0) {
+				wonder = 0;
 				RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), (player.transform.position - transform.position - new Vector3(0, 0.1f))*2);
 				//Debug.DrawRay (transform.position, (player.transform.position - transform.position), Color.white, 10); 
 				//Debug.Log (DetectPlayer.collider.name);
@@ -102,7 +107,7 @@ public class SlimeMovement : MonoBehaviour {
 					//Debug.Log (transform.GetSiblingIndex ());
 					//(transform.parent.GetChild (transform.GetSiblingIndex () + 1))
 
-					if (Gather.collider == null && Vector2.Distance(this.gameObject.transform.position,transform.parent.GetChild (sibling).position) > 0.6f) {
+					if (Gather.collider == null && Vector2.Distance(this.gameObject.transform.position,transform.parent.GetChild (sibling).position) > 0.7f) {
 						//Debug.Log (Gather.collider.name + "B");
 						//Debug.Log ("A");
 		
@@ -110,8 +115,10 @@ public class SlimeMovement : MonoBehaviour {
 
 
 					} else {
-						delay = 100;
-						angle = -1;
+						
+						delay = Random.Range(50, 125);
+						angle = Random.Range(-100, 360);
+						wonder = 1;
 						//Debug.Log ("B");
 					}
 				}
@@ -143,7 +150,7 @@ public class SlimeMovement : MonoBehaviour {
 		}
 		if (health <= 0) {
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
-			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (6)), 2] * 0.25f;
+			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			Destroy (this.gameObject);
 		}
 	}

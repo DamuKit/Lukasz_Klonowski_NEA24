@@ -13,11 +13,14 @@ public class HideObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.gameObject.transform.SetPositionAndRotation (location + new Vector3(0,1000,0) * hidden, Quaternion.identity);
+		//this.gameObject.transform.SetPositionAndRotation (location + new Vector3(0,1000,0) * hidden, Quaternion.identity);
+
 		if (Input.GetKeyDown (KeyCode.Tab) == true && hidden == 0) {
+			this.gameObject.transform.Translate (new Vector3 (0, 1000, 0));
 			hidden = 1;
 		}
 		else if (Input.GetKeyDown (KeyCode.Tab) == true && hidden == 1) {
+			this.gameObject.transform.SetPositionAndRotation (location, Quaternion.identity);
 			hidden = 0;
 
 		}

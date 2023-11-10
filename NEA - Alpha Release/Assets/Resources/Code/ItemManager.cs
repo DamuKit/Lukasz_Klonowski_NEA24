@@ -8,8 +8,8 @@ public class ItemManager : MonoBehaviour {
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		if(this.gameObject.name.Length > 2){
-			this.gameObject.name = (this.gameObject.name.Substring (0, 2));
-			Debug.Log (int.Parse(this.gameObject.name));
+			this.gameObject.name = (this.gameObject.name.Substring (0, 4));
+			Debug.Log (int.Parse(this.gameObject.name.Substring(1)));
 			//Debug.Log (this.gameObject.name);
 		}
 		//stats.Items [int.Parse (this.gameObject.name, 1)];
@@ -22,7 +22,7 @@ public class ItemManager : MonoBehaviour {
 	}
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Player") {
-			other.gameObject.SendMessage ("itemEffect", int.Parse(this.gameObject.name));
+			other.gameObject.SendMessage ("itemEffect", int.Parse(this.gameObject.name.Substring(1)));
 			Destroy (this.gameObject);
 		}
 	}
