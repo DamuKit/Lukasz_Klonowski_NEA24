@@ -53,11 +53,11 @@ public class SlimeMovement : MonoBehaviour {
 		statVariance = -health - damage - baseSpeed;
 		//setting random stats
 		health = Mathf.RoundToInt(health * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
-		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f));
+		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
 		baseSpeed = Mathf.RoundToInt(baseSpeed * (Random.Range (0.75f, 1.5f) + stats.room * 0.01f));
 
 		//Debug.Log (health + " " + damage + " " + baseSpeed);
-		stats.enemystatpoints += Mathf.RoundToInt((statVariance + damage + health + baseSpeed) * 0.3f);
+		stats.enemystatpoints += Mathf.RoundToInt((statVariance + damage + health + baseSpeed) * (stats.Difficulty * 0.1f + 0.3f));
 		//Debug.Log (stats.enemystatpoints);
 
 		sibling = transform.GetSiblingIndex () - stats.Rooms [roomLoader.room, 1];
