@@ -90,6 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4789575037686168}
+  - component: {fileID: 114895732033869472}
   m_Layer: 0
   m_Name: R999TestRoom
   m_TagString: Untagged
@@ -307,6 +308,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90d1a152237186f42b9ab0183f3b795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114895732033869472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725755404097714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9766e1d34c05bc44c8cd4497a612cbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!19719996 &2113883507203522320

@@ -54,6 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (hp < 0) {
+			hp = 0;
+		}
 		speed = (2.5f + speedbuff) * Time.deltaTime;
 		//Debug.Log (speed);
 		if (ivFrames == true) {

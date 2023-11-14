@@ -89,6 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4704795880503012}
+  - component: {fileID: 114571083414572596}
   m_Layer: 0
   m_Name: R001Room
   m_TagString: Untagged
@@ -385,6 +386,17 @@ MonoBehaviour:
   stats: {fileID: 0}
   Slime: {fileID: 1889647419703508, guid: b5c3e949b78194441bea43caa4b8a0ac, type: 2}
   roomLoader: {fileID: 0}
+--- !u!114 &114571083414572596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739054540718718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9766e1d34c05bc44c8cd4497a612cbe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114610909246153718
 MonoBehaviour:
   m_ObjectHideFlags: 1
