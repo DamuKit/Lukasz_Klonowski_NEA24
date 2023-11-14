@@ -18,6 +18,7 @@ public class TextboxController : MonoBehaviour {
 	public string text;
 
 
+
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		//text = textbox[textbox.Capacity];
@@ -42,66 +43,130 @@ public class TextboxController : MonoBehaviour {
 		if(processSaver != (textbox [textbox.Count - 1]).ToString()){
 			processSaver = (textbox [textbox.Count - 1]).ToString();
 			textPlaceHolder = processSaver;
-			//split ();
+			split ();
 
 			chat.text = textbox[textbox.Count-12] + "\n" + textbox[textbox.Count-11] + "\n" + textbox[textbox.Count-10] + "\n" + textbox[textbox.Count-9] + "\n" + textbox[textbox.Count-8] + "\n" + textbox[textbox.Count-7] + "\n" + textbox[textbox.Count-6] + "\n" + textbox[textbox.Count-5] + "\n" + textbox[textbox.Count-4] + "\n" + textbox[textbox.Count-3] + "\n" + textbox[textbox.Count-2] + "\n" + textbox[textbox.Count-1];
-			if ((textbox [textbox.Count - 1]).ToString ().ToLower () == "/help") {
-				textbox.Add ("No help for you.");
-			} else if ((textbox [textbox.Count - 1]).ToString ().ToLower () == "/clearchat") {
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-				textbox.Add ("");
-			} else if (processSaver.Length >= 6 && processSaver.ToLower ().Substring (0, 6) == "/heal ") {
-				try {
-					if (int.Parse (processSaver.ToString ().ToLower ().Substring (6)) > 0) {
-						//stats.Difficulty = int.Parse (processSaver.ToString ().ToLower ().Substring (6));
-						textbox.Add ("Okay cheater");
-					}
-				} catch {
-					if (processSaver.Length - 6 > 0) {
-						textbox.Add ("ITE001: Input must be integer");
-					} else {
-						textbox.Add ("ITE006: Missing Input");
+
+			switch (inputElements [0].ToLower()) {
+			//Help Command
+			case("/help"):
+				{
+					textbox.Add ("/help <int>");
+					textbox.Add ("/heal <int>");
+					textbox.Add ("/difficulty <int>");
+					textbox.Add ("/clearchat");
+					textbox.Add ("/seed <int>");
+					textbox.Add ("/gamble <int>");
+					textbox.Add ("/Roll <int> <int>");
+					textbox.Add ("[Page 1/1]");
+				}
+				break;
+
+			//clearchat command
+			case("/clearchat"):
+				{
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+					textbox.Add ("");
+				}
+				break;
+
+			
+			//heal command
+			case("/heal"):
+				{
+					try {
+						if (int.Parse (inputElements [1]) > 0) {
+							textbox.Add ("NO HEALING");
+						}
+					} catch {
+						try {
+							inputElements [1].ToLower ();
+							textbox.Add ("ITE001: Input must be integer");
+
+						} catch {
+							textbox.Add ("ITE006: Missing Input");
+						}
 					}
 				}
+					
+				break;
+			//difficulty command
+			case("/difficulty"):
+				{
+					try {
+						if (int.Parse (inputElements [1]) > 0) {
+							stats.Difficulty = int.Parse (inputElements [1]);
+							textbox.Add ("Difficulty Changed");
+						}
+					} catch {
+						try {
+							inputElements [1].ToLower ();
+							textbox.Add ("ITE001: Input must be integer");
 
-			} else if (processSaver.Length >= 12 && processSaver.ToString ().ToLower ().Substring (0, 12) == "/difficulty ") {
-				try {
-					if (int.Parse (processSaver.ToString ().ToLower ().Substring (12)) > 0 & int.Parse (processSaver.ToString ().ToLower ().Substring (12)) < 10) {
-						stats.Difficulty = int.Parse (processSaver.ToString ().ToLower ().Substring (12));
-						textbox.Add ("Difficulty Changed");
-					}
-				} catch {
-					if (processSaver.Length - 12 > 0) {
-						textbox.Add ("ITE001: Input must be integer");
-					} else {
-						textbox.Add ("ITE006: Missing Input");
+						} catch {
+							textbox.Add ("ITE006: Missing Input");
+						}
 					}
 				}
-
-			} else if (processSaver.Length >= 6 && processSaver.ToString ().ToLower ().Substring (0, 6) == "/seed ") {
-				try {
-					if (int.Parse (processSaver.ToString ().ToLower ().Substring (6)) >= 0 & int.Parse (processSaver.ToString ().ToLower ().Substring (6)) <= 1000000000) {
-						stats.seed = int.Parse (processSaver.ToString ().ToLower ().Substring (6));
-						textbox.Add ("Seed Changed");
-					}
-				} catch {
-					if (processSaver.Length - 6 > 0) {
-						textbox.Add ("ITE001: Input must be integer");
-					} else {
-						textbox.Add ("ITE006: Missing Input");
-
+				break;
+			//seed command
+			case("/seed"):
+				{
+					try {
+						if (int.Parse (inputElements [1]) > 0) {
+							if (int.Parse (inputElements [1]) >= 0 & int.Parse (inputElements [1]) <= 1000000000) {
+								stats.seed = int.Parse (inputElements [1]);
+								textbox.Add ("Seed Changed");
+							}
+						}
+					} catch {
+						try {
+							inputElements [1].ToLower ();
+							textbox.Add ("ITE001: Input must be integer N");
+						} catch {
+							textbox.Add ("ITE006: Missing Input");
+						}
 					}
 				}
+				break;
+
+			case("/gamble"):
+				if (Random.value > 0.75) {
+					textbox.Add ("You win");
+				} else {
+					textbox.Add ("You Lose");
+				}
+				break;
+
+			case("roll"):
+				try{
+					if (int.Parse (inputElements [1]) > 0) & int.Parse (inputElements [2]) > 0){
+						textbox.Add (Random.Range(int.Parse (inputElements [1]), int.Parse (inputElements [2])));
+					}
+
+				catch{
+				}
+				break;
+
+				//case(""):
+				//break;
+			//no existing command
+
+			default:
+				{
+					textbox.Add ("CTE001: unknown command");
+				}
+				break;
 			}
 			inputElements.Clear ();
 		}
@@ -113,16 +178,19 @@ public class TextboxController : MonoBehaviour {
 	005: Input must be Boolean
 	006: Missing Input
 	...
+
+	CTE###: Command Type Error
+	001: unknown command
 */
 	}
-	/*public void split(){
+	public void split(){
 		if(textPlaceHolder.StartsWith("/")){
-			Debug.Log("E");
-			inputElements.Add(processSaver.Substring (processSaver.IndexOf (" ") +1));
-			inputElements.AddRange (new List<string> (textPlaceHolder.Split (" ")));
-
-			Debug.Log (inputElements [0]);
-			Debug.Log (inputElements [1]);
+			textPlaceHolder += " .";
+			inputElements.Clear();
+			do{
+				inputElements.Add(textPlaceHolder.Substring(0, textPlaceHolder.IndexOf(" ")));
+				textPlaceHolder = textPlaceHolder.Substring (textPlaceHolder.IndexOf(" ") + 1);
+			}while(textPlaceHolder.Contains(" "));
 		}
-	}*/
+	}
 }
