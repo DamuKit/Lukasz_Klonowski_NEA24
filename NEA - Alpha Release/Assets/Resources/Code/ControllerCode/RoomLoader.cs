@@ -11,10 +11,11 @@ public class RoomLoader : MonoBehaviour {
 	public CameraMovement camMov;
 	public int room;
 	public int refreshSeed;
+	public int[,] Testing = new int[,] {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
-		Tilemaps = GameObject.Find("Tilemaps");
+		Tilemaps = GameObject.Find ("Tilemaps");
 		//Cam = GameObject.Find ("Main Camera");
 		camMov = GameObject.Find ("Main Camera").GetComponent<CameraMovement> ();
 		Random.InitState (stats.seed);
@@ -39,6 +40,16 @@ public class RoomLoader : MonoBehaviour {
 			stats.room = stats.Locations.FindIndex(a => a == roomlocation);
 		} else {
 			stats.Locations.Add (roomlocation);
+			//---------------------------------------------------------------------------------
+			/*
+			//make code get values of adjacent locations and decide what room to place based on  it.
+			Testing [0, 1] = 0;
+
+
+
+			*/
+			//---------------------------------------------------------------------------------
+
 			room = Mathf.RoundToInt ((stats.RoomID.Count - 1) * Random.value - 0.5f);
 			Debug.Log (room);
 			if (room == lastRoom) {
@@ -48,6 +59,7 @@ public class RoomLoader : MonoBehaviour {
 				}
 			}
 			Debug.Log (room);
+			stats.LocationID.Add (room);
 
 			Object.Instantiate (stats.RoomID[room], new Vector3 (camMov.locX * 24, camMov.locY * 16), Quaternion.identity, Tilemaps.transform);
 			Debug.Log (camMov.locX * 24 + " , " + camMov.locY * 16);
