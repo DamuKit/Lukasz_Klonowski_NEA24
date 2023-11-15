@@ -27,7 +27,7 @@ public class TextboxController : MonoBehaviour {
 		textbox.Add("Left mouse to attack");
 		textbox.Add("Left Shift to dash");
 		textbox.Add("Tab to hide chat");
-		textbox.Add("");
+		textbox.Add("Do Genocide, Have fun!");
 		textbox.Add("");
 		textbox.Add("");
 		textbox.Add("");
@@ -148,13 +148,23 @@ public class TextboxController : MonoBehaviour {
 				}
 				break;
 
-			case("roll"):
+			case("/roll"):
 				try{
-					if (int.Parse (inputElements [1]) > 0) & int.Parse (inputElements [2]) > 0){
-						textbox.Add (Random.Range(int.Parse (inputElements [1]), int.Parse (inputElements [2])));
-					}
+					textbox.Add ((Random.Range(int.Parse (inputElements [1]), int.Parse (inputElements [2]))).ToString());
+				}
 
 				catch{
+					try{
+						textbox.Add (Random.Range(0, int.Parse (inputElements [1])).ToString());
+					}
+					catch{
+						try {
+							inputElements [1].ToLower ();
+							textbox.Add ("ITE001: Input must be integer N");
+						} catch {
+							textbox.Add ("ITE006: Missing Input");
+						}
+					}
 				}
 				break;
 
