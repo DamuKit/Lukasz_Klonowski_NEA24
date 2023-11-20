@@ -2,15 +2,15 @@ fileFormatVersion: 2
 guid: 3d317da717a980244a499e246fb80ced
 TextureImporter:
   fileIDToRecycleName:
-    21300000: free_waterfall_tiles1_0
-    21300002: free_waterfall_tiles1_1
-    21300004: free_waterfall_tiles1_2
-    21300006: free_waterfall_tiles1_3
-    21300008: free_waterfall_tiles1_4
-    21300010: free_waterfall_tiles1_5
-    21300012: free_waterfall_tiles1_6
-    21300014: free_waterfall_tiles1_7
-    21300016: free_waterfall_tiles1_8
+    21300000: 0
+    21300002: 3
+    21300004: 6
+    21300006: 1
+    21300008: 4
+    21300010: 7
+    21300012: 2
+    21300014: 5
+    21300016: 8
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: free_waterfall_tiles1_0
+      name: 0
       rect:
         serializedVersion: 2
         x: 0
@@ -112,7 +112,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -124,7 +124,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_1
+      name: 3
       rect:
         serializedVersion: 2
         x: 16
@@ -132,7 +132,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_2
+      name: 6
       rect:
         serializedVersion: 2
         x: 32
@@ -152,7 +152,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -164,7 +164,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_3
+      name: 1
       rect:
         serializedVersion: 2
         x: 48
@@ -172,7 +172,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,7 +184,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_4
+      name: 4
       rect:
         serializedVersion: 2
         x: 64
@@ -192,7 +192,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,7 +204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_5
+      name: 7
       rect:
         serializedVersion: 2
         x: 80
@@ -212,7 +212,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -224,7 +224,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_6
+      name: 2
       rect:
         serializedVersion: 2
         x: 96
@@ -232,7 +232,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_7
+      name: 5
       rect:
         serializedVersion: 2
         x: 112
@@ -252,7 +252,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: free_waterfall_tiles1_8
+      name: 8
       rect:
         serializedVersion: 2
         x: 128
@@ -272,7 +272,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

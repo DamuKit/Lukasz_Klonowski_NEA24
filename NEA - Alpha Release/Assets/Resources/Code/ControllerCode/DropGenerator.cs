@@ -30,7 +30,7 @@ public class DropGenerator : MonoBehaviour {
 		do {
 			if(rand >= 0 & rand < stats.Items [i,1] * 0.0001f & stats.Items [i,2] == stats.localDifficulty){
 				Object.Instantiate (stats.ItemID[i], thing.transform.position, Quaternion.identity, Items.transform);
-				Debug.Log(rand);
+				//Debug.Log(rand);
 				break;
 			}
 			i+=1;

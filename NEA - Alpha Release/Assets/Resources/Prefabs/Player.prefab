@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb948e3a90f22484fb4d820c09592b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angle: 0
   duration: 0
   camMov: {fileID: 0}
   Slime: {fileID: 1889647419703508, guid: b5c3e949b78194441bea43caa4b8a0ac, type: 2}
@@ -126,6 +127,12 @@ MonoBehaviour:
   camerasizey: 0
   hp: -2070
   maxhp: 0
+  invincible: 0
+  ivFrames: 0
+  ivDuration: 0
+  stats: {fileID: 0}
+  xp: 0
+  level: 0
 --- !u!212 &212861509577201868
 SpriteRenderer:
   m_ObjectHideFlags: 1

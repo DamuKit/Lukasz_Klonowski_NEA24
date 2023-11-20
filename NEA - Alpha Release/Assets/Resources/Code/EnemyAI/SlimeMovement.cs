@@ -148,6 +148,9 @@ public class SlimeMovement : MonoBehaviour {
 			IV = false;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 		}
+		if (stats.killall == true) {
+			health = -10;
+		}
 		if (health <= 0) {
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
 			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
