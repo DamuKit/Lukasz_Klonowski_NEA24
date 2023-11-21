@@ -18,6 +18,7 @@ public class StatsStorage : MonoBehaviour {
 	public int enemystatpoints;
 	int refreshSeed;
 	public bool killall;
+	public float score;
 
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,50,20,5,10,3},{1,100,45,7,15,5},{99999,999,999,999,999,999}};

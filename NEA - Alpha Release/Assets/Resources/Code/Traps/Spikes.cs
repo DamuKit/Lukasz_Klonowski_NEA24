@@ -8,9 +8,11 @@ public class Spikes : MonoBehaviour {
 	Animator Animation;
 	public PlayerMovement Player;
 	bool hit;
+	public bool PlayerIN;
 
 	// Use this for initialization
 	void Start () {
+		PlayerIN = false;
 		state = 0;
 		activate = false;
 		hit = false;
@@ -22,6 +24,11 @@ public class Spikes : MonoBehaviour {
 	void Update () {
 		if (activate == true) {
 			state += 1;
+			if (state >= 80 & state <=110 & hit == false & PlayerIN == true) {
+				Player.hp -= 0.2f * Player.maxhp;
+				hit = true;
+				Debug.Log(state);
+			}
 		}
 		if (state >= 150) {
 			activate = false;
@@ -31,18 +38,20 @@ public class Spikes : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerStay2D(Collider2D other) {
+	private void OnTriggerEnter2D(Collider2D other) {
+		if(other.gameObject.tag == "Player"){
+			PlayerIN = true;
+		}
 		if (other.gameObject.tag == "Player" & activate == false) {
 			activate = true;
 			state = 0;
 			Animation.SetBool ("Active", true);
 		}
-		else if (other.gameObject.tag == "Player" &  activate == true & hit == false) {
-			if (state >= 80 & state <=110) {
-				Player.hp -= 0.2f * Player.maxhp;
-				hit = true;
-				Debug.Log(state);
-			}
+	}
+	private void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.tag == "Player") {
+			PlayerIN = false;
 		}
 	}
+			
 }

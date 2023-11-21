@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212227338852483086}
   - component: {fileID: 61911188407243376}
   - component: {fileID: 114226018740742770}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: I003Speed+
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -133,8 +133,10 @@ public class TextboxController : MonoBehaviour {
 
 				case("/gamble"):
 					if (Random.value > 0.75) {
+						stats.score *= 2;
 						textbox.Add ("You win");
 					} else {
+						stats.score *= 0.5f;
 						textbox.Add ("You Lose");
 					}
 					break;

@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 	public StatsStorage stats;
 	public float xp;
 	public int level;
+	public int[] lockmovement = new int[] {1,1,1,1};
 
 	float speedbuff;
 
@@ -50,12 +51,15 @@ public class PlayerMovement : MonoBehaviour {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		xp = 0;
 		level = 1;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (hp < 0) {
 			hp = 0;
+		} else if (hp > maxhp) {
+			hp = maxhp;
 		}
 		speed = (2.5f + speedbuff) * Time.deltaTime;
 		//Debug.Log (speed);
@@ -78,21 +82,21 @@ public class PlayerMovement : MonoBehaviour {
 		/* This section checks input to allow the player to move */
 		Animation.SetBool ("walk", false);
 		if (Input.GetKey (KeyCode.A) == true && dashing == false) {
-			this.transform.Translate (-speed, 0, 0);
+			this.transform.Translate (-speed * lockmovement[3], 0, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		} else if (Input.GetKey (KeyCode.D) == true  && dashing == false) {
-			this.transform.Translate (speed, 0, 0);
+			this.transform.Translate (speed* lockmovement[1], 0, 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		}
 
 		if (Input.GetKey (KeyCode.W) == true  && dashing == false) {
-			this.transform.Translate (0, speed, 0);
+			this.transform.Translate (0, speed * lockmovement[0], 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		} else if (Input.GetKey (KeyCode.S) == true  && dashing == false) {
-			this.transform.Translate (0, -speed, 0);
+			this.transform.Translate (0, -speed * lockmovement[2], 0);
 			moving = true;
 			Animation.SetBool ("walk", true);
 		}
@@ -114,21 +118,21 @@ public class PlayerMovement : MonoBehaviour {
 				duration += 0.3f;
 			}
 			if (dashDirection >= 337.5 | dashDirection <= 22.5) {
-				this.transform.Translate (0, 3 * speed, 0);
+				this.transform.Translate (0, 3 * speed * lockmovement[0], 0);
 			} else if (dashDirection >= 22.5 && dashDirection <= 67.5) {
-				this.transform.Translate (1.5f * speed, 1.5f * speed, 0);
+				this.transform.Translate (1.5f * speed * lockmovement[1], 1.5f * speed * lockmovement[0], 0);
 			} else if (dashDirection >= 67.5 && dashDirection <= 112.5) {
-				this.transform.Translate (3 * speed, 0, 0);
+				this.transform.Translate (3 * speed * lockmovement[1], 0, 0);
 			} else if (dashDirection >= 112.5 && dashDirection <= 157.5) {
-				this.transform.Translate (1.5f * speed, -1.5f * speed, 0);
+				this.transform.Translate (1.5f * speed * lockmovement[1], -1.5f * speed * lockmovement[2], 0);
 			} else if (dashDirection >= 157.5 && dashDirection <= 202.5) {
-				this.transform.Translate (0, -3 * speed, 0);
+				this.transform.Translate (0, -3 * speed * lockmovement[2], 0);
 			} else if (dashDirection >= 202.5 && dashDirection <= 247.5) {
-				this.transform.Translate (-1.5f * speed, -1.5f * speed, 0);
+				this.transform.Translate (-1.5f * speed * lockmovement[3], -1.5f * speed * lockmovement[2], 0);
 			} else if (dashDirection >= 247.5 && dashDirection <= 292.5) {
-				this.transform.Translate (-3 * speed, 0, 0);
+				this.transform.Translate (-3 * speed * lockmovement[3], 0, 0);
 			} else if (dashDirection >= 292.5 && dashDirection <= 337.5) {
-				this.transform.Translate (-1.5f * speed, 1.5f * speed, 0);
+				this.transform.Translate (-1.5f * speed * lockmovement[3], 1.5f * speed * lockmovement[0], 0);
 			}
 
 		} else {
@@ -192,6 +196,9 @@ public class PlayerMovement : MonoBehaviour {
 			level += 1;
 			Debug.Log ("Level Up!");
 			GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damage += 0.25f;
+			hp*= 1.1f;
+			maxhp *= 1.005f;
+			gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
 	}
 
