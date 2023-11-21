@@ -33,7 +33,7 @@ public class SlimeMovement : MonoBehaviour {
 		Cam = GameObject.FindGameObjectWithTag("MainCamera");
 		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		camMov = Cam.GetComponent<CameraMovement> ();
-		location = (camMov.locX + "." + camMov.locY);
+		location = stats.Locations[stats.Locations.Count - 1];
 		//Debug.Log (location);
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
 

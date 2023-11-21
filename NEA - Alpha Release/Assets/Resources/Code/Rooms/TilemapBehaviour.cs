@@ -26,7 +26,7 @@ public class TilemapBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (j == 45) {
+		if (j == 20) {
 			if (cycleA <= 3) {
 				for (int i = TilesA.Count - 2; i >= 0; i -= 1) { 
 					liquids.SwapTile (TilesA [i], TilesA [i + 1]);
@@ -40,7 +40,7 @@ public class TilemapBehaviour : MonoBehaviour {
 			}
 			j = 0;
 		}
-		if (k == 15) {
+		if (k == 5) {
 			if (cycleB <= 2) {
 				for (int i = TilesB.Count - 2; i >= 0; i -= 1) { 
 					liquids.SwapTile (TilesB [i], TilesB [i + 1]);

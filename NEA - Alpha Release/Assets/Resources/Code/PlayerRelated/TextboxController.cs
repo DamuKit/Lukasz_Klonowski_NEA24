@@ -6,7 +6,9 @@ using TMPro;
 public class TextboxController : MonoBehaviour {
 	public List<string> textbox = new List<string> ();
 	public StatsStorage stats;
+	public CameraMovement camMov;
 	public TMP_Text chat;
+	private GameObject Tilemaps;
 	string processSaver;
 	string textPlaceHolder;
 	public List<string> inputElements = new List<string> ();
@@ -22,8 +24,10 @@ public class TextboxController : MonoBehaviour {
 
 
 	void Start () {
+		camMov = GameObject.Find ("Main Camera").GetComponent<CameraMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Player = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
+		Tilemaps = GameObject.Find ("Tilemaps");
 		//text = textbox[textbox.Capacity];
 		chat = this.GetComponent<TMPro.TMP_Text> ();
 		textbox.Add("W, A, S, D to move");
@@ -247,9 +251,26 @@ public class TextboxController : MonoBehaviour {
 							textbox.Add ("Enemies successfully killed");
 							break;
 								
+						case("coordinate"):
+							switch(inputElements [2].ToLower ()){
+							case("display"):
+								textbox.Add (camMov.locX + ", " + camMov.locY);
+								break;
+							case("set"):
+								try{
+									stats.Locations.Add(int.Parse(inputElements [3].ToLower ()) + "." + int.Parse(inputElements [4].ToLower ()));
+									stats.LocationID.Add(int.Parse(inputElements [5].ToLower ()));
+									Object.Instantiate (stats.RoomID[int.Parse(inputElements [5].ToLower ())], new Vector3 (int.Parse(inputElements [3].ToLower ()) * 24, int.Parse(inputElements [4].ToLower ()) * 16), Quaternion.identity, Tilemaps.transform);
+								}catch{
+									textbox.Add ("ITE007: Invalid input");
+								}
+								break;
+							}
+							break;
 						default:
 							textbox.Add ("003: Input must be string");
 							break;
+							
 						}
 					}
 					catch{
@@ -278,6 +299,7 @@ public class TextboxController : MonoBehaviour {
 	004: Input must be character
 	005: Input must be Boolean
 	006: Missing Input
+	007: Invalid input
 	...
 
 	CTE###: Command Type Error
