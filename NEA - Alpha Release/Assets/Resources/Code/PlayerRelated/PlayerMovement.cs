@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float xp;
 	public int level;
 	public int[] lockmovement = new int[] {1,1,1,1};
+	public bool repellant;
 
 	float speedbuff;
 
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour {
 		} else if (hp > maxhp) {
 			hp = maxhp;
 		}
-		speed = (2.5f + speedbuff) * Time.deltaTime;
+		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed;
 		//Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
@@ -80,73 +81,71 @@ public class PlayerMovement : MonoBehaviour {
 		//Debug.Log (angle);
 
 		/* This section checks input to allow the player to move */
-		Animation.SetBool ("walk", false);
-		if (Input.GetKey (KeyCode.A) == true && dashing == false) {
-			this.transform.Translate (-speed * lockmovement[3], 0, 0);
-			moving = true;
-			Animation.SetBool ("walk", true);
-		} else if (Input.GetKey (KeyCode.D) == true  && dashing == false) {
-			this.transform.Translate (speed* lockmovement[1], 0, 0);
-			moving = true;
-			Animation.SetBool ("walk", true);
-		}
-
-		if (Input.GetKey (KeyCode.W) == true  && dashing == false) {
-			this.transform.Translate (0, speed * lockmovement[0], 0);
-			moving = true;
-			Animation.SetBool ("walk", true);
-		} else if (Input.GetKey (KeyCode.S) == true  && dashing == false) {
-			this.transform.Translate (0, -speed * lockmovement[2], 0);
-			moving = true;
-			Animation.SetBool ("walk", true);
-		}
-		/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
-		if (Input.GetKeyDown (KeyCode.LeftShift) == true  && dashing == false) {
-			dashing = true;
-			Animation.SetBool ("dash", true);
-			Animation.Play ("Dash");
-		}
-
-		if (dashing == true && duration > 0) {
-			moving = true;
-			if (duration == durationLim) {
-				dashDirection = angle;
-			}
-			duration -= 1;
-			if(Input.GetKey(KeyCode.LeftShift) == true)
-			{
-				duration += 0.3f;
-			}
-			if (dashDirection >= 337.5 | dashDirection <= 22.5) {
-				this.transform.Translate (0, 3 * speed * lockmovement[0], 0);
-			} else if (dashDirection >= 22.5 && dashDirection <= 67.5) {
-				this.transform.Translate (1.5f * speed * lockmovement[1], 1.5f * speed * lockmovement[0], 0);
-			} else if (dashDirection >= 67.5 && dashDirection <= 112.5) {
-				this.transform.Translate (3 * speed * lockmovement[1], 0, 0);
-			} else if (dashDirection >= 112.5 && dashDirection <= 157.5) {
-				this.transform.Translate (1.5f * speed * lockmovement[1], -1.5f * speed * lockmovement[2], 0);
-			} else if (dashDirection >= 157.5 && dashDirection <= 202.5) {
-				this.transform.Translate (0, -3 * speed * lockmovement[2], 0);
-			} else if (dashDirection >= 202.5 && dashDirection <= 247.5) {
-				this.transform.Translate (-1.5f * speed * lockmovement[3], -1.5f * speed * lockmovement[2], 0);
-			} else if (dashDirection >= 247.5 && dashDirection <= 292.5) {
-				this.transform.Translate (-3 * speed * lockmovement[3], 0, 0);
-			} else if (dashDirection >= 292.5 && dashDirection <= 337.5) {
-				this.transform.Translate (-1.5f * speed * lockmovement[3], 1.5f * speed * lockmovement[0], 0);
-			}
-
-		} else {
-			duration = durationLim;
-			Animation.SetBool ("dash", false);
-			dashing = false;
-		}
-
-		/* This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor. */
-		if(Input.mousePosition.x-(Display.main.systemWidth/2)>=0 & Input.mousePosition.y-(Display.main.systemHeight/2)>= 0)
-		{
-			//Debug.Log ("e");
-		}
 		if (hp > 0) {
+			Animation.SetBool ("walk", false);
+			if (Input.GetKey (KeyCode.A) == true && dashing == false) {
+				this.transform.Translate (-speed * lockmovement [3], 0, 0);
+				moving = true;
+				Animation.SetBool ("walk", true);
+			} else if (Input.GetKey (KeyCode.D) == true && dashing == false) {
+				this.transform.Translate (speed * lockmovement [1], 0, 0);
+				moving = true;
+				Animation.SetBool ("walk", true);
+			}
+
+			if (Input.GetKey (KeyCode.W) == true && dashing == false) {
+				this.transform.Translate (0, speed * lockmovement [0], 0);
+				moving = true;
+				Animation.SetBool ("walk", true);
+			} else if (Input.GetKey (KeyCode.S) == true && dashing == false) {
+				this.transform.Translate (0, -speed * lockmovement [2], 0);
+				moving = true;
+				Animation.SetBool ("walk", true);
+			}
+			/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
+			if (Input.GetKeyDown (KeyCode.LeftShift) == true && dashing == false) {
+				dashing = true;
+				Animation.SetBool ("dash", true);
+				Animation.Play ("Dash");
+			}
+
+			if (dashing == true && duration > 0) {
+				moving = true;
+				if (duration == durationLim) {
+					dashDirection = angle;
+				}
+				duration -= 1;
+				if (Input.GetKey (KeyCode.LeftShift) == true) {
+					duration += 0.3f;
+				}
+				if (dashDirection >= 337.5 | dashDirection <= 22.5) {
+					this.transform.Translate (0, 3 * speed * lockmovement [0], 0);
+				} else if (dashDirection >= 22.5 && dashDirection <= 67.5) {
+					this.transform.Translate (1.5f * speed * lockmovement [1], 1.5f * speed * lockmovement [0], 0);
+				} else if (dashDirection >= 67.5 && dashDirection <= 112.5) {
+					this.transform.Translate (3 * speed * lockmovement [1], 0, 0);
+				} else if (dashDirection >= 112.5 && dashDirection <= 157.5) {
+					this.transform.Translate (1.5f * speed * lockmovement [1], -1.5f * speed * lockmovement [2], 0);
+				} else if (dashDirection >= 157.5 && dashDirection <= 202.5) {
+					this.transform.Translate (0, -3 * speed * lockmovement [2], 0);
+				} else if (dashDirection >= 202.5 && dashDirection <= 247.5) {
+					this.transform.Translate (-1.5f * speed * lockmovement [3], -1.5f * speed * lockmovement [2], 0);
+				} else if (dashDirection >= 247.5 && dashDirection <= 292.5) {
+					this.transform.Translate (-3 * speed * lockmovement [3], 0, 0);
+				} else if (dashDirection >= 292.5 && dashDirection <= 337.5) {
+					this.transform.Translate (-1.5f * speed * lockmovement [3], 1.5f * speed * lockmovement [0], 0);
+				}
+
+			} else {
+				duration = durationLim;
+				Animation.SetBool ("dash", false);
+				dashing = false;
+			}
+
+			/* This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor. */
+			if (Input.mousePosition.x - (Display.main.systemWidth / 2) >= 0 & Input.mousePosition.y - (Display.main.systemHeight / 2) >= 0) {
+				//Debug.Log ("e");
+			}
 			if (angle >= 45 && angle <= 135) {
 				//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
 				//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
@@ -181,6 +180,9 @@ public class PlayerMovement : MonoBehaviour {
 				Animation.SetBool ("left", false);
 				Animation.SetBool ("up", false);
 			}
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+		} else {
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 		}
 
 		/*if(Input.GetKey (KeyCode.Mouse0) == true){
@@ -236,8 +238,10 @@ public class PlayerMovement : MonoBehaviour {
 			StartCoroutine ("damageBuff");
 			break;
 		case(3):
-			Debug.Log ("A");
 			StartCoroutine ("speedBuff");
+			break;
+		case(4):
+			StartCoroutine ("repellantBuff");
 			break;
 		}
 
@@ -252,8 +256,9 @@ public class PlayerMovement : MonoBehaviour {
 		yield return new WaitForSeconds (10f);
 		speedbuff -= 0.3f;
 	}
-
-
-					
-					
+	public IEnumerator repellantBuff(){
+		repellant = true;
+		yield return new WaitForSeconds (10f);
+		repellant = false;
+	}
 }

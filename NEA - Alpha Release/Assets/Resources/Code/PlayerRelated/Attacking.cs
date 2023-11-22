@@ -27,7 +27,7 @@ public class Attacking : MonoBehaviour {
 		this.gameObject.transform.Rotate (0, 0, -playerMovement.angle + 180);
 
 		//Debug.Log (counter);
-		if (Input.GetKeyDown (KeyCode.Mouse0) == true && counter <=0 && Attack == false) {
+		if (Input.GetKeyDown (KeyCode.Mouse0) == true && counter <=0 && Attack == false & playerMovement.hp >0) {
 			Attack = true;
 			counter = attackduration;
 			playerMovement.SendMessage ("attack");

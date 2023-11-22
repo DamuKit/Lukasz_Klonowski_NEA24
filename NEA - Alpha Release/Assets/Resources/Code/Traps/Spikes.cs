@@ -7,24 +7,24 @@ public class Spikes : MonoBehaviour {
 	bool activate;
 	Animator Animation;
 	public PlayerMovement Player;
+	bool playerIN;
 	bool hit;
-	public bool PlayerIN;
 
 	// Use this for initialization
 	void Start () {
-		PlayerIN = false;
 		state = 0;
 		activate = false;
 		hit = false;
 		Animation = GetComponent<Animator>();
 		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement>();
+		playerIN = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (activate == true) {
 			state += 1;
-			if (state >= 80 & state <=110 & hit == false & PlayerIN == true) {
+			if (state >= 80 & state <=110 & hit == false & playerIN == true) {
 				Player.hp -= 0.2f * Player.maxhp;
 				hit = true;
 				Debug.Log(state);
@@ -40,8 +40,8 @@ public class Spikes : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if(other.gameObject.tag == "Player"){
-			PlayerIN = true;
-		}
+			playerIN = true;
+			}
 		if (other.gameObject.tag == "Player" & activate == false) {
 			activate = true;
 			state = 0;
@@ -50,7 +50,7 @@ public class Spikes : MonoBehaviour {
 	}
 	private void OnTriggerExit2D(Collider2D other){
 		if (other.gameObject.tag == "Player") {
-			PlayerIN = false;
+			playerIN = false;
 		}
 	}
 			

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour {
+	public StatsStorage stats;
 	public PlayerMovement Player;
 	Animator Animation;
 	// Use this for initialization
 	void Start () {
 		Animation = GetComponent<Animator>();
+		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 	}
 	
 	// Update is called once per frame
@@ -17,15 +19,15 @@ public class HealthBar : MonoBehaviour {
 		Animation.SetFloat ("Hp%", Player.hp);
 
 		if (Player.hp <= 0 & Time.timeScale > 0) {
-			Time.timeScale = Time.timeScale * 0.99f;
-			Debug.Log (Time.timeScale);
-			if (Time.timeScale < 0.00000001) {
-				Time.timeScale = 0;
+			stats.gameSpeed = stats.gameSpeed * 0.99f;
+			Debug.Log (stats.gameSpeed);
+			if (stats.gameSpeed < 0.00000001) {
+				stats.gameSpeed = 0;
 			}
-		} else if (Time.timeScale < 1) {
-			Time.timeScale = Time.timeScale * 1.1f;
-		} else if (Time.timeScale > 1) {
-			Time.timeScale = 1;
+		} else if (stats.gameSpeed < 1) {
+			stats.gameSpeed = stats.gameSpeed * 1.1f;
+		} else if (stats.gameSpeed > 1) {
+			stats.gameSpeed = 1;
 		}
 	}
 }

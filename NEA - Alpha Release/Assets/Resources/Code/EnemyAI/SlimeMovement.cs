@@ -90,7 +90,7 @@ public class SlimeMovement : MonoBehaviour {
 				RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), (player.transform.position - transform.position - new Vector3(0, 0.1f))*2);
 				//Debug.DrawRay (transform.position, (player.transform.position - transform.position), Color.white, 10); 
 				//Debug.Log (DetectPlayer.collider.name);
-				if (DetectPlayer.collider.name == "Player") {
+				if (DetectPlayer.collider.name == "Player" & Player.hp>0 & Player.repellant == false) {
 				
 					//Debug.Log ("nearby");
 					//Debug.Log (camMov.locX + "." + camMov.locY);

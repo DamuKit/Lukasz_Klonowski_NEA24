@@ -9,6 +9,7 @@ public class StatsStorage : MonoBehaviour {
 	public int room;
 	public int seed;
 	public int seedoffset;
+	public float gameSpeed;
 	public List<string> Locations = new List<string>();
 	public List<int> LocationID = new List<int>();
 	public List<GameObject> RoomID = new List<GameObject>();
@@ -41,12 +42,13 @@ public class StatsStorage : MonoBehaviour {
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
 	/* array listing item IDs, item chance*/
-	public int[,] Items = new int[,] {{0,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,1900,0}};
+	public int[,] Items = new int[,] {{0,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,10000,0}};
 
 	public int[,] Inventory = new int[,] {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0},{8,0},{9,0}};
 
 	// Use this for initialization
 	void Start () {
+		gameSpeed = 1;
 		killall = false;
 		seed = 0;
 		//Rooms.Add(Resources.Load("Prefabs/Room/Room_" + "1") as GameObject);
