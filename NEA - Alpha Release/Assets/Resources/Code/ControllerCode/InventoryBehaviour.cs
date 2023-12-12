@@ -37,7 +37,7 @@ public class InventoryBehaviour : MonoBehaviour {
 		//items.Enqueue("000001");
 		//items.Enqueue("001068");
 		//items.Enqueue("002068");
-		//items.Enqueue("003068");
+		//items.Enqueue("003999");
 		//items.Enqueue("004068");
 		//items.Enqueue ("001100");
 		swapPosition = 0;
@@ -46,7 +46,7 @@ public class InventoryBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (items.Count > 0 & stats.pause == 0) {
+		if (items.Count > 0 & stats.pause == 0 & stats.menu == 1) {
 			placeHolder2.Clear();
 			placeHolder2 = new List<string>(Locations);
 			location = -1;

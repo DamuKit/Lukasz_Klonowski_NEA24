@@ -15,18 +15,13 @@ public class Pause : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape) == true && stats.pause == 0) {
+		if (Input.GetKeyDown (KeyCode.Escape) == true && stats.pause == 0 & stats.menu == 1) {
 			stats.pause = 1;
 		}
-		else if (Input.GetKeyDown (KeyCode.Escape) == true && stats.pause == 1) {
+		else if (Input.GetKeyDown (KeyCode.Escape) == true && stats.pause == 1 & stats.menu == 1) {
 			stats.pause = 0;
 
 		}
-		//TheSpanishInquisition ("suprise");
-	}
 
-	private void TheSpanishInquisition(string keyElement)
-	{
-		Debug.Log ("No body expects the Spanish Inquisition the key element is " + keyElement);
 	}
 }

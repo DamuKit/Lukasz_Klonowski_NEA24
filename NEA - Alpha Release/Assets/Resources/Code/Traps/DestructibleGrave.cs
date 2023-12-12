@@ -7,9 +7,10 @@ public class DestructibleGrave : MonoBehaviour {
 	bool IV;
 	public Attacking attack;
 	public bool end;
-
+	public EnemyHealth HPBar;
 	// Use this for initialization
 	void Start () {
+		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		IV = false;
 		health = 20;
@@ -25,6 +26,7 @@ public class DestructibleGrave : MonoBehaviour {
 		if (health <= 0) {
 			Destroy (this.gameObject);
 		}
+		HPBar.SendMessage ("HealthReport", health);
 	}
 	void damaged(int dmg) {
 		if (IV == false) {

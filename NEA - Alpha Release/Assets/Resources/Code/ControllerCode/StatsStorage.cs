@@ -21,6 +21,7 @@ public class StatsStorage : MonoBehaviour {
 	public bool killall;
 	public float score;
 	public int pause;
+	public int menu;
 	public bool holding;
 	public int stackLimit;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
@@ -49,6 +50,7 @@ public class StatsStorage : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		menu = 1;
 		stackLimit = 68;
 		gameSpeed = 1;
 		killall = false;

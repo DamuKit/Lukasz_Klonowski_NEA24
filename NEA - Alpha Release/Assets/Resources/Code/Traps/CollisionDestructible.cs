@@ -6,8 +6,10 @@ public class CollisionDestructible : MonoBehaviour {
 	public Attacking attack;
 	int health;
 	bool IV;
+	public EnemyHealth HPBar;
 	// Use this for initialization
 	void Start () {
+		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		health = 20;
 		IV = false;
@@ -28,6 +30,7 @@ public class CollisionDestructible : MonoBehaviour {
 			}
 			//Destroy (this.gameObject);
 		}
+		HPBar.SendMessage ("HealthReport", health);
 	}
 
 	public IEnumerator Damaged(){
