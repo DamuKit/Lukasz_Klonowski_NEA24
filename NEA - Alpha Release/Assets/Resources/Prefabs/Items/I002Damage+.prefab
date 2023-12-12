@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  Player: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!212 &212342017021497438
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,7 +115,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300008, guid: 1dc62a49c05818c42ad7e114dcbdfe16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

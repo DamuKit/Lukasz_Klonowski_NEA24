@@ -17,12 +17,12 @@ public class SmoothCollission : MonoBehaviour {
 		
 	}
 	private void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.name == "Walls") {
+		if (other.gameObject.name == "Walls" | other.gameObject.name == "T001") {
 			Player.lockmovement [int.Parse (this.gameObject.name.Substring (0, 1))] = 0;
 		}
 	}
 	private void OnTriggerExit2D(Collider2D other){
-		if (other.gameObject.name == "Walls") {
+		if (other.gameObject.name == "Walls" | other.gameObject.name == "T001") {
 			Player.lockmovement [int.Parse (this.gameObject.name.Substring (0, 1))] = 1;
 		}
 	}

@@ -27,7 +27,9 @@ public class PlayerMovement : MonoBehaviour {
 	public float xp;
 	public int level;
 	public int[] lockmovement = new int[] {1,1,1,1};
+	public int[] Items = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	public bool repellant;
+	int repellantStack;
 
 	float speedbuff;
 
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		xp = 0;
 		level = 1;
+		repellantStack = 0;
 
 	}
 
@@ -62,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 		} else if (hp > maxhp) {
 			hp = maxhp;
 		}
-		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed;
+		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed * stats.pause;
 		//Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
@@ -81,7 +84,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Debug.Log (angle);
 
 		/* This section checks input to allow the player to move */
-		if (hp > 0) {
+		if (hp > 0 & stats.pause != 0) {
 			Animation.SetBool ("walk", false);
 			if (Input.GetKey (KeyCode.A) == true && dashing == false) {
 				this.transform.Translate (-speed * lockmovement [3], 0, 0);
@@ -181,7 +184,7 @@ public class PlayerMovement : MonoBehaviour {
 				Animation.SetBool ("up", false);
 			}
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
-		} else {
+		} else if (hp <=0){
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 		}
 
@@ -258,7 +261,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	public IEnumerator repellantBuff(){
 		repellant = true;
+		repellantStack++;
 		yield return new WaitForSeconds (10f);
-		repellant = false;
+		repellantStack--;
+		if (repellantStack == 0) {
+			repellant = false;
+		}
 	}
 }

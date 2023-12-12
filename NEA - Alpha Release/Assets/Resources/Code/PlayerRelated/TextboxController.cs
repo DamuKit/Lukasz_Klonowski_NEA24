@@ -31,11 +31,11 @@ public class TextboxController : MonoBehaviour {
 		//text = textbox[textbox.Capacity];
 		chat = this.GetComponent<TMPro.TMP_Text> ();
 		textbox.Add("W, A, S, D to move");
-		textbox.Add("Left mouse to attack");
+		textbox.Add("Left mouse to use item in main hand, right click for right hand");
 		textbox.Add("Left Shift to dash");
-		textbox.Add("Tab to hide chat");
+		textbox.Add("ESC to pause / unpause, opening up the inventory, chat and access to the menu");
+		textbox.Add("Q & E, numbers or scroll to cycle items in hotbar. F to switch hands");
 		textbox.Add("Do Genocide, Have fun!");
-		textbox.Add("");
 		textbox.Add("");
 		textbox.Add("");
 		textbox.Add("");

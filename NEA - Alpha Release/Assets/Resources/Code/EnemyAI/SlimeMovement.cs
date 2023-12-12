@@ -25,8 +25,11 @@ public class SlimeMovement : MonoBehaviour {
 	public float speed;
 	public int health;
 	public int damage;
+	public EnemyHealth HPBar;
 	// Use this for initialization
 	void Start () {
+		
+		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		IV = false;
@@ -70,7 +73,7 @@ public class SlimeMovement : MonoBehaviour {
 	/* This code adds motion to the slime enemy if they originally spawned on the same screen as the player is currently on. */
 	// Update is called once per frame
 	void Update () {
-		speed = baseSpeed * 0.5f * Time.deltaTime;
+		speed = baseSpeed * 0.5f * Time.deltaTime * stats.pause;
 		if (wonder == 1) {
 			speed *= 0.5f;
 		}
@@ -157,12 +160,14 @@ public class SlimeMovement : MonoBehaviour {
 			stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			Destroy (this.gameObject);
 		}
+		HPBar.SendMessage ("HealthReport", health);
 	}
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" & Player.invincible == false) {
 			Player.hp -= damage;
 			Player.ivFrames = true;
 			//Destroy (this.gameObject);
+
 		}
 	}
 

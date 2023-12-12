@@ -1,10 +1,3 @@
-*statsStorage
-Rooms array
-array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)
-
-edgetypes :
-0 - wall
-1 - path
-3 - river
-biomes :
-0 - forest
+idea for how inventory can work
+items are in a list, each with a unique position
+list has a limited amount of space and swaping items will swap their positions on the list

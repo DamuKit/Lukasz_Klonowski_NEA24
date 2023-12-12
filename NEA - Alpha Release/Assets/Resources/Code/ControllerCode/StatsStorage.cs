@@ -20,7 +20,9 @@ public class StatsStorage : MonoBehaviour {
 	int refreshSeed;
 	public bool killall;
 	public float score;
-
+	public int pause;
+	public bool holding;
+	public int stackLimit;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,50,20,5,10,3},{1,100,45,7,15,5},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
@@ -42,12 +44,12 @@ public class StatsStorage : MonoBehaviour {
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
 	/* array listing item IDs, item chance*/
-	public int[,] Items = new int[,] {{0,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,10000,0}};
+	public int[,] Items = new int[,] {{0,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,0000,0}};
 
-	public int[,] Inventory = new int[,] {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0},{8,0},{9,0}};
 
 	// Use this for initialization
 	void Start () {
+		stackLimit = 68;
 		gameSpeed = 1;
 		killall = false;
 		seed = 0;
