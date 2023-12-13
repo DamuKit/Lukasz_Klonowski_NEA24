@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		Debug.Log (stats.menu);
 	}
 	public void ClickedMenuButton(){
 		if (stats.menu == 1) {

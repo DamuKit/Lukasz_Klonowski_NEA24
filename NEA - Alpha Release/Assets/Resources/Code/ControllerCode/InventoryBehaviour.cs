@@ -39,7 +39,10 @@ public class InventoryBehaviour : MonoBehaviour {
 		//items.Enqueue("002068");
 		//items.Enqueue("003999");
 		//items.Enqueue("004068");
-		//items.Enqueue ("001100");
+		items.Enqueue ("001034");
+		items.Enqueue ("002034");
+		items.Enqueue ("003034");
+		items.Enqueue ("004034");
 		swapPosition = 0;
 
 	}

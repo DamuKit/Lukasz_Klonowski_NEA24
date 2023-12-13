@@ -81,11 +81,11 @@ public class ItemMoving : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.Mouse0) == true & stats.pause == 0 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5 & stats.holding == false) {
+		if (Input.GetKeyDown (KeyCode.Mouse0) == true & stats.pause == 0 & stats.menu == 1 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5 & stats.holding == false) {
 			stats.holding = true;
 			held = true;
 		}
-		if ((Input.GetKey (KeyCode.Mouse0) == true & stats.pause == 0) & held == true) {
+		if ((Input.GetKey (KeyCode.Mouse0) == true & stats.pause == 0 & stats.menu == 1) & held == true) {
 			if (Input.GetKey (KeyCode.LeftControl) == true) {
 				invBeh.Locations [currentPosition] = invBeh.Locations [currentPosition].Substring (0, 3) + "000";
 				stats.holding = false;
@@ -108,7 +108,7 @@ public class ItemMoving : MonoBehaviour {
 				Debug.Log (positionInList);
 				Debug.Log (currentPosition);
 			}
-		} else if ((Input.GetKeyUp (KeyCode.Mouse0) == true | stats.pause == 1) & held == true) {
+		} else if ((Input.GetKeyUp (KeyCode.Mouse0) == true | stats.pause == 1 | stats.menu == 0) & held == true) {
 			if (invBeh.Locations [positionInList].Length > 3) {
 				if (invBeh.Locations [positionInList].Substring (3, 1) != "N") {
 					if (invBeh.Locations [positionInList].Substring (0, 3) == invBeh.Locations [currentPosition].Substring (0, 3) & positionInList != currentPosition) {
