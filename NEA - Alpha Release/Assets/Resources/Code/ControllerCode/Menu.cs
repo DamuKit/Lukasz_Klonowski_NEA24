@@ -21,4 +21,20 @@ public class Menu : MonoBehaviour {
 			stats.menu = 1;
 		}
 	}
+	public void HigherDifficulty(){
+		if (stats.Difficulty != 10) {
+			stats.Difficulty ++;
+		}
+	}
+	public void LowerDifficulty(){
+		if (stats.Difficulty != 1) {
+			stats.Difficulty --;
+		}
+	}
+	public void NextControls(){
+		
+	}
+	public void PreviousControls(){
+		
+	}
 }
