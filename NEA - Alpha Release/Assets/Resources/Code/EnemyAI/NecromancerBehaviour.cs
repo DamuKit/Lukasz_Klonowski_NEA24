@@ -10,7 +10,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 	public CameraMovement camMov;
 	public PlayerMovement Player;
 	public RoomLoader roomLoader;
-	string location;
+	public string location;
 	public GameObject player;
 	public GameObject Cam;
 	float angle;

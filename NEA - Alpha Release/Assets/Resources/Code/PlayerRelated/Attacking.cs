@@ -110,7 +110,7 @@ public class Attacking : MonoBehaviour {
 
 	private void OnTriggerStay2D(Collider2D other) {
 		if (other.gameObject.tag == "Enemy") {
-			if (Attack == true) {
+			if (Attack == true & playerMovement.dashing == false) {
 				other.gameObject.SendMessage ("damaged", (weaponDamage + damage) * (1 + damagebuff * 0.25f));
 			} else if (playerMovement.dashing == true) {
 				other.gameObject.SendMessage ("damaged", damage * (0.5f + damagebuff * 0.125f));

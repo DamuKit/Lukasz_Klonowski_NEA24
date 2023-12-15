@@ -28,9 +28,15 @@ public class DropGenerator : MonoBehaviour {
 		i = 0;
 		rand = Random.value;
 		do {
-			if(rand >= 0 & rand < stats.Items [i,1] * 0.0001f & stats.Items [i,2] == stats.localDifficulty){
-				Object.Instantiate (stats.ItemID[i], thing.transform.position, Quaternion.identity, Items.transform);
-				//Debug.Log(rand);
+			try{
+				if(rand >= 0 & rand < stats.Items [i,1] * 0.0001f & stats.Items [i,2] == stats.localDifficulty){
+					Object.Instantiate (stats.ItemID[i], thing.transform.position, Quaternion.identity, Items.transform);
+					//Debug.Log(rand);
+					break;
+				}
+			}
+			catch{
+				Debug.Log("Broke");
 				break;
 			}
 			i+=1;

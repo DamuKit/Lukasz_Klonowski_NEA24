@@ -269,6 +269,36 @@ public class TextboxController : MonoBehaviour {
 								break;
 							}
 							break;
+						case("give"):
+							try{
+								if(inputElements [2].Substring(3,1) == "N"){
+									if((int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 101 & int.Parse(inputElements [2].Substring(4,4)) >= 0000)){
+									GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
+									textbox.Add ("Given " + inputElements [2]);
+									}
+									else if(int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 101){
+										textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
+									}
+									else{
+										textbox.Add ("Failed to give " + inputElements [2] + ": Not Real.");
+									}
+								}
+								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 4 & int.Parse(inputElements [2].Substring(3,3)) >= 0){
+										GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
+										textbox.Add ("Given " + inputElements [2]);
+									}
+								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 4){
+									textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
+								}
+								else{
+									textbox.Add ("Failed to give " + inputElements [2] + ": Not Real.");
+								}
+							}
+							catch{
+								textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input.");
+							}
+
+							break;
 						default:
 							textbox.Add ("003: Input must be string");
 							break;
