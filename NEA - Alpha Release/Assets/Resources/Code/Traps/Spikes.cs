@@ -25,7 +25,8 @@ public class Spikes : MonoBehaviour {
 		if (activate == true) {
 			state += 1;
 			if (state >= 80 & state <=110 & hit == false & playerIN == true) {
-				Player.hp -= 0.2f * Player.maxhp;
+				//Player.hp -= 0.2f * Player.maxhp;
+				Player.SendMessage ("Damaged", 0.2f * Player.maxhp);
 				hit = true;
 				Debug.Log(state);
 			}

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float duration;
 	float durationLim;
 	Animator Animation;
+	Attacking interact;
 	public CameraMovement camMov;
 	public GameObject Slime;
 	string direction;
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour {
 	public float camerasizey;
 	public float hp;
 	public float maxhp;
+	public float maxStamina;
+	public float stamina;
 	public bool invincible;
 	public bool ivFrames;
 	public int ivDuration;
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		interact = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		speedbuff = 0;
 		speed = 0.05f;
 		dashDirection = 0f;
@@ -46,8 +50,10 @@ public class PlayerMovement : MonoBehaviour {
 		camerasizex = 12f;
 		camerasizey = 8f;
 		Animation = GetComponent<Animator>();
-		maxhp = 100;
+		maxhp = 300;
 		hp = maxhp;
+		maxStamina = 100;
+		stamina = maxStamina;
 		invincible = false;
 		ivFrames = false;
 		ivDuration = 0;
@@ -65,6 +71,13 @@ public class PlayerMovement : MonoBehaviour {
 		} else if (hp > maxhp) {
 			hp = maxhp;
 		}
+		if (stamina < maxStamina) {
+			stamina += (1.5f + 0.15f * stamina) * Time.deltaTime;
+		}
+		if (stamina > maxStamina) {
+			stamina = maxStamina;
+		}
+
 		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed * stats.pause;
 		//Debug.Log (speed);
 		if (ivFrames == true) {
@@ -106,13 +119,20 @@ public class PlayerMovement : MonoBehaviour {
 				Animation.SetBool ("walk", true);
 			}
 			/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
-			if (Input.GetKeyDown (KeyCode.LeftShift) == true && dashing == false) {
+			if (Input.GetKeyDown (KeyCode.LeftShift) == true && dashing == false & interact.shieldWield == true & stamina > 40) {
+				stamina -= 30;
+				interact.Attack = true;
+				interact.counter = 1;
 				dashing = true;
 				Animation.SetBool ("dash", true);
 				Animation.Play ("Dash");
 			}
 
 			if (dashing == true && duration > 0) {
+
+				interact.counter = 0.25f;
+				ivFrames = true;
+				ivDuration = 1;
 				moving = true;
 				if (duration == durationLim) {
 					dashDirection = angle;
@@ -139,7 +159,7 @@ public class PlayerMovement : MonoBehaviour {
 					this.transform.Translate (-1.5f * speed * lockmovement [3], 1.5f * speed * lockmovement [0], 0);
 				}
 
-			} else {
+			} else if(dashing == true) {
 				duration = durationLim;
 				Animation.SetBool ("dash", false);
 				dashing = false;
@@ -206,7 +226,12 @@ public class PlayerMovement : MonoBehaviour {
 			gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
 	}
-
+	public void Damaged(int damage) {
+		if (invincible == false) {
+			hp -= damage;
+			ivFrames = true;
+		}
+	}
 	/* This function provides the angle of the mouse cursor from the character.*/
 	public void Angle () {
 		if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) >= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {

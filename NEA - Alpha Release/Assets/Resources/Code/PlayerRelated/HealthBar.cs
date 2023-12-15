@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Animation.SetFloat ("Hp%", Player.hp);
+		Animation.SetFloat ("Hp%", Mathf.RoundToInt((Player.hp * 1f / (Player.maxhp) * 1f ) * 100));
 
 		if (Player.hp <= 0 & Time.timeScale > 0) {
 			stats.gameSpeed = stats.gameSpeed * 0.99f;

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
-	int limiter;
-	int dedicatedPoints;
+	public int limiter;
+	public int dedicatedPoints;
 	float rand;
 	string roomlocation;
 	public CameraMovement camMov;
@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour {
 		roomlocation = camMov.locX.ToString() + "." + camMov.locY.ToString();
 		limiter = Mathf.RoundToInt((0.05f * stats.room + 3 * stats.Difficulty + 0.1f * stats.localDifficulty) * stats.points);
 		loops = 0;
+		stats.enemystatpoints = 0;
 		//points = 0.5 * room;
 		//Locations.Add ("0.0");
 	}
@@ -63,7 +64,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 	private void summon(){
 		if (rand < stats.Enemies[loops, 1]*0.01) {
-			if (loops < 2) {
+			if (loops < 3) {
 				//Debug.Log (stats.EnemyID.Count);
 				//Debug.Log (loops);
 				Object.Instantiate (stats.EnemyID[loops], this.gameObject.transform.position + new Vector3 (Mathf.Sin (rand), Mathf.Cos (rand)), Quaternion.identity, Enemies.transform);

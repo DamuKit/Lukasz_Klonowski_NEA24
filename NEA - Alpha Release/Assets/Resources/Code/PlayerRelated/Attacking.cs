@@ -13,8 +13,11 @@ public class Attacking : MonoBehaviour {
 	public float damage;
 	public float damagebuff;
 	public float weaponDamage;
+	public bool shieldWield;
+	bool dashtest;
 	// Use this for initialization
 	void Start () {
+		shieldWield = false;
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		playerMovement = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
 		invBeh =  GameObject.Find ("Inventory").GetComponent<InventoryBehaviour> ();
@@ -24,10 +27,33 @@ public class Attacking : MonoBehaviour {
 		damage = 5;
 		damagebuff = 0;
 		weaponDamage = 0;
+		dashtest = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		dashtest = false;
+		try{
+
+			if(invBeh.Locations [invBeh.OffHandPosition + 77].Substring (0, 3) == "101"){
+				dashtest = true;
+			}
+		}
+		catch{
+		}
+		try{
+			if(invBeh.Locations [invBeh.MainHandPosition + 77].Substring (0, 3) == "101"){
+				dashtest = true;
+			}
+		}
+		catch{
+		}
+		if (dashtest == true) {
+			shieldWield = true;
+		} else {
+			shieldWield = false;
+			Debug.Log (invBeh.Locations [invBeh.OffHandPosition + 77] + invBeh.Locations [invBeh.MainHandPosition + 77]);
+		}
 		//Debug.Log (playerMovement.angle + "e");
 		this.gameObject.transform.rotation = Quaternion.identity;
 		this.gameObject.transform.Rotate (0, 0, -playerMovement.angle + 180);
@@ -51,6 +77,7 @@ public class Attacking : MonoBehaviour {
 			if(counter >0){
 				counter -= 1 * Time.deltaTime;
 			}
+
 	}
 	public void Interact(int slot){
 		try{
@@ -64,10 +91,12 @@ public class Attacking : MonoBehaviour {
 				}
 				break;
 			case("1"):
+				if(invBeh.Locations[slot].Substring(0,3) != "101"){
 				Attack = true;
 				counter = attackduration;
 				playerMovement.SendMessage ("attack");
 				weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+				}
 				break;
 			case("2"):
 
@@ -80,8 +109,12 @@ public class Attacking : MonoBehaviour {
 	}
 
 	private void OnTriggerStay2D(Collider2D other) {
-		if (other.gameObject.tag == "Enemy" & Attack == true) {
-			other.gameObject.SendMessage ("damaged", (weaponDamage + damage) * (1 + damagebuff * 0.25f));
+		if (other.gameObject.tag == "Enemy") {
+			if (Attack == true) {
+				other.gameObject.SendMessage ("damaged", (weaponDamage + damage) * (1 + damagebuff * 0.25f));
+			} else if (playerMovement.dashing == true) {
+				other.gameObject.SendMessage ("damaged", damage * (0.5f + damagebuff * 0.125f));
+			}
 			//Destroy (other.gameObject);
 		}
 	}

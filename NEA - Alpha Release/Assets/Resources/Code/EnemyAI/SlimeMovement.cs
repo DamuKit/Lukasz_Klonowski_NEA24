@@ -164,10 +164,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" & Player.invincible == false) {
-			Player.hp -= damage;
-			Player.ivFrames = true;
-			//Destroy (this.gameObject);
-
+			other.gameObject.SendMessage ("Damaged", damage);
 		}
 	}
 
