@@ -72,7 +72,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -94,6 +94,8 @@ MonoBehaviour:
   speed: 6.510137
   accelleration: -0.1
   bounces: 0
+  pierce: 0
+  piercing: 0
 --- !u!212 &212490082561811356
 SpriteRenderer:
   m_ObjectHideFlags: 1

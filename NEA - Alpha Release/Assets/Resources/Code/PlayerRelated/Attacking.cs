@@ -17,7 +17,7 @@ public class Attacking : MonoBehaviour {
 	bool dashtest;
 	public bool cooldown;
 	Vector3 Position;
-	public float[] ProjectileStats = new float[] {0,0,0,0,0};
+	public float[] ProjectileStats = new float[] {0,0,0,0,0,0};
 	// Use this for initialization
 	void Start () {
 		shieldWield = false;
@@ -107,13 +107,15 @@ public class Attacking : MonoBehaviour {
 					}
 					if(invBeh.Locations[slot].Substring(0,3) == "102"){
 						cooldown = false;
-						StartCoroutine ("Cooldown", 0.0f);
+						StartCoroutine ("Cooldown", 3f);
 						Debug.Log("A");
-						ProjectileStats = new float[] {3,10,10,0,0};
+						ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),7,3,0,0,2};
 						Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
 						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 					}
 				}
 				break;

@@ -9,6 +9,8 @@ public class ProjectileBehaviour : MonoBehaviour {
 	public float speed;
 	public float accelleration;
 	public float bounces;
+	public float pierce;
+	public bool piercing;
 	Attacking properties;
 	PlayerMovement Player;
 
@@ -21,8 +23,9 @@ public class ProjectileBehaviour : MonoBehaviour {
 		speed = properties.ProjectileStats[2];
 		accelleration = properties.ProjectileStats[3];
 		bounces = properties.ProjectileStats[4];
+		pierce = properties.ProjectileStats[5];
 		this.gameObject.transform.Rotate (0, 0, -direction);
-
+		piercing = false;
 	}
 	
 	// Update is called once per frame
@@ -35,17 +38,54 @@ public class ProjectileBehaviour : MonoBehaviour {
 		}
 	}
 
-	private void OnCollisionStay2D(Collision2D other) {
-		if (other.gameObject.tag == "Enemy") {
-			other.gameObject.SendMessage ("damaged", (Damage + properties.damage) * (1 + properties.damagebuff * 0.25f));
-			Destroy (this.gameObject);
-		} else if(other.gameObject.name.Substring(0,1)!= "P"){
-			Destroy (this.gameObject);
-			if (bounces >= 0) {
-				
+	private void OnTriggerStay2D(Collider2D other) {
+		Debug.Log (other.gameObject.name);
+		if(other.gameObject.name.Substring(0,1)!= "P" & other.gameObject.tag != "PlayerPart" & other.gameObject.name.Substring(0,1) != "I"){
+			
+			if (bounces >  0) {
+				direction = (direction + 180);
+				if (direction > 360) {
+					direction -= 360;
+				}
+				this.gameObject.transform.rotation = Quaternion.identity;
+				this.gameObject.transform.Rotate(0, 0, -direction);
+
+				this.gameObject.transform.position = this.gameObject.transform.position + this.gameObject.transform.up * speed * Time.deltaTime;
+					bounces--;
+			}
+			else {
+				Destroy (this.gameObject);
 			}
 
 		}
 
+	}
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.tag == "Enemy") {
+			other.gameObject.SendMessage ("damaged", (Damage + properties.damage) * (1 + properties.damagebuff * 0.25f));
+			if (pierce > 0) {
+				//if (piercing == false) {
+				pierce--;
+				//piercing = true;
+				//}
+			} else if (bounces > 0) {
+				direction = (direction + 180);
+				if (direction > 360) {
+					direction -= 360;
+				}
+				this.gameObject.transform.rotation = Quaternion.identity;
+				this.gameObject.transform.Rotate (0, 0, -direction);
+
+				this.gameObject.transform.position = this.gameObject.transform.position + this.gameObject.transform.up * speed * Time.deltaTime;
+				bounces--;
+			} else {
+				Destroy (this.gameObject);
+			}
+		}
+	}
+	private void OnTriggerExit2D(Collider2D other) {
+		if (other.gameObject.tag == "Enemy") {
+			piercing = false;
+		}
 	}
 }
