@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour {
 	public int[] Items = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	public bool repellant;
 	int repellantStack;
+	public bool wither;
+	public bool confused;
 
 	float speedbuff;
 
@@ -61,11 +63,16 @@ public class PlayerMovement : MonoBehaviour {
 		xp = 0;
 		level = 1;
 		repellantStack = 0;
+		wither = false;
+		confused = false;
 
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (stats.pause == 1 & wither == true) {
+			hp -= maxhp * 0.01f * Time.deltaTime;
+		}
 		if (hp < 0) {
 			hp = 0;
 		} else if (hp > maxhp) {
@@ -79,6 +86,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed * stats.pause;
+
 		//Debug.Log (speed);
 		if (ivFrames == true) {
 			invincible = true;
@@ -100,21 +108,38 @@ public class PlayerMovement : MonoBehaviour {
 		if (hp > 0 & stats.pause != 0) {
 			Animation.SetBool ("walk", false);
 			if (Input.GetKey (KeyCode.A) == true && dashing == false) {
-				this.transform.Translate (-speed * lockmovement [3], 0, 0);
+				if (confused == true) {
+					this.transform.Translate (speed * lockmovement [1], 0, 0);
+				} else {
+					this.transform.Translate (-speed * lockmovement [3], 0, 0);
+				}
+
 				moving = true;
 				Animation.SetBool ("walk", true);
 			} else if (Input.GetKey (KeyCode.D) == true && dashing == false) {
-				this.transform.Translate (speed * lockmovement [1], 0, 0);
+				if (confused == true) {
+					this.transform.Translate (-speed * lockmovement [3], 0, 0);
+				} else {
+					this.transform.Translate (speed * lockmovement [1], 0, 0);
+				}
 				moving = true;
 				Animation.SetBool ("walk", true);
 			}
 
 			if (Input.GetKey (KeyCode.W) == true && dashing == false) {
-				this.transform.Translate (0, speed * lockmovement [0], 0);
+				if (confused == true) {
+					this.transform.Translate (0, -speed * lockmovement [2], 0);
+				} else {
+					this.transform.Translate (0, speed * lockmovement [0], 0);
+				}
 				moving = true;
 				Animation.SetBool ("walk", true);
 			} else if (Input.GetKey (KeyCode.S) == true && dashing == false) {
-				this.transform.Translate (0, -speed * lockmovement [2], 0);
+				if (confused == true) {
+					this.transform.Translate (0, speed * lockmovement [0], 0);
+				} else {
+					this.transform.Translate (0, -speed * lockmovement [2], 0);
+				}
 				moving = true;
 				Animation.SetBool ("walk", true);
 			}
@@ -246,6 +271,13 @@ public class PlayerMovement : MonoBehaviour {
 		else if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) <= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {
 			angle = (270 + Mathf.Atan ((Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2)))) / Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)))) * Mathf.Rad2Deg);
 		}
+
+		if (confused == true) {
+			angle = (angle + 180);
+			if (angle > 360) {
+				angle -= 360;
+			}
+		}
 	}
 	void attack(){
 		Animation.Play ("Attack");
@@ -274,6 +306,21 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 	}
+	void Debuff(int debuff){
+		switch (debuff) {
+		case(1):
+			StartCoroutine ("Wither");
+			break;
+		case(2):
+			StartCoroutine ("Weak");
+			break;
+		case(3):
+			StartCoroutine ("Confused");
+			break;
+		default:
+			break;
+		}
+	}
 	public IEnumerator damageBuff(){
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
 		yield return new WaitForSeconds (10f);
@@ -292,5 +339,20 @@ public class PlayerMovement : MonoBehaviour {
 		if (repellantStack == 0) {
 			repellant = false;
 		}
+	}
+	public IEnumerator Wither(){
+		wither = true;
+		yield return new WaitForSeconds (5f);
+		wither = false;
+	}
+	public IEnumerator Weak(){
+		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff -= 1;
+		yield return new WaitForSeconds (10f);
+		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
+	}
+	public IEnumerator Confused(){
+		confused = true;
+		yield return new WaitForSeconds (5f);
+		confused = false;
 	}
 }

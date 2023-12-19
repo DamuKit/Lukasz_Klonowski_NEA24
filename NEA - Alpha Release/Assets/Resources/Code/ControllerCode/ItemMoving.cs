@@ -43,6 +43,11 @@ public class ItemMoving : MonoBehaviour {
 		if (currentPosition < 0) {
 			currentPosition = currentPosition + (28 + 77);
 		}
+		if (currentPosition < 77) {
+			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16 + 1000 * stats.pause), Quaternion.identity);
+		} else {
+			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16), Quaternion.identity);
+		}
 
 
 		if (currentItem != invBeh.Locations [currentPosition]) {
@@ -91,15 +96,20 @@ public class ItemMoving : MonoBehaviour {
 				stats.holding = false;
 			}
 			Debug.Log ("E");
-			if(cursor.transform.position.x - camMov.locX * 24 > -11.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f  | cursor.transform.position.x - camMov.locX * 24 > -6.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f){
-				this.gameObject.transform.SetPositionAndRotation(new Vector2(Mathf.RoundToInt(cursor.transform.position.x), Mathf.RoundToInt(this.gameObject.transform.position.y)), Quaternion.identity);
-			} if(cursor.transform.position.y - camMov.locY * 16 > -2.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f | cursor.transform.position.y - camMov.locY * 16 > 6.5f & cursor.transform.position.y - camMov.locY * 16 < 7.5f & cursor.transform.position.x - camMov.locX * 24 > -6.5f){
-				this.gameObject.transform.SetPositionAndRotation(new Vector2(Mathf.RoundToInt(this.gameObject.transform.position.x), Mathf.RoundToInt(cursor.transform.position.y)), Quaternion.identity);
-			}
+			//if((cursor.transform.position.x - camMov.locX * 24 > -11.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f  )|( cursor.transform.position.x - camMov.locX * 24 > -6.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f)){
+				//ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
+			//} if((cursor.transform.position.y - camMov.locY * 16 > -2.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f )|( cursor.transform.position.y - camMov.locY * 16 > 6.5f & cursor.transform.position.y - camMov.locY * 16 < 7.5f & cursor.transform.position.x - camMov.locX * 24 > -6.5f)){
+				//ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
+			//}
+			this.gameObject.transform.SetPositionAndRotation(new Vector2(cursor.transform.position.x, cursor.transform.position.y), Quaternion.identity);
 
-			if(this.gameObject.transform.position.y* -1 + 4 - camMov.locY * 16 > -10){
-				ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
-				ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
+			if (this.gameObject.transform.position.y * -1 + 4 - camMov.locY * 16 > -10) {
+				if ((cursor.transform.position.x - camMov.locX * 24 > -11.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f) | (cursor.transform.position.x - camMov.locX * 24 > -6.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f)) {
+					ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
+				}
+				if((cursor.transform.position.y - camMov.locY * 16 > -2.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f )|( cursor.transform.position.y - camMov.locY * 16 > 6.5f & cursor.transform.position.y - camMov.locY * 16 < 7.5f & cursor.transform.position.x - camMov.locX * 24 > -6.5f)){
+					ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4;
+				}
 				Debug.Log (ISLY);
 				positionInList = ISLX + ISLY * 11;
 				if (positionInList < 0) {

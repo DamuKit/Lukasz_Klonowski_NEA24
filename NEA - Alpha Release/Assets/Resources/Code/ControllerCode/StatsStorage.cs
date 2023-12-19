@@ -25,7 +25,7 @@ public class StatsStorage : MonoBehaviour {
 	public bool holding;
 	public int stackLimit;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
-	public int[,] Enemies = new int[,] {{0,0/*50*/,20,5,10,3},{1,0/*75*/,45,7,15,5},{2,100,60,60,5,4},{99999,999,999,999,999,999}};
+	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,90/*75*/,45,7,15,5},{2,100/*100*/,90,30,5,2},{3,0,3,10,15,2},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
 	public int[,] Rooms = new int[,] {
 		{000,02,11102,10505,11102,10702,0,1,2,1,2},

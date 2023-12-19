@@ -15,6 +15,9 @@ public class Attacking : MonoBehaviour {
 	public float weaponDamage;
 	public bool shieldWield;
 	bool dashtest;
+	public bool cooldown;
+	Vector3 Position;
+	public float[] ProjectileStats = new float[] {0,0,0,0,0};
 	// Use this for initialization
 	void Start () {
 		shieldWield = false;
@@ -28,6 +31,10 @@ public class Attacking : MonoBehaviour {
 		damagebuff = 0;
 		weaponDamage = 0;
 		dashtest = false;
+		cooldown = false;
+
+
+
 	}
 	
 	// Update is called once per frame
@@ -91,15 +98,26 @@ public class Attacking : MonoBehaviour {
 				}
 				break;
 			case("1"):
-				if(invBeh.Locations[slot].Substring(0,3) != "101"){
-				Attack = true;
-				counter = attackduration;
-				playerMovement.SendMessage ("attack");
-				weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+				if(cooldown == false){
+					if(invBeh.Locations[slot].Substring(0,3) == "100"){
+						Attack = true;
+						counter = attackduration;
+						playerMovement.SendMessage ("attack");
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "102"){
+						cooldown = false;
+						StartCoroutine ("Cooldown", 0.0f);
+						Debug.Log("A");
+						ProjectileStats = new float[] {3,10,10,0,0};
+						Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+					}
 				}
 				break;
 			case("2"):
-
 				break;
 			default:
 				break;
@@ -117,5 +135,11 @@ public class Attacking : MonoBehaviour {
 			}
 			//Destroy (other.gameObject);
 		}
+	}
+
+	public IEnumerator Cooldown(float time){
+		cooldown = true;
+		yield return new WaitForSeconds (time);
+		cooldown = false;
 	}
 }

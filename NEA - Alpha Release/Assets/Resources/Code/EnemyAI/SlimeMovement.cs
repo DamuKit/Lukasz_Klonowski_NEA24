@@ -26,9 +26,10 @@ public class SlimeMovement : MonoBehaviour {
 	public int health;
 	public int damage;
 	public EnemyHealth HPBar;
+	public bool IVTime;
 	// Use this for initialization
 	void Start () {
-		
+		IVTime = false;
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
@@ -93,7 +94,7 @@ public class SlimeMovement : MonoBehaviour {
 				RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), (player.transform.position - transform.position - new Vector3(0, 0.1f))*2);
 				//Debug.DrawRay (transform.position, (player.transform.position - transform.position), Color.white, 10); 
 				//Debug.Log (DetectPlayer.collider.name);
-				if (DetectPlayer.collider.name == "Player" & Player.hp>0 & Player.repellant == false) {
+				if (DetectPlayer.collider.name == "Player" & Player.hp>0 & Player.repellant == false & DetectPlayer.distance <= 6) {
 				
 					//Debug.Log ("nearby");
 					//Debug.Log (camMov.locX + "." + camMov.locY);
@@ -147,7 +148,7 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 
-		if (IV == true & attack.Attack == false) {
+		if (IV == true & IVTime == false & attack.Attack == false) {
 			IV = false;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 		}
@@ -174,10 +175,15 @@ public class SlimeMovement : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			health -= dmg;
 			Debug.Log (health);
-			IV = true;
+			StartCoroutine ("Invincibility");
 
 
 		}
 	}
-
+	public IEnumerator Invincibility(){
+		IV = true;
+		IVTime = true;
+		yield return new WaitForSeconds (0.25f);
+		IVTime = false;
+	}
 }
