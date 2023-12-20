@@ -107,9 +107,9 @@ public class Attacking : MonoBehaviour {
 					}
 					if(invBeh.Locations[slot].Substring(0,3) == "102"){
 						cooldown = false;
-						StartCoroutine ("Cooldown", 3f);
+						StartCoroutine ("Cooldown", 0f);
 						Debug.Log("A");
-						ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),7,3,0,0,2};
+						ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),7,10,0,10,10};
 						Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
 						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);

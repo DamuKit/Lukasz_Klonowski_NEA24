@@ -40,7 +40,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 
 	private void OnTriggerStay2D(Collider2D other) {
 		Debug.Log (other.gameObject.name);
-		if(other.gameObject.name.Substring(0,1)!= "P" & other.gameObject.tag != "PlayerPart" & other.gameObject.name.Substring(0,1) != "I"){
+		if(other.gameObject.name.Substring(0,1)!= "P" && other.gameObject.tag != "PlayerPart" && other.gameObject.name.Substring(0,1) != "I"){
 			
 			if (bounces >  0) {
 				direction = (direction + 180);
