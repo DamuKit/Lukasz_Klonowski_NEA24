@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 61860139188096952}
   - component: {fileID: 114431581643283328}
   - component: {fileID: 50413899699764822}
+  - component: {fileID: 114275755979963516}
   m_Layer: 2
   m_Name: E000Slime
   m_TagString: Enemy
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1889647419703508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.56, y: 13.88, z: -2.0976562}
+  m_LocalPosition: {x: 8.2303, y: 30.374992, z: -3.1953125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4584999124762514}
@@ -171,6 +172,17 @@ MonoBehaviour:
   HPMax: 0
   HP: 0
   HPpercentage: 0
+--- !u!114 &114275755979963516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889647419703508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a2a28db0a14274fa1580fee8e55c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114431581643283328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,6 +207,7 @@ MonoBehaviour:
   health: 10
   damage: 10
   HPBar: {fileID: 0}
+  IVTime: 0
 --- !u!212 &212395837201028268
 SpriteRenderer:
   m_ObjectHideFlags: 1

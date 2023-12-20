@@ -15,7 +15,7 @@ public class SlimeMovement : MonoBehaviour {
 	string location;
 	public GameObject player;
 	public GameObject Cam;
-	float angle;
+	public float angle;
 	int delay;
 	private int sibling;
 	public int statVariance;

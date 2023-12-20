@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PetInteraction : MonoBehaviour {
+	public float focusDistance;
+	public float angle;
+	// Use this for initialization
+	void Start () {
+		angle = -1;
+	}
+
+	// Update is called once per frame
+	void Update () {
+		focusDistance = 1000;
+		angle = -1;
+	}
+
+	public void Focus(float[] Info) {
+		if(focusDistance > Info[0]){
+			focusDistance = Info[0];
+			angle = Info[1];
+		}
+	}
+}

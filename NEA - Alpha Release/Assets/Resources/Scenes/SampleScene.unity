@@ -26986,9 +26986,11 @@ GameObject:
   - component: {fileID: 1909426396}
   - component: {fileID: 1909426395}
   - component: {fileID: 1909426394}
+  - component: {fileID: 1909426398}
+  - component: {fileID: 1909426399}
   m_Layer: 0
   m_Name: Chick_0
-  m_TagString: Untagged
+  m_TagString: Pet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27007,12 +27009,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1909426395
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27097,6 +27099,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1909426398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1909426393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9f0332d8a858248b444fecef23890e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 0
+  speed: 0
+  baseSpeed: 0
+--- !u!114 &1909426399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1909426393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cfdd3d95223b9498082419b99326d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focusDistance: 0
+  angle: 0
 --- !u!1 &1910436556
 GameObject:
   m_ObjectHideFlags: 0
