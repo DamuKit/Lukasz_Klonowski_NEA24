@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61112489003321930}
   - component: {fileID: 114198206148179026}
   - component: {fileID: 50260474486748148}
+  - component: {fileID: 114474319838591866}
   m_Layer: 2
   m_Name: E001BlueSlime
   m_TagString: Enemy
@@ -189,12 +190,25 @@ MonoBehaviour:
   roomLoader: {fileID: 0}
   player: {fileID: 0}
   Cam: {fileID: 0}
+  angle: 0
   statVariance: 0
   baseSpeed: 0
   speed: 0
   health: 0
   damage: 0
   HPBar: {fileID: 0}
+  IVTime: 0
+--- !u!114 &114474319838591866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797875895400032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a2a28db0a14274fa1580fee8e55c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212110727000358276
 SpriteRenderer:
   m_ObjectHideFlags: 1

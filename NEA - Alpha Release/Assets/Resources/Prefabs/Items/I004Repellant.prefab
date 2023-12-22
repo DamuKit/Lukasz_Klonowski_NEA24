@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212747032352879112}
   - component: {fileID: 114353228063703942}
   - component: {fileID: 61687853509264196}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: I004Repellant
   m_TagString: Untagged
   m_Icon: {fileID: 0}

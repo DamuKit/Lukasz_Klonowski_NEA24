@@ -2357,6 +2357,10 @@ Prefab:
       propertyPath: m_Name
       value: I1000007Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 1945931186421532, guid: db014429912299a4091245de7122251f, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db014429912299a4091245de7122251f, type: 2}
   m_IsPrefabAsset: 0
@@ -2617,6 +2621,10 @@ Prefab:
     - target: {fileID: 1407423697648692, guid: e35089f3331da554c90ebb0c82d65562, type: 2}
       propertyPath: m_Name
       value: I1010000Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407423697648692, guid: e35089f3331da554c90ebb0c82d65562, type: 2}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35089f3331da554c90ebb0c82d65562, type: 2}
@@ -20143,6 +20151,10 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1149841209826248, guid: 6b059ccbed683244087a573af2125c9b, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b059ccbed683244087a573af2125c9b, type: 2}
   m_IsPrefabAsset: 0
@@ -27093,7 +27105,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1909426393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.887659, y: -2.6499586, z: 0}
+  m_LocalPosition: {x: 7.75, y: -2.302, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -27113,6 +27125,8 @@ MonoBehaviour:
   angle: 0
   speed: 0
   baseSpeed: 0
+  Damage: 0
+  camMov: {fileID: 0}
 --- !u!114 &1909426399
 MonoBehaviour:
   m_ObjectHideFlags: 0
