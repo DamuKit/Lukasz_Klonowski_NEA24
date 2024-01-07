@@ -90,6 +90,7 @@ public class Attacking : MonoBehaviour {
 			}
 
 	}
+
 	public void Interact(int slot){
 		try{
 			switch(invBeh.Locations[slot].Substring(0,1)){
@@ -101,6 +102,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "026");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "026" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Consume"));
 							playerMovement.SendMessage ("itemEffect", int.Parse(invBeh.Locations[slot].Substring(0,3)));
 							invBeh.Locations[slot] = invBeh.Locations[slot].Substring(0,3) + (int.Parse(invBeh.Locations[slot].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
@@ -120,6 +122,7 @@ public class Attacking : MonoBehaviour {
 				if(cooldown == false){
 					if(invBeh.Locations[slot].Substring(0,3) == "100"){
 						Attack = true;
+						StartCoroutine ("Cooldown", 0.8f);
 						counter = attackduration;
 						playerMovement.SendMessage ("attack");
 						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
@@ -128,8 +131,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.8f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -152,8 +154,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 1.2f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -166,8 +167,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 1f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -180,8 +180,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 3f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -196,8 +195,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 3f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -212,8 +210,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.1f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -226,8 +223,7 @@ public class Attacking : MonoBehaviour {
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
-
-							cooldown = false;
+							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.1f);
 							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
@@ -235,6 +231,34 @@ public class Attacking : MonoBehaviour {
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
 							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "110"){
+						Attack = true;
+						StartCoroutine ("Cooldown", 0.6f);
+						counter = attackduration;
+						playerMovement.SendMessage ("attack");
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "111"){
+						Attack = true;
+						StartCoroutine ("Cooldown", 1f);
+						counter = attackduration;
+						playerMovement.SendMessage ("attack");
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "112"){
+						Attack = true;
+						StartCoroutine ("Cooldown", 1.5f);
+						counter = attackduration;
+						playerMovement.SendMessage ("attack");
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "113"){
+						Attack = true;
+						StartCoroutine ("Cooldown", 0.5f);
+						counter = attackduration;
+						playerMovement.SendMessage ("attack");
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
 					}
 
 				}

@@ -57,7 +57,7 @@ BoxCollider2D:
   m_Offset: {x: 0.016710073, y: 0.014780939}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.532012, y: 0.5289306}
     oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
@@ -78,6 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bac81293eab74489fc6af8a6498210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishing: 0
+  destroy: 0
+  Water: {fileID: 0}
+  catching: 0
 --- !u!212 &212534657904983590
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -112,7 +116,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300030, guid: d1e0fc5493a79f94595bd680b19d03a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

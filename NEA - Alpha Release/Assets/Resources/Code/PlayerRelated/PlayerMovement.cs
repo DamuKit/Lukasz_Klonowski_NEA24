@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	public CameraMovement camMov;
 	public GameObject Slime;
 	string direction;
-	bool moving;
+	public bool moving;
 	public bool dashing;
 	public float camerasizex;
 	public float camerasizey;
@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour {
 		switch (item) {
 
 		case(1):
-			hp += 25;
+			hp += 0.15f * maxhp;
 			if (hp > maxhp) {
 				hp = maxhp;
 			}
@@ -393,38 +393,62 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	public void GunCrate(float p){
 		if (p < 0.15) {
-			InvBeh.items.Enqueue ("102N" + DmgCalc());
+			InvBeh.items.Enqueue ("102N" + DmgCalc(1));
 		} else if (p < 0.3) {
-			InvBeh.items.Enqueue ("104N" + DmgCalc());
+			InvBeh.items.Enqueue ("104N" + DmgCalc(1));
 		} else if (p < 0.4) {
-			InvBeh.items.Enqueue ("105N" + DmgCalc());
+			InvBeh.items.Enqueue ("105N" + DmgCalc(1));
 		} else if (p < 0.55) {
-			InvBeh.items.Enqueue ("106N" + DmgCalc());
+			InvBeh.items.Enqueue ("106N" + DmgCalc(1));
 		} else if (p < 0.7) {
-			InvBeh.items.Enqueue ("107N" + DmgCalc());
+			InvBeh.items.Enqueue ("107N" + DmgCalc(1));
 		} else if (p < 0.85) {
-			InvBeh.items.Enqueue ("108N" + DmgCalc());
+			InvBeh.items.Enqueue ("108N" + DmgCalc(1));
 		} else if (p < 1) {
-			InvBeh.items.Enqueue ("109N" + DmgCalc());
+			InvBeh.items.Enqueue ("109N" + DmgCalc(1));
 		} 
 		InvBeh.items.Enqueue ("021" + (Random.Range (30, 90) + 1000).ToString ().Substring (1, 3));
 	}
 	public void MeleeCrate(float p){
-
+		if (p < 0.3) {
+			InvBeh.items.Enqueue ("100N" + DmgCalc (2));
+		} else if (p < 0.35) {
+			InvBeh.items.Enqueue ("110N" + DmgCalc (3));
+		} else if (p < 0.5) {
+			InvBeh.items.Enqueue ("111N" + DmgCalc (2.5f));
+		} else if (p < 0.65) {
+			InvBeh.items.Enqueue ("112N" + DmgCalc (3));
+		} else if (p < 0.86) {
+			InvBeh.items.Enqueue ("113N" + DmgCalc (1.5f));
+		} else if (p < 1) {
+			InvBeh.items.Enqueue ("101N" + DmgCalc (1));
+		} 
 	}
 	public void PotionCrate(float p){
-
+		if (p < 0.25) {
+			InvBeh.items.Enqueue ("001" + "005");
+		} else if (p < 0.5) {
+			InvBeh.items.Enqueue ("002" + "005");
+		} else if (p < 0.75) {
+			InvBeh.items.Enqueue ("003" + "005");
+		} else if (p < 1) {
+			InvBeh.items.Enqueue ("004" + "005");
+		}
 	}
 	public void RandomCrate(float p){
-		
+		if (p > 0.5) {
+			InvBeh.items.Enqueue (Random.Range(100,113).ToString() + "N" + DmgCalc (Random.Range(10,50)*0.1f));
+		} else {
+			InvBeh.items.Enqueue (Random.Range(001,026).ToString("D3") + Random.Range(1,50).ToString("D3"));
+		}
 	}
 
-	public string DmgCalc(){
+	public string DmgCalc(float multiplier){
 		if((Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ().Length <3){
-			return(((Mathf.RoundToInt(level * 0.2f * interact.damage + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ("D3"));
+			return(((Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier)).ToString ("D3"));
 		}
 		else{
-			return(((Mathf.RoundToInt(level * 0.2f * interact.damage + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ("G3"));
+			return(((Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier)).ToString ("G3"));
 		}
 	}
 
