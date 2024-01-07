@@ -24,11 +24,11 @@ public class InventoryBehaviour : MonoBehaviour {
 		camMov = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement> ();
 
 		for (int x = 0; x < 83; x++) {
-			Locations.Add ("");
+			Locations.Add ("0000000000");
 
 		}
 		for (int x = 0; x < 83; x++) {
-			PlaceHolder.Add ("");
+			PlaceHolder.Add ("0000000000");
 
 		}
 		//PlaceHolder = Locations;
@@ -44,6 +44,7 @@ public class InventoryBehaviour : MonoBehaviour {
 		//items.Enqueue ("101N0000");
 
 		items.Enqueue ("102N0000");
+		items.Enqueue ("103N0000");
 		items.Enqueue ("001034");
 		items.Enqueue ("002034");
 		items.Enqueue ("003034");
@@ -77,7 +78,7 @@ public class InventoryBehaviour : MonoBehaviour {
 						for(int x = 0;x<=77;x++){
 							try{
 								if(placeHolder2[x].Substring(0,3) == items.Peek().Substring(0,3) & int.Parse(placeHolder2[x].Substring(3,3)) >= stats.stackLimit){
-									placeHolder2[x] = "";
+									placeHolder2[x] = "0000000000";
 									Debug.Log("---------------------");
 								}
 								if(placeHolder2[x].Substring(0,3) == items.Peek().Substring(0,3) & int.Parse(placeHolder2[x].Substring(3,3)) < stats.stackLimit){
@@ -122,12 +123,12 @@ public class InventoryBehaviour : MonoBehaviour {
 					swapPosition = location;
 				}
 				else{
-					Locations [Locations.FindIndex (a => a == "")] = items.Peek ();
+					Locations [Locations.FindIndex (a => a == "0000000000")] = items.Peek ();
 					Debug.Log("fail");
 				}
 			}
 			catch{
-				Locations [Locations.FindIndex (a => a == "")] = items.Peek ();
+				Locations [Locations.FindIndex (a => a == "0000000000")] = items.Peek ();
 				Debug.Log("fail");
 			}
 			location = 0;
@@ -213,15 +214,18 @@ public class InventoryBehaviour : MonoBehaviour {
 				}
 			}*/
 		}
-		//Debug.Log (Locations.FindAll (a => a != "").Count);
+		//Debug.Log (Locations.FindAll (a => a != "0000000000").Count);
 		//Debug.Log (this.gameObject.transform.childCount - 1);
-		if (Locations.FindAll (a => a != "").Count > this.gameObject.transform.childCount - 1) {
-			Debug.Log (Locations.FindAll (a => a != "").Count);
+		if (Locations.FindAll (a => a != "0000000000").Count > this.gameObject.transform.childCount - 1) {
+			Debug.Log (Locations.FindAll (a => a != "0000000000").Count);
 			for (int x = 0; x < 77; x++) {
 				if(Locations[x] != PlaceHolder[x]){
 					Instantiate(Resources.Load<GameObject>("Prefabs/UI/item"),new Vector2(Mathf.RoundToInt(x % 11)-11 + camMov.locX * 24 , (Mathf.RoundToInt(x / 11) - 4)*-1 + camMov.locY * 16 + 1000 * stats.pause),Quaternion.identity, this.gameObject.transform);
 					PlaceHolder[x] = Locations[x];
 					break;
+				}
+				if (Locations [x].Substring (0, 3) == "000" & Locations [x].Length < 10) {
+					Locations[x] = "0000000000";
 				}
 			}
 		}

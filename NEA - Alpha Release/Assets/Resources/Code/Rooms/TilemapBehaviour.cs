@@ -26,6 +26,7 @@ public class TilemapBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (j == 20) {
 			if (cycleA <= 3) {
 				for (int i = TilesA.Count - 2; i >= 0; i -= 1) { 

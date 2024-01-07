@@ -50,7 +50,8 @@ public class ItemMoving : MonoBehaviour {
 		}
 
 
-		if (currentItem != invBeh.Locations [currentPosition]) {
+		if (currentItem != invBeh.Locations [currentPosition] & Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4 > -100) {
+			
 			ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
 			ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
 			Debug.Log (ISLY);
@@ -125,7 +126,7 @@ public class ItemMoving : MonoBehaviour {
 						if (int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) <= stats.stackLimit) {
 							invBeh.Locations [currentPosition] = invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 1000).ToString ()).Substring (1, 3);
 							invBeh.swapPosition = currentPosition;
-							invBeh.Locations [positionInList] = "";
+							invBeh.Locations [positionInList] = "0000000000";
 
 							Destroy (this.gameObject);
 						} else {
@@ -151,7 +152,7 @@ public class ItemMoving : MonoBehaviour {
 
 						}
 						//invBeh.swapPosition = currentPosition;
-						//invBeh.Locations [positionInList] = "";
+						//invBeh.Locations [positionInList] = "0000000000";
 
 						//Destroy (this.gameObject);
 					}
@@ -200,7 +201,7 @@ public class ItemMoving : MonoBehaviour {
 			}
 		}
 		if (currentItem.Substring (3, 3) == "000") {
-			invBeh.Locations [currentPosition] = "";
+			invBeh.Locations [currentPosition] = "0000000000";
 			Destroy (this.gameObject);
 		}
 		if (currentPosition == invBeh.MainHandPosition + 77 ) {

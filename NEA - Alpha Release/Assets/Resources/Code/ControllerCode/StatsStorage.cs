@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StatsStorage : MonoBehaviour {
+	public AudioSource m_audio;
+	int musicstate;
 	public int Difficulty;
 	public int localDifficulty;
 	public int points;
@@ -25,7 +27,7 @@ public class StatsStorage : MonoBehaviour {
 	public bool holding;
 	public int stackLimit;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
-	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,90/*75*/,45,7,15,5},{2,100/*100*/,90,30,5,2},{3,0,3,10,15,2},{99999,999,999,999,999,999}};
+	public int[,] Enemies = new int[,] {{26,60/*50*/,20,5,10,3},{1,90/*75*/,45,7,15,5},{2,100/*100*/,90,30,5,2},{3,0,3,10,15,2},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
 	public int[,] Rooms = new int[,] {
 		{000,02,11102,10505,11102,10702,0,1,2,1,2},
@@ -47,9 +49,19 @@ public class StatsStorage : MonoBehaviour {
 	/* array listing item IDs, item chance*/
 	public int[,] Items = new int[,] {{0,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,0000,0}};
 
-
+	public float Master;
+	public float Music;
+	public float SFX;
 	// Use this for initialization
 	void Start () {
+		Master = 0.5f;
+		Music = 1;
+		SFX = 1;
+		musicstate = 1;
+		m_audio = this.gameObject.GetComponent<AudioSource> ();
+		m_audio.loop = true;
+		m_audio.clip = Resources.Load<AudioClip> ("Audio/music/Theme2");
+		m_audio.Play ();
 		menu = 1;
 		stackLimit = 68;
 		gameSpeed = 1;
@@ -82,6 +94,8 @@ public class StatsStorage : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		m_audio.volume = Master * Music;
+
 		if (refreshSeed != seed) {
 			refreshSeed = seed;
 			Random.InitState (seed);
@@ -90,6 +104,29 @@ public class StatsStorage : MonoBehaviour {
 		if (RandomValues.Count < 10) {
 			RandomValues.Add (Random.value);
 			Debug.Log (RandomValues [RandomValues.Count - 1] + " " + (RandomValues.Count - 1));
+		}
+
+		if (musicstate == 0 & GameObject.Find ("Enemies").transform.childCount > 0) {
+			m_audio.Stop ();
+			musicstate = 1;
+			if (RandomValues [0] < 0.5) {
+				m_audio.clip = Resources.Load<AudioClip> ("Audio/music/BattleTheme1");
+			} else {
+				m_audio.clip = Resources.Load<AudioClip> ("Audio/music/BattleTheme2");
+			}
+			m_audio.clip = Resources.Load<AudioClip> ("Audio/music/BattleTheme2");
+			m_audio.Play ();
+		}
+		else if(musicstate == 1 & GameObject.Find ("Enemies").transform.childCount == 0){
+			m_audio.Stop ();
+			musicstate = 0;
+			if (RandomValues [0] < 0.5) {
+				m_audio.clip = Resources.Load<AudioClip> ("Audio/music/Theme1");
+			} else {
+				m_audio.clip = Resources.Load<AudioClip> ("Audio/music/Theme2");
+			}
+
+			m_audio.Play ();
 		}
 	}
 }

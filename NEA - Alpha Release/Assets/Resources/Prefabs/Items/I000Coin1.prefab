@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  Player: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!212 &212540732608938732
 SpriteRenderer:
   m_ObjectHideFlags: 1

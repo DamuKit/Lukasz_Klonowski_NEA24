@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
+	public AudioSource m_audio;
 	public float angle;
 	float dashDirection;
 	float speed;
@@ -35,11 +36,17 @@ public class PlayerMovement : MonoBehaviour {
 	int repellantStack;
 	public bool wither;
 	public bool confused;
+	InventoryBehaviour InvBeh;
 
 	float speedbuff;
 
 	// Use this for initialization
 	void Start () {
+		InvBeh = GameObject.Find ("Inventory").GetComponent<InventoryBehaviour> ();
+		m_audio = this.gameObject.GetComponent<AudioSource> ();
+
+		//m_audio.clip = Resources.Load<AudioClip>("Prefabs/Audio/hitHurt.wav");
+		//m_audio.PlayOneShot(Resources.Load<AudioClip>("Prefabs/Audio/hitHurt.wav"));
 		interact = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		speedbuff = 0;
 		speed = 0.05f;
@@ -70,6 +77,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		m_audio.volume = stats.Master * stats.SFX;
+
+		
 		if (stats.pause == 1 & wither == true) {
 			hp -= maxhp * 0.01f * Time.deltaTime;
 		}
@@ -245,16 +255,18 @@ public class PlayerMovement : MonoBehaviour {
 			xp -= level * level * 0.03f+ 100;
 			level += 1;
 			Debug.Log ("Level Up!");
-			GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damage += 0.25f;
+			interact.damage += 0.25f;
 			hp*= 1.1f;
 			maxhp *= 1.005f;
 			gameObject.GetComponent<ParticleSystem> ().Play ();
+			m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/LevelUp"));
 		}
 	}
 	public void Damaged(int damage) {
 		if (invincible == false) {
 			hp -= damage;
 			ivFrames = true;
+			m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/hitHurt"));
 		}
 	}
 	/* This function provides the angle of the mouse cursor from the character.*/
@@ -285,9 +297,7 @@ public class PlayerMovement : MonoBehaviour {
 	void itemEffect(int item){
 		
 		switch (item) {
-		case(0):
-			Debug.Log ("You Earned a Coin! Now time to Gamble!");
-			break;
+
 		case(1):
 			hp += 25;
 			if (hp > maxhp) {
@@ -303,7 +313,67 @@ public class PlayerMovement : MonoBehaviour {
 		case(4):
 			StartCoroutine ("repellantBuff");
 			break;
+
+		case(6):
+			//StartCoroutine ("-");
+			break;
+		case(7):
+			//StartCoroutine ("-");
+			break;
+		case(8):
+			//StartCoroutine ("-");
+			break;
+		case(9):
+			//StartCoroutine ("-");
+			break;
+		case(10):
+			//StartCoroutine ("-");
+			break;
+		case(11):
+			//StartCoroutine ("-");
+			break;
+		case(12):
+			//StartCoroutine ("-");
+			break;
+		case(13):
+			//StartCoroutine ("-");
+			break;
+		case(14):
+			//StartCoroutine ("-");
+			break;
+		case(15):
+			//StartCoroutine ("-");
+			break;
+		case(16):
+			//StartCoroutine ("-");
+			break;
+		case(17):
+			//StartCoroutine ("-");
+			break;
+		case(18):
+			//StartCoroutine ("-");
+			break;
+		case(19):
+			//StartCoroutine ("-");
+			break;
+		case(20):
+			//StartCoroutine ("-");
+			break;
+
+		case(22):
+			GunCrate (Random.value);
+			break;
+		case(23):
+			MeleeCrate (Random.value);
+			break;
+		case(24):
+			PotionCrate (Random.value);
+			break;
+		case(25):
+			RandomCrate (Random.value);
+			break;
 		}
+
 
 	}
 	void Debuff(int debuff){
@@ -321,6 +391,43 @@ public class PlayerMovement : MonoBehaviour {
 			break;
 		}
 	}
+	public void GunCrate(float p){
+		if (p < 0.15) {
+			InvBeh.items.Enqueue ("102N" + DmgCalc());
+		} else if (p < 0.3) {
+			InvBeh.items.Enqueue ("104N" + DmgCalc());
+		} else if (p < 0.4) {
+			InvBeh.items.Enqueue ("105N" + DmgCalc());
+		} else if (p < 0.55) {
+			InvBeh.items.Enqueue ("106N" + DmgCalc());
+		} else if (p < 0.7) {
+			InvBeh.items.Enqueue ("107N" + DmgCalc());
+		} else if (p < 0.85) {
+			InvBeh.items.Enqueue ("108N" + DmgCalc());
+		} else if (p < 1) {
+			InvBeh.items.Enqueue ("109N" + DmgCalc());
+		} 
+		InvBeh.items.Enqueue ("021" + (Random.Range (30, 90) + 1000).ToString ().Substring (1, 3));
+	}
+	public void MeleeCrate(float p){
+
+	}
+	public void PotionCrate(float p){
+
+	}
+	public void RandomCrate(float p){
+		
+	}
+
+	public string DmgCalc(){
+		if((Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ().Length <3){
+			return(((Mathf.RoundToInt(level * 0.2f * interact.damage + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ("D3"));
+		}
+		else{
+			return(((Mathf.RoundToInt(level * 0.2f * interact.damage + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ("G3"));
+		}
+	}
+
 	public IEnumerator damageBuff(){
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
 		yield return new WaitForSeconds (10f);

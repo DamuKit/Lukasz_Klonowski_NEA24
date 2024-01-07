@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionDestructible : MonoBehaviour {
+	PlayerMovement Player;
 	public Attacking attack;
 	int health;
 	bool IV;
 	public EnemyHealth HPBar;
 	// Use this for initialization
 	void Start () {
+		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		health = 20;
@@ -18,6 +20,7 @@ public class CollisionDestructible : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (health <= 0) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			Destroy (this.gameObject);
 		}
 	}
@@ -25,6 +28,7 @@ public class CollisionDestructible : MonoBehaviour {
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (IV == false) {
+				Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
 				StartCoroutine ("Damaged");
 				health -= Mathf.RoundToInt (attack.damage);
 			}

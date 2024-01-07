@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DestructibleGrave : MonoBehaviour {
+	PlayerMovement Player;
 	int health;
 	bool IV;
 	public Attacking attack;
@@ -10,6 +11,7 @@ public class DestructibleGrave : MonoBehaviour {
 	public EnemyHealth HPBar;
 	// Use this for initialization
 	void Start () {
+		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		IV = false;
@@ -24,12 +26,14 @@ public class DestructibleGrave : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 		}
 		if (health <= 0) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			Destroy (this.gameObject);
 		}
 		HPBar.SendMessage ("HealthReport", health);
 	}
 	void damaged(int dmg) {
 		if (IV == false) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
 			Debug.Log ("damaged");
 
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;

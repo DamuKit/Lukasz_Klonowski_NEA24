@@ -18,8 +18,12 @@ public class Attacking : MonoBehaviour {
 	public bool cooldown;
 	Vector3 Position;
 	public float[] ProjectileStats = new float[] {0,0,0,0,0,0};
+	public bool fishing;
+	GameObject Bobber;
+	public int location;
 	// Use this for initialization
 	void Start () {
+		Bobber = Resources.Load<GameObject> ("Prefabs/UI/Bobber");
 		shieldWield = false;
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		playerMovement = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
@@ -32,8 +36,8 @@ public class Attacking : MonoBehaviour {
 		weaponDamage = 0;
 		dashtest = false;
 		cooldown = false;
-
-
+		fishing = false;
+		location = 0;
 
 	}
 	
@@ -90,9 +94,24 @@ public class Attacking : MonoBehaviour {
 		try{
 			switch(invBeh.Locations[slot].Substring(0,1)){
 			case("0"):
-				if(invBeh.Locations[slot].Substring(0,3) == "000"){
+				if(invBeh.Locations[slot].Substring(0,3) == "026" | invBeh.Locations[slot].Substring(0,3) == "005"){
+				}
+				else if(invBeh.Locations[slot].Substring(0,3) == "022" || invBeh.Locations[slot].Substring(0,3) == "023" || invBeh.Locations[slot].Substring(0,3) == "024" || invBeh.Locations[slot].Substring(0,3) == "025"){
+					try{
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "026");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "026" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Consume"));
+							playerMovement.SendMessage ("itemEffect", int.Parse(invBeh.Locations[slot].Substring(0,3)));
+							invBeh.Locations[slot] = invBeh.Locations[slot].Substring(0,3) + (int.Parse(invBeh.Locations[slot].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+						}
+					}
+					catch{
+							
+						}
 				}
 				else{
+					playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Consume"));
 					playerMovement.SendMessage ("itemEffect", int.Parse(invBeh.Locations[slot].Substring(0,3)));
 					invBeh.Locations[slot] = invBeh.Locations[slot].Substring(0,3) + (int.Parse(invBeh.Locations[slot].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 				}
@@ -106,17 +125,118 @@ public class Attacking : MonoBehaviour {
 						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
 					}
 					if(invBeh.Locations[slot].Substring(0,3) == "102"){
-						cooldown = false;
-						StartCoroutine ("Cooldown", 1f);
-						Debug.Log("A");
-						ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),10,10,0,0,1};
-						Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
-						Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
-						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
-						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
-						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
-						//Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 0.8f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),10,10,0,0,1};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
 					}
+					if(invBeh.Locations[slot].Substring(0,3) == "103"){
+						if(fishing == false){
+							fishing = true;
+
+							Instantiate(Bobber,this.gameObject.transform.position + (transform.up * -2), Quaternion.identity);
+						}
+						else{
+							GameObject.Find("Bobber(Clone)").GetComponent<FishingBobber>().catching = true;
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "104"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 1.2f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),3,15,0,0,0};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "105"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 1f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),13,8,0,1,1};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "106"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 3f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),15,15,-2,0,1};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "107"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 3f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),5,10,0,0,1};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "108"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 0.1f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),5,7,1,0,0};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+					if(invBeh.Locations[slot].Substring(0,3) == "109"){
+						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
+						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
+							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+
+							cooldown = false;
+							StartCoroutine ("Cooldown", 0.1f);
+							Debug.Log("A");
+							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
+							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),15,10,-1,2,2};
+							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
+							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
+						}
+					}
+
 				}
 				break;
 			case("2"):

@@ -272,22 +272,22 @@ public class TextboxController : MonoBehaviour {
 						case("give"):
 							try{
 								if(inputElements [2].Substring(3,1) == "N"){
-									if((int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 102 & int.Parse(inputElements [2].Substring(4,4)) >= 0000)){
+									if((int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 199 & int.Parse(inputElements [2].Substring(4,4)) >= 0000)){
 									GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
 									textbox.Add ("Given " + inputElements [2]);
 									}
-									else if(int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 102){
+									else if(int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 199){
 										textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
 									}
 									else{
 										textbox.Add ("Failed to give " + inputElements [2] + ": Not Real.");
 									}
 								}
-								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 4 & int.Parse(inputElements [2].Substring(3,3)) >= 0){
+								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 99 & int.Parse(inputElements [2].Substring(3,3)) >= 0){
 										GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
 										textbox.Add ("Given " + inputElements [2]);
 									}
-								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 4){
+								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 99){
 									textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
 								}
 								else{

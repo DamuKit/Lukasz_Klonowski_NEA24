@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SlimeMovement : MonoBehaviour {
+	
 	bool onscreen = false;
 	public StatsStorage stats;
 	public Attacking attack;
@@ -29,6 +30,7 @@ public class SlimeMovement : MonoBehaviour {
 	public bool IVTime;
 	// Use this for initialization
 	void Start () {
+		
 		IVTime = false;
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -156,6 +158,7 @@ public class SlimeMovement : MonoBehaviour {
 			health = -10;
 		}
 		if (health <= 0) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
 			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
@@ -171,6 +174,7 @@ public class SlimeMovement : MonoBehaviour {
 
 	void damaged(int dmg) {
 		if (IV == false) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
 			Debug.Log ("damaged");
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			health -= dmg;
@@ -183,7 +187,7 @@ public class SlimeMovement : MonoBehaviour {
 	public IEnumerator Invincibility(){
 		IV = true;
 		IVTime = true;
-		yield return new WaitForSeconds (0.25f);
+		yield return new WaitForSeconds (0.35f);
 		IVTime = false;
 	}
 }

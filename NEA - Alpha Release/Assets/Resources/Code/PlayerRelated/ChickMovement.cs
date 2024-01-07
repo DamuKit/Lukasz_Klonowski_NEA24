@@ -22,7 +22,7 @@ public class ChickMovement : MonoBehaviour {
 		interaction = this.gameObject.GetComponent<PetInteraction> ();
 		baseSpeed = 2.5f;
 		angle = -10;
-		Damage = 5;
+		Damage = 4;
 		location = "0.0";
 		wonder = false;
 		delay = 0;

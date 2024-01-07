@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NecromancerBehaviour : MonoBehaviour {
+	
 	bool onscreen = false;
 	public StatsStorage stats;
 	public Attacking attack;
@@ -29,6 +30,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 	public bool IVTime;
 	// Use this for initialization
 	void Start () {
+		
 		IVTime = false;
 		Animation = this.gameObject.GetComponent<Animator> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
@@ -166,6 +168,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 			health = -10;
 		}
 		if (health <= 0) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
 			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
@@ -177,6 +180,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 
 	void damaged(int dmg) {
 		if (IV == false) {
+			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
 			Debug.Log ("damaged");
 			if (summoning == true) {
 				summoning = false;
@@ -206,7 +210,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 	public IEnumerator Invincibility(){
 		IV = true;
 		IVTime = true;
-		yield return new WaitForSeconds (0.25f);
+		yield return new WaitForSeconds (0.35f);
 		IVTime = false;
 	}
 }

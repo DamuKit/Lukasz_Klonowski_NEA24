@@ -201,6 +201,7 @@ MonoBehaviour:
   roomLoader: {fileID: 0}
   player: {fileID: 1735780680989752, guid: f7ea1fb6511db0347a7830ee02fc24f7, type: 2}
   Cam: {fileID: 0}
+  angle: 0
   statVariance: 0
   baseSpeed: 10
   speed: 10
