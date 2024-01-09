@@ -230,6 +230,10 @@ public class TextboxController : MonoBehaviour {
 										textbox.Add ("I thought it would be amusing to watch you waste your time");
 										textbox.Add ("And it was");
 										break;
+									case(101):
+										stats.Achievements[1,2] = "T";
+										textbox.Add ("Just kidding, Achievements are in the menu.");
+										break;
 									default:
 										textbox.Add ("Cheater's health successfully remains indifferent");
 										break;

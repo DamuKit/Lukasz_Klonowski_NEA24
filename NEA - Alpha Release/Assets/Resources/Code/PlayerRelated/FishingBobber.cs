@@ -69,23 +69,33 @@ public class FishingBobber : MonoBehaviour {
 					InitialFishCatch = true;
 					player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Fished1"));
 					fish = Random.value;
+					stats.FishingState = 0;
+					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
+
 				}
 				this.gameObject.transform.Rotate (0, 0, Mathf.Sin (duration * 5) * 10);
 				if (catching == true) {
 					GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
 					Debug.Log ("Catch");
 					caught ();
+					stats.FishingState = 1;
+					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
 
 				}
 				if (duration > fishTime + 3) {
 					fish = Random.Range (50, 150) * 0.1f;
 					duration = 0;
 					InitialFishCatch = false;
+					stats.FishingState = 2;
+					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
+
 				}
 			} else {
 				if (catching == true) {
 					GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
 					Debug.Log ("Didnt Catch");
+					stats.FishingState = 2;
+					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
 					Destroy (this.gameObject);
 				}
 			}

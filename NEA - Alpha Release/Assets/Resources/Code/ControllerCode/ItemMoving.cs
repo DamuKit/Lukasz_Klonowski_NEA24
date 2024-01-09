@@ -18,9 +18,13 @@ public class ItemMoving : MonoBehaviour {
 	Animator Animation;
 	bool hidden;
 	string pH2;
+	float Describe;
+	bool Described;
 
 	// Use this for initialization
 	void Start () {
+		Describe = 0;
+		Described = false;
 		hidden = true;
 		Animation = GetComponent<Animator>();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -38,6 +42,31 @@ public class ItemMoving : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		if (Input.GetKey (KeyCode.Mouse0) == false & stats.pause == 0 & stats.menu == 1 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5) {
+			if (Describe < 1) {
+				Describe += 1 * Time.deltaTime;
+				if (GameObject.Find ("Cursor").GetComponent<Cursor> ().Displaying > 0) {
+					Describe = 1;
+				}
+			} else if (Described == false) {
+				GameObject.Find ("Cursor").SendMessage ("Describe", currentItem);
+				Described = true;
+			}
+		}
+		else{
+			
+			if (Describe > 0) {
+				Describe = 0;
+			}
+			if (Described == true & Describe < 3) {
+				GameObject.Find ("Cursor").SendMessage ("stop");
+				Described = false;
+			}
+		}
+
+
+
 		pH2 = "0";
 
 		if (currentPosition < 0) {

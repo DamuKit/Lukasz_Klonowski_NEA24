@@ -21,8 +21,10 @@ public class Attacking : MonoBehaviour {
 	public bool fishing;
 	GameObject Bobber;
 	public int location;
+	float Defend;
 	// Use this for initialization
 	void Start () {
+		Defend = 0;
 		Bobber = Resources.Load<GameObject> ("Prefabs/UI/Bobber");
 		shieldWield = false;
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -88,7 +90,12 @@ public class Attacking : MonoBehaviour {
 			if(counter >0){
 				counter -= 1 * Time.deltaTime;
 			}
-
+		if (Defend > 0) {
+			Defend -= Defend * Time.deltaTime;
+			if (Defend <= 0) {
+				playerMovement.SendMessage ("Shield", 0);
+			}
+		}
 	}
 
 	public void Interact(int slot){
@@ -127,6 +134,12 @@ public class Attacking : MonoBehaviour {
 						playerMovement.SendMessage ("attack");
 						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
 					}
+					if(invBeh.Locations[slot].Substring(0,3) == "101"){
+						Defend = 3;
+						StartCoroutine ("Cooldown", 0.4f);
+						playerMovement.SendMessage ("Shield",Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)));
+						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
+					}
 					if(invBeh.Locations[slot].Substring(0,3) == "102"){
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
@@ -143,7 +156,6 @@ public class Attacking : MonoBehaviour {
 					if(invBeh.Locations[slot].Substring(0,3) == "103"){
 						if(fishing == false){
 							fishing = true;
-
 							Instantiate(Bobber,this.gameObject.transform.position + (transform.up * -2), Quaternion.identity);
 						}
 						else{

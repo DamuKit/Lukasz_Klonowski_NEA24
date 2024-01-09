@@ -26,6 +26,7 @@ public class StatsStorage : MonoBehaviour {
 	public int menu;
 	public bool holding;
 	public int stackLimit;
+	public int FishingState;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,75/*75*/,45,7,15,5},{2,90/*100*/,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
@@ -46,6 +47,13 @@ public class StatsStorage : MonoBehaviour {
 		{013,00,00000,00000,00000,11002,0,0,0,0,1},
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
+	public string[,] Achievements = new string[,] {
+		{"Kill an enemy","successfully Killed an enemy","F"},
+		{"Hidden Achievement?","Successfully spammed the textbox with commands","F"},
+		{"","",""},
+		{"","",""}
+	};
+
 	/* array listing item IDs, item chance*/
 	public int[,] Items = new int[,] {{26,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,0000,0}};
 
@@ -54,6 +62,7 @@ public class StatsStorage : MonoBehaviour {
 	public float SFX;
 	// Use this for initialization
 	void Start () {
+		FishingState = 0;
 		Master = 0.5f;
 		Music = 1;
 		SFX = 1;
@@ -67,7 +76,7 @@ public class StatsStorage : MonoBehaviour {
 		stackLimit = 68;
 		gameSpeed = 1;
 		killall = false;
-		seed = 0;
+		seed = Random.Range(0,10000);
 		//Rooms.Add(Resources.Load("Prefabs/Room/Room_" + "1") as GameObject);
 		RoomID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Room"));
 		EnemyID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Enemies"));

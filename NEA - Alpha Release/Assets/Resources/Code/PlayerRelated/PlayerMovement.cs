@@ -37,11 +37,13 @@ public class PlayerMovement : MonoBehaviour {
 	public bool wither;
 	public bool confused;
 	InventoryBehaviour InvBeh;
+	public float Defence;
 
 	float speedbuff;
 
 	// Use this for initialization
 	void Start () {
+		Defence = 0;
 		InvBeh = GameObject.Find ("Inventory").GetComponent<InventoryBehaviour> ();
 		m_audio = this.gameObject.GetComponent<AudioSource> ();
 
@@ -264,6 +266,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	public void Damaged(int damage) {
 		if (invincible == false) {
+			if (damage > 2 *Defence) {
+				hp -= (damage - Defence);
+			} else {
+				hp -= damage * 0.5f;
+			}
 			hp -= damage;
 			ivFrames = true;
 			m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/hitHurt"));
@@ -293,6 +300,9 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	void attack(){
 		Animation.Play ("Attack");
+	}
+	void Shield(float p){
+		Defence = p;
 	}
 	void itemEffect(int item){
 		
