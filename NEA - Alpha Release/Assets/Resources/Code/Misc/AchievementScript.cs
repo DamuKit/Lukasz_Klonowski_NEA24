@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class AchievementScript : MonoBehaviour {
 	TMP_Text Text;
 	StatsStorage stats;
+	Color Default;
 
 	// Use this for initialization
 	void Start () {
 		if (this.gameObject.name == "AchievementsText") {
 			Text = this.GetComponent<TMP_Text> ();
+			Text.outlineColor = Color.green;
+			Default = Text.faceColor;
 		}
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 	}
@@ -21,6 +24,7 @@ public class AchievementScript : MonoBehaviour {
 		if (this.gameObject.name == "AchievementsText") {
 			if (stats.menu == 1) {
 				Text.SetText ("Achievements");
+				Text.faceColor = Default;
 			}
 		} else {
 			if (stats.Achievements [int.Parse (this.gameObject.name.Substring (0, 3)), 2] == "T") {
@@ -32,9 +36,18 @@ public class AchievementScript : MonoBehaviour {
 	}
 	public void updateText(int ID){
 		if(stats.Achievements[ID,2] == "T"){
-			Text.SetText (stats.Achievements[ID,1]);
+			if(stats.Achievements[ID,1] == ""){
+				Text.SetText (stats.Achievements[ID,0]);
+			}else{
+				Text.SetText (stats.Achievements[ID,1]);
+			}
+			Text.faceColor = new Color32(42, 204, 0, 255);
+			Text.outlineWidth = 100;
 		}else{
 			Text.SetText (stats.Achievements[ID,0]);
+			Text.faceColor = Default;
+			Text.outlineWidth = 0;
+
 		}
 	}
 }

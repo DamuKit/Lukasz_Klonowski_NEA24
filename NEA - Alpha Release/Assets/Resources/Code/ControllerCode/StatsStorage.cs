@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class StatsStorage : MonoBehaviour {
 	public AudioSource m_audio;
@@ -27,6 +28,8 @@ public class StatsStorage : MonoBehaviour {
 	public bool holding;
 	public int stackLimit;
 	public int FishingState;
+	public int kills;
+	public float LifetimeDamage;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,75/*75*/,45,7,15,5},{2,90/*100*/,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
@@ -48,8 +51,18 @@ public class StatsStorage : MonoBehaviour {
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
 	public string[,] Achievements = new string[,] {
-		{"Kill an enemy","successfully Killed an enemy","F"},
-		{"Hidden Achievement?","Successfully spammed the textbox with commands","F"},
+		{"Kill an enemy","Kill an enemy","F"},
+		{"Go Fish","Go Fish","F"},
+		{"En Passant","En Passant","F"},
+		{"Seeded Run","Seeded Run","F"},
+		{"OP used","","F"},
+		{"Hidden Achievement?","spammed the textbox with commands","F"},
+		{"Forever Alone (type a non command into the textbox)","","F"},
+		{"Environmentalist","","F"},
+		{"Kill a bunch more of enemies","","F"},
+		{"obtain 1 Billion Score","","F"},
+		{"win /gamble 5 consecutive times","","F"},
+		{"","",""},
 		{"","",""},
 		{"","",""}
 	};
@@ -62,6 +75,8 @@ public class StatsStorage : MonoBehaviour {
 	public float SFX;
 	// Use this for initialization
 	void Start () {
+		LifetimeDamage = 0;
+		kills = 0;
 		FishingState = 0;
 		Master = 0.5f;
 		Music = 1;
@@ -76,7 +91,7 @@ public class StatsStorage : MonoBehaviour {
 		stackLimit = 68;
 		gameSpeed = 1;
 		killall = false;
-		seed = Random.Range(0,10000);
+		seed = Random.Range(0,99999999);
 		//Rooms.Add(Resources.Load("Prefabs/Room/Room_" + "1") as GameObject);
 		RoomID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Room"));
 		EnemyID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Enemies"));
@@ -99,15 +114,30 @@ public class StatsStorage : MonoBehaviour {
 		enemystatpoints = 0;
 		refreshSeed = seed;
 		Random.InitState (seed);
+		GameObject.Find ("CurrentSeed").GetComponent<TMP_Text>().SetText(seed.ToString("D8"));
 
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+
+
+		if (score > 1000) {
+			Achievements[9,2] = "T";
+		}
+		if (kills > 0) {
+			Achievements[0,2] = "T";
+		}
+		if (kills >= 100) {
+			Achievements[8,2] = "T";
+		}
+
 		m_audio.volume = Master * Music;
 
 		if (refreshSeed != seed) {
 			refreshSeed = seed;
+			GameObject.Find ("CurrentSeed").GetComponent<TMP_Text>().SetText(seed.ToString("D8"));
 			Random.InitState (seed);
 			RandomValues.Clear();
 		}
@@ -137,6 +167,16 @@ public class StatsStorage : MonoBehaviour {
 			}
 
 			m_audio.Play ();
+		}
+	}
+
+	public void updateSeed(){
+		//try{
+		if(GameObject.Find ("SeedInput").GetComponent<TMPro.TMP_InputField> ().text.Length > 0){
+			seed = int.Parse(GameObject.Find ("SeedInput").GetComponent<TMPro.TMP_InputField> ().text);
+			Achievements[3,2] = "T";
+			GameObject.Find ("CurrentSeed").GetComponent<TMP_Text>().SetText(seed.ToString("D8"));
+			GameObject.Find ("SeedInput").GetComponent<TMPro.TMP_InputField> ().text = "";
 		}
 	}
 }

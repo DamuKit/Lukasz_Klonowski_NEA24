@@ -28,8 +28,10 @@ public class ChessPieces : MonoBehaviour {
 	public bool move;
 	public bool PlayerMove;
 	bool EndTurn;
+	bool FollowedRules;
 	// Use this for initialization
 	void Start () {
+		FollowedRules = true;
 		turn = false;
 		move = false;
 		IVTime = false;
@@ -71,25 +73,25 @@ public class ChessPieces : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Mathf.RoundToInt(Time.time) % 2 == 0 & this.gameObject.name.Substring (1, 3) == "004") {
-				if (turn == false) {
-					move = true;
-				}
+			if (turn == false) {
+				move = true;
+			}
 
-
-				turn = true;
-				if (Player.moving == true) {
-					PlayerMove = true;
-				}
+			turn = true;
+			if (Player.moving == true) {
+				PlayerMove = true;
+				FollowedRules = false;
+			}
 			EndTurn = false;
 		} else if (Mathf.RoundToInt(Time.time) % 2 == 1 & this.gameObject.name.Substring (1, 3) == "005") {
-
-				if (turn == false) {
-					move = true;
-				}
-				turn = true;
-				if (Player.moving == true) {
-					PlayerMove = true;
-				}
+			if (turn == false) {
+				move = true;
+			}
+			turn = true;
+			if (Player.moving == true) {
+				PlayerMove = true;
+				FollowedRules = false;
+			}
 			EndTurn = false;
 		} else {
 			if (PlayerMove == true & EndTurn == false) {
@@ -157,9 +159,13 @@ public class ChessPieces : MonoBehaviour {
 		}
 		if (health <= 0) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
-			//GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
-			//Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
-			//stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
+			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
+			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
+			stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
+			stats.kills +=1;
+			if (FollowedRules == true) {
+				stats.Achievements[2,2] = "T";
+			}
 			Destroy (this.gameObject);
 		}
 		HPBar.SendMessage ("HealthReport", health);
@@ -171,8 +177,10 @@ public class ChessPieces : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			if (turn == true) {
 				health -= dmg * 0.25f;
+				stats.LifetimeDamage += dmg * 0.25f;
 			} else {
 				health -= dmg;
+				stats.LifetimeDamage += dmg;
 			}
 			Debug.Log (health);
 			StartCoroutine ("Invincibility");

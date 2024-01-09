@@ -162,6 +162,7 @@ public class SlimeMovement : MonoBehaviour {
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
 			Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
+			stats.kills +=1;
 			Destroy (this.gameObject);
 		}
 		HPBar.SendMessage ("HealthReport", health);
@@ -178,6 +179,7 @@ public class SlimeMovement : MonoBehaviour {
 			Debug.Log ("damaged");
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			health -= dmg;
+			stats.LifetimeDamage += dmg;
 			Debug.Log (health);
 			StartCoroutine ("Invincibility");
 

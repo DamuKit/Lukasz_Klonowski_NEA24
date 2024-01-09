@@ -13,6 +13,7 @@ public class ScoreTextController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		score.text = "Score : " + Mathf.RoundToInt(stats.score) + "00000";
+		score.text = "Score : " + Mathf.RoundToInt(stats.score) + "000";
+
 	}
 }

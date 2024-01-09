@@ -52,6 +52,7 @@ public class TextboxController : MonoBehaviour {
 			textPlaceHolder = processSaver;
 			split ();
 
+
 			chat.text = textbox[textbox.Count-12] + "\n" + textbox[textbox.Count-11] + "\n" + textbox[textbox.Count-10] + "\n" + textbox[textbox.Count-9] + "\n" + textbox[textbox.Count-8] + "\n" + textbox[textbox.Count-7] + "\n" + textbox[textbox.Count-6] + "\n" + textbox[textbox.Count-5] + "\n" + textbox[textbox.Count-4] + "\n" + textbox[textbox.Count-3] + "\n" + textbox[textbox.Count-2] + "\n" + textbox[textbox.Count-1];
 			if (inputElements.Count > 0) {
 				switch (inputElements [0].ToLower ()) {
@@ -117,6 +118,7 @@ public class TextboxController : MonoBehaviour {
 							if (int.Parse (inputElements [1]) > 0) {
 								if (int.Parse (inputElements [1]) >= 0 & int.Parse (inputElements [1]) <= 1000000000) {
 									stats.seed = int.Parse (inputElements [1]);
+									stats.Achievements[3,2] = "T";
 									textbox.Add ("Seed Changed");
 								}
 							}
@@ -159,6 +161,7 @@ public class TextboxController : MonoBehaviour {
 					break;
 
 				case("/op"):
+					stats.Achievements[4,2] = "T";
 					try{
 						switch(inputElements [1].ToLower ()){
 						//heal command
@@ -231,8 +234,8 @@ public class TextboxController : MonoBehaviour {
 										textbox.Add ("And it was");
 										break;
 									case(101):
-										stats.Achievements[1,2] = "T";
-										textbox.Add ("Just kidding, Achievements are in the menu.");
+										stats.Achievements[5,2] = "T";
+										textbox.Add ("Just kidding, Achievements are in the menu if you haven't checked yet.");
 										break;
 									default:
 										textbox.Add ("Cheater's health successfully remains indifferent");
@@ -344,6 +347,7 @@ public class TextboxController : MonoBehaviour {
 	}
 	public void split(){
 		if(textPlaceHolder.StartsWith("/")){
+			
 			textPlaceHolder += " .";
 			inputElements.Clear();
 			do{

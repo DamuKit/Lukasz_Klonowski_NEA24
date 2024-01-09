@@ -79,6 +79,7 @@ public class FishingBobber : MonoBehaviour {
 					Debug.Log ("Catch");
 					caught ();
 					stats.FishingState = 1;
+					stats.Achievements[1,2] = "T";
 					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
 
 				}
