@@ -51,10 +51,10 @@ public class StatsStorage : MonoBehaviour {
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
 	public string[,] Achievements = new string[,] {
-		{"Kill an enemy","Kill an enemy","F"},
-		{"Go Fish","Go Fish","F"},
-		{"En Passant","En Passant","F"},
-		{"Seeded Run","Seeded Run","F"},
+		{"Kill an enemy","","F"},
+		{"Go Fish","","F"},
+		{"Turn Based Combat","","F"},
+		{"Seeded Run","","F"},
 		{"OP used","","F"},
 		{"Hidden Achievement?","spammed the textbox with commands","F"},
 		{"Forever Alone (type a non command into the textbox)","","F"},
