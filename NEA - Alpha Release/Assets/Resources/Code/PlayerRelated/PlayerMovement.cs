@@ -79,6 +79,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		stats.Statistic [0, 1] = level.ToString();
+		stats.Statistic [1, 1] = maxhp.ToString ();
+		stats.Statistic [2, 1] = interact.damage.ToString ();
+
+
+
 		m_audio.volume = stats.Master * stats.SFX;
 
 		
@@ -256,6 +262,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (xp >= level * level * 0.03f+ 100) {
 			xp -= level * level * 0.03f+ 100;
 			level += 1;
+
 			Debug.Log ("Level Up!");
 			interact.damage += 0.25f;
 			hp*= 1.1f;

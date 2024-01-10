@@ -30,6 +30,8 @@ public class StatsStorage : MonoBehaviour {
 	public int FishingState;
 	public int kills;
 	public float LifetimeDamage;
+	public float DistanceTravelled;
+	public int Fished;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,75/*75*/,45,7,15,5},{2,90/*100*/,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
@@ -56,16 +58,29 @@ public class StatsStorage : MonoBehaviour {
 		{"Turn Based Combat","","F"},
 		{"Seeded Run","","F"},
 		{"OP used","","F"},
-		{"Hidden Achievement?","spammed the textbox with commands","F"},
+		{"Hidden Achievement","spammed the textbox with commands","F"},
 		{"Forever Alone (type a non command into the textbox)","","F"},
 		{"Environmentalist","","F"},
 		{"Kill a bunch more of enemies","","F"},
 		{"obtain 1 Billion Score","","F"},
 		{"win /gamble 5 consecutive times","","F"},
-		{"","",""},
-		{"","",""},
+		{"Hidden Achievement","Caught the Legendary BlaHaj","F"},
 		{"","",""}
 	};
+
+	public string[,] Statistic = new string[,] {
+		{"Level","1"},
+		{"Max Health","0"},
+		{"Raw Damage","0"},
+		{"Lifetime Damage","0"},
+		{"Kills","0"},
+		{"Distance Travelled","0"},
+		{"Items consumed","0"},
+		{"Objects Fished","0"},
+		{"rooms explored","0"},
+		{"",""}
+	};
+
 
 	/* array listing item IDs, item chance*/
 	public int[,] Items = new int[,] {{26,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,0000,0}};
@@ -75,9 +90,12 @@ public class StatsStorage : MonoBehaviour {
 	public float SFX;
 	// Use this for initialization
 	void Start () {
+		DistanceTravelled = 0;
 		LifetimeDamage = 0;
 		kills = 0;
 		FishingState = 0;
+		Fished = 0;
+
 		Master = 0.5f;
 		Music = 1;
 		SFX = 1;
@@ -120,8 +138,13 @@ public class StatsStorage : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		
+		Statistic [3, 1] = LifetimeDamage.ToString ();
+		Statistic [4, 1] = kills.ToString ();
+		Statistic [5, 1] = DistanceTravelled.ToString (); 
 
-
+		Statistic [7, 1] = Fished.ToString ();
+		Statistic [8, 1] = (Locations.Count - 2).ToString ();
 
 		if (score > 1000) {
 			Achievements[9,2] = "T";
