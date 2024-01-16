@@ -8,8 +8,4 @@ public class NameShortener : MonoBehaviour {
 	void Start () {
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 }

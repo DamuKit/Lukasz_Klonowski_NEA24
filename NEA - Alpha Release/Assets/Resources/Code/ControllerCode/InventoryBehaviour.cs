@@ -42,13 +42,14 @@ public class InventoryBehaviour : MonoBehaviour {
 
 		//items.Enqueue ("100N0007");
 		//items.Enqueue ("101N0000");
-
+		/*
 		items.Enqueue ("102N0000");
 		items.Enqueue ("103N0000");
 		items.Enqueue ("001034");
 		items.Enqueue ("002034");
 		items.Enqueue ("003034");
 		items.Enqueue ("004034");
+		*/
 		swapPosition = 0;
 
 	}

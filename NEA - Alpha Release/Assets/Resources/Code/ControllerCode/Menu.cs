@@ -42,10 +42,4 @@ public class Menu : MonoBehaviour {
 			stats.Difficulty --;
 		}
 	}
-	public void NextControls(){
-		
-	}
-	public void PreviousControls(){
-		
-	}
 }
