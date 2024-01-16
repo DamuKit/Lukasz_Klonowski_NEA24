@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float Defence;
 
 	float speedbuff;
+	float DistanceMoved;
 
 	// Use this for initialization
 	void Start () {
@@ -82,7 +83,6 @@ public class PlayerMovement : MonoBehaviour {
 		stats.Statistic [0, 1] = level.ToString();
 		stats.Statistic [1, 1] = maxhp.ToString ();
 		stats.Statistic [2, 1] = interact.damage.ToString ();
-
 
 
 		m_audio.volume = stats.Master * stats.SFX;
@@ -161,6 +161,10 @@ public class PlayerMovement : MonoBehaviour {
 				moving = true;
 				Animation.SetBool ("walk", true);
 			}
+			if (moving == true) {
+				stats.DistanceTravelled += speed;
+			}
+
 			/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
 			if (Input.GetKeyDown (KeyCode.LeftShift) == true && dashing == false & interact.shieldWield == true & stamina > 40) {
 				stamina -= 30;

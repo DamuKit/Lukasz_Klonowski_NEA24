@@ -11,6 +11,8 @@ public class AchievementScript : MonoBehaviour {
 	int type;
 	bool update;
 	int statistic;
+	int pH;
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +27,11 @@ public class AchievementScript : MonoBehaviour {
 		}
 		else if(this.gameObject.name.Substring(3,1) == "A") {
 			type = 2;
+		}
+		else if(this.gameObject.name.Substring(3,1) == "S") {
+			type = 4;
+			statistic = int.Parse (this.gameObject.name.Substring (0, 3));
+			pH = -1;
 		}
 		/*else if(this.gameObject.name.Substring(3,1) == "S") {
 			type = 4;
@@ -55,6 +62,14 @@ public class AchievementScript : MonoBehaviour {
 					//gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 					this.gameObject.GetComponent<Image> ().color = Color.white;
 					Destroy (this);
+				}
+			}
+
+			if (type == 4) {
+				if(pH != int.Parse(stats.Statistic[statistic,2])){
+					this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/CustomSprites/Stat Sprites/" + this.gameObject.name.Substring(0,3) + stats.Statistic[statistic,2] + "Stat");
+					pH = int.Parse (stats.Statistic [statistic, 2]);
+
 				}
 			}
 		}

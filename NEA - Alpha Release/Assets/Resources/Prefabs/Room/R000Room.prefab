@@ -294,8 +294,6 @@ GameObject:
   - component: {fileID: 3664157345727116174}
   - component: {fileID: 2113883506987514502}
   - component: {fileID: 114177199388864140}
-  - component: {fileID: 50705146565298172}
-  - component: {fileID: 66362214318511718}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -526,26 +524,6 @@ Transform:
   m_Father: {fileID: 4102994683483266}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50705146565298172
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1989740760821890}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!61 &61017622722165146
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -846,26 +824,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7126832, y: 0.7101465}
   m_EdgeRadius: 0
---- !u!66 &66362214318511718
-CompositeCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1989740760821890}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
 --- !u!95 &95006925868373076
 Animator:
   serializedVersion: 3
@@ -1559,7 +1517,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
 --- !u!483693784 &3664157343175403252
 TilemapRenderer:

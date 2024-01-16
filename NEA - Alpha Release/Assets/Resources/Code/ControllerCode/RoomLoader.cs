@@ -16,6 +16,8 @@ public class RoomLoader : MonoBehaviour {
 	public int[,] Testing = new int[,] {{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 	public List<GameObject> RoomOptions = new List<GameObject>();
 	int n;
+	public int openings;
+	int roomTest;
 	// Use this for initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -27,6 +29,8 @@ public class RoomLoader : MonoBehaviour {
 		room = 0;
 		lastRoom = -1;
 		placeholder = 0;
+		openings = 1;
+		roomTest = 0;
 	}
 	
 	// Update is called once per frame
@@ -97,6 +101,20 @@ public class RoomLoader : MonoBehaviour {
 					Debug.Log (Testing [3, i] + " " + i);
 				}
 			}
+			openings = 0;
+			if (Testing [0, 7] == 1 | Testing [0, 7] == -1) {
+				openings++;
+			}
+			if (Testing [1, 8] == 1 | Testing [1, 8] == -1) {
+				openings++;
+			}
+			if (Testing [2, 5] == 1 | Testing [2, 5] == -1) {
+				openings++;
+			}
+			if (Testing [3, 6] == 1 | Testing [3, 6] == -1) {
+				openings++;
+			}
+
 
 
 			//---------------------------------------------------------------------------------
@@ -126,7 +144,25 @@ public class RoomLoader : MonoBehaviour {
 					Debug.Log ("Removed d : " + i);
 					Debug.Log (Testing [3, 1] + " " + stats.Rooms [i, 5] + " " + Testing[3,6] + " " + stats.Rooms[i,10]);
 				}
-				//Debug.Log ("End");
+				else if (openings >= 2) {
+					roomTest = 0;
+					if (stats.Rooms [i, 7] == -1 | stats.Rooms [i, 7] == 1) {
+						roomTest += 1;
+					}
+					if (stats.Rooms [i, 8] == -1 | stats.Rooms [i, 8] == 1) {
+						roomTest += 1;
+					}
+					if (stats.Rooms [i, 9] == -1 | stats.Rooms [i, 9] == 1) {
+						roomTest += 1;
+					}
+					if (stats.Rooms [i, 10] == -1 | stats.Rooms [i, 10] == 1) {
+						roomTest += 1;
+					}
+					if (roomTest <= 1) {
+						RoomOptions.RemoveAt (i);
+					}
+				}
+
 			}
 
 			//---------------------------------------------------------------------------------

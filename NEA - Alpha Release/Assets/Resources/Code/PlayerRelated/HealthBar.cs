@@ -3,6 +3,7 @@ Purpose: This script manages the hp bar to reflect the player's health. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour {
 	public StatsStorage stats;
@@ -24,10 +25,18 @@ public class HealthBar : MonoBehaviour {
 			if (stats.gameSpeed < 0.00000001) {
 				stats.gameSpeed = 0;
 			}
+			StartCoroutine ("Dead");
 		} else if (stats.gameSpeed < 1) {
 			stats.gameSpeed = stats.gameSpeed * 1.1f;
 		} else if (stats.gameSpeed > 1) {
 			stats.gameSpeed = 1;
+		}
+	}
+
+	public IEnumerator Dead(){
+		yield return new WaitForSeconds (2f);
+		if (Player.hp <= 0) {
+			SceneManager.LoadScene ("text");
 		}
 	}
 }

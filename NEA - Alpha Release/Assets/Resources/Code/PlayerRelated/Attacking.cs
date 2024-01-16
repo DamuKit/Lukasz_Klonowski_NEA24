@@ -113,6 +113,7 @@ public class Attacking : MonoBehaviour {
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Consume"));
 							playerMovement.SendMessage ("itemEffect", int.Parse(invBeh.Locations[slot].Substring(0,3)));
 							invBeh.Locations[slot] = invBeh.Locations[slot].Substring(0,3) + (int.Parse(invBeh.Locations[slot].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+							stats.consumed +=1;
 						}
 					}
 					catch{
@@ -123,6 +124,7 @@ public class Attacking : MonoBehaviour {
 					playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Consume"));
 					playerMovement.SendMessage ("itemEffect", int.Parse(invBeh.Locations[slot].Substring(0,3)));
 					invBeh.Locations[slot] = invBeh.Locations[slot].Substring(0,3) + (int.Parse(invBeh.Locations[slot].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
+					stats.consumed +=1;
 				}
 				break;
 			case("1"):

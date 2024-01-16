@@ -32,6 +32,7 @@ public class StatsStorage : MonoBehaviour {
 	public float LifetimeDamage;
 	public float DistanceTravelled;
 	public int Fished;
+	public int consumed;
 	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
 	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,75/*75*/,45,7,15,5},{2,90/*100*/,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
 	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
@@ -69,16 +70,16 @@ public class StatsStorage : MonoBehaviour {
 	};
 
 	public string[,] Statistic = new string[,] {
-		{"Level","1"},
-		{"Max Health","0"},
-		{"Raw Damage","0"},
-		{"Lifetime Damage","0"},
-		{"Kills","0"},
-		{"Distance Travelled","0"},
-		{"Items consumed","0"},
-		{"Objects Fished","0"},
-		{"rooms explored","0"},
-		{"",""}
+		{"Level:","1","0","3"},
+		{"Max Health:","0","0","1000"},
+		{"Raw Damage:","0","0","20"},
+		{"Lifetime Damage:","0","0","200"},
+		{"Kills:","0","0","5"},
+		{"Distance Travelled:","0","0","200"},
+		{"Items consumed:","0","0","5"},
+		{"Objects Fished:","0","0","3"},
+		{"rooms explored:","0","0","1"},
+		{"","","","0"}
 	};
 
 
@@ -95,6 +96,7 @@ public class StatsStorage : MonoBehaviour {
 		kills = 0;
 		FishingState = 0;
 		Fished = 0;
+		consumed = 0;
 
 		Master = 0.5f;
 		Music = 1;
@@ -141,10 +143,50 @@ public class StatsStorage : MonoBehaviour {
 		
 		Statistic [3, 1] = LifetimeDamage.ToString ();
 		Statistic [4, 1] = kills.ToString ();
-		Statistic [5, 1] = DistanceTravelled.ToString (); 
-
+		Statistic [5, 1] = DistanceTravelled.ToString ("F2"); 
+		Statistic [6, 1] = consumed.ToString ();
 		Statistic [7, 1] = Fished.ToString ();
 		Statistic [8, 1] = (Locations.Count - 2).ToString ();
+
+		{
+			if (float.Parse (Statistic [0, 1]) >= float.Parse (Statistic [0, 3]) & int.Parse (Statistic [0, 2]) <5) {
+				Statistic [0, 2] = (int.Parse (Statistic [0, 2]) + 1).ToString ();
+				Statistic [0, 3] = (float.Parse (Statistic [0, 3]) * 3).ToString ();
+			}
+			if (float.Parse (Statistic [1, 1]) >= float.Parse (Statistic [1, 3]) & int.Parse (Statistic [1, 2]) <5) {
+				Statistic [1, 2] = (int.Parse (Statistic [1, 2]) + 1).ToString ();
+				Statistic [1, 3] = (float.Parse (Statistic [1, 3]) * 3).ToString ();
+			}
+			if (float.Parse (Statistic [2, 1]) >= float.Parse (Statistic [2, 3]) & int.Parse (Statistic [2, 2]) <5) {
+				Statistic [2, 2] = (int.Parse (Statistic [2, 2]) + 1).ToString ();
+				Statistic [2, 3] = (float.Parse (Statistic [2, 3]) * 3).ToString ();
+			}
+			if (float.Parse (Statistic [3, 1]) >= float.Parse (Statistic [3, 3]) & int.Parse (Statistic [3, 2]) <5) {
+				Statistic [3, 2] = (int.Parse (Statistic [3, 2]) + 1).ToString ();
+				Statistic [3, 3] = (float.Parse (Statistic [3, 3]) * 5).ToString ();
+			}
+			if (float.Parse (Statistic [4, 1]) >= float.Parse (Statistic [4, 3]) & int.Parse (Statistic [4, 2]) <5) {
+				Statistic [4, 2] = (int.Parse (Statistic [4, 2]) + 1).ToString ();
+				Statistic [4, 3] = (float.Parse (Statistic [4, 3]) * 10).ToString ();
+			}
+			if (float.Parse (Statistic [5, 1]) >= float.Parse (Statistic [5, 3]) & int.Parse (Statistic [5, 2]) <5) {
+				Statistic [5, 2] = (int.Parse (Statistic [5, 2]) + 1).ToString ();
+				Statistic [5, 3] = (float.Parse (Statistic [5, 3]) * 5).ToString ();
+			}
+			if (float.Parse (Statistic [6, 1]) >= float.Parse (Statistic [6, 3]) & int.Parse (Statistic [6, 2]) <5) {
+				Statistic [6, 2] = (int.Parse (Statistic [6, 2]) + 1).ToString ();
+				Statistic [6, 3] = (float.Parse (Statistic [6, 3]) * 3).ToString ();
+			}
+			if (float.Parse (Statistic [7, 1]) >= float.Parse (Statistic [7, 3]) & int.Parse (Statistic [7, 2]) <5) {
+				Statistic [7, 2] = (int.Parse (Statistic [7, 2]) + 1).ToString ();
+				Statistic [7, 3] = (float.Parse (Statistic [7, 3]) * 5).ToString ();
+			}
+			if (float.Parse (Statistic [8, 1]) >= float.Parse (Statistic [8, 3]) & int.Parse (Statistic [8, 2]) <5) {
+				Statistic [8, 2] = (int.Parse (Statistic [8, 2]) + 1).ToString ();
+				Statistic [8, 3] = (float.Parse (Statistic [8, 3]) * 3).ToString ();
+			}
+		}
+
 
 		if (score > 1000) {
 			Achievements[9,2] = "T";
