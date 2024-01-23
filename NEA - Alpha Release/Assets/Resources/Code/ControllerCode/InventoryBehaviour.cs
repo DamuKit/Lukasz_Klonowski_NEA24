@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to manage items being obtained, causing them to enter the player’s inventory. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

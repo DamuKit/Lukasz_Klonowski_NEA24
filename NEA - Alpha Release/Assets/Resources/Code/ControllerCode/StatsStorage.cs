@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to hold important commonly needed in multiple scripts while also managing most statistics, some achievements, the background music and the seed. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;

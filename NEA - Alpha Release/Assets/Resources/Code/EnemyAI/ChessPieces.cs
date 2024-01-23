@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to manage the actions and behaviour of the chess piece enemy. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

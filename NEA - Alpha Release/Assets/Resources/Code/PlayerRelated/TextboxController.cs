@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to manage the text displayed in the textbox and the text being input by the player, such as commands. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;

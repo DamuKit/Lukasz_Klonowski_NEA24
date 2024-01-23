@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to display the health of the enemy the object is attached to. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

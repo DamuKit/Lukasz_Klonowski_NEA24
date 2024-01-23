@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s primary purpose is to manage the movement of items throughout the inventory. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to change the position of an object to show the slot being held in the player’s hand. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 2 - Last Edited Sprint 4
-Purpose: This script manages the movement of the basic green slime enemy. */
+This script’s purpose is to manage the actions and behaviour of the slime enemy. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 6 - Last Edited Sprint 6
-Purpose: This script Aids the player in causing smooth collissions against walls. */
+This script’s purpose the collision of the player against certain surfaces */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to hide certain objects when unpaused. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

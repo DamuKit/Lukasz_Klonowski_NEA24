@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to decide what items are generated upon killing an enemy. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

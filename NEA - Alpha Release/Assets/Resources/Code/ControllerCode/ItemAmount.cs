@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to display the amount of an item in the inventory. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;

@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 3 - Last Edited Sprint 3
-Purpose: This script manages the spawning of enemies. */
+This script’s purpose is to manage the spawning of enemies into rooms. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,6 @@ public class EnemySpawner : MonoBehaviour {
 	public CameraMovement camMov;
 	public GameObject Cam;
 	public StatsStorage stats;
-	public GameObject Slime;
 	int loops;
 	private GameObject Enemies;
 	public RoomLoader roomLoader;

@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 1 - Last Edited Sprint 1
-Purpose: This script manages to movement of the camera to always move with the character to be on screen no matter what. */
+This script’s purpose is to make the camera move to the room location the player is in. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

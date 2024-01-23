@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to hide the menu when necessary. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

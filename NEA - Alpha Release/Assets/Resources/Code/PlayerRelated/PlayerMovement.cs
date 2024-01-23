@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 1 - Last Edited Sprint 4
-Purpose: This script manages the control of the playable character by adding controls for various actions with suitable animations. */
+This script’s purpose is to allow the pet to interact between the movement script and the pet interaction script. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

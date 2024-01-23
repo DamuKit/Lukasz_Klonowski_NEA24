@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to manage ground items, shortening their names and giving them to the player when touched. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

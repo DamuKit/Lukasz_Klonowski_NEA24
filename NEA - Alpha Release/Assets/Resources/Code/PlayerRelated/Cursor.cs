@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 2 - Last Edited Sprint 2
-Purpose: This script follows the mouse cursor. */
+This script’s purpose is to make the in game cursor go to the position of the mouse cursor. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

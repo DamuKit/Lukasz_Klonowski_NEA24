@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to deal damage to the player upon them standing on it too long. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

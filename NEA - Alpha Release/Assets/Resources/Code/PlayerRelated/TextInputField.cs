@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to interact with the textbox controller code, adding the text from the textbox. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;

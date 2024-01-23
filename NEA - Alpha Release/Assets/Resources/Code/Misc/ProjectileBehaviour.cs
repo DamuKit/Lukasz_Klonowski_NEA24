@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to manage the behaviour of projectiles and cause them to damage enemies. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

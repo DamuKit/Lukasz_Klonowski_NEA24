@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to change the text for the difficulty setting in the menu. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;

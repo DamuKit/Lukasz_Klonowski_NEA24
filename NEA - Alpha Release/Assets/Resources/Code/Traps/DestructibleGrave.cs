@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to allow the object to take damage from items and get destroyed. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

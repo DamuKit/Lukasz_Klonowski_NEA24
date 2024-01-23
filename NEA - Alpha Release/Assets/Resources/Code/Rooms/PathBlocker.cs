@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Created: Sprint - Last Edited Sprint 
+This script’s purpose is to prevent the player from moving offscreen until all enemies are defeated. */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

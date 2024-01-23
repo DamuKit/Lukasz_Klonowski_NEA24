@@ -1,5 +1,5 @@
 ﻿/*Created: Sprint 2 - Last Edited Sprint 2
-Purpose: This script manages the hp bar to reflect the player's health. */
+This script’s purpose is to display the health of the player in clear view. */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
