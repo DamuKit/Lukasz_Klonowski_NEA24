@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to make the hotbar visible even if the parent object is hidden. */
 using System.Collections;
 using System.Collections.Generic;

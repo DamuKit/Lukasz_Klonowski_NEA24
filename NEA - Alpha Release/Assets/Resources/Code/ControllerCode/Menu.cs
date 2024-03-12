@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s purpose is to manage the audio settings and the difficulty from the menu. */
 using System.Collections;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s purpose is to manage items being obtained, causing them to enter the player’s inventory. */
 using System.Collections;
 using System.Collections.Generic;

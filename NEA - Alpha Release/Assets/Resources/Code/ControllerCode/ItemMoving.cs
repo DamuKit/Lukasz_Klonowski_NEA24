@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s primary purpose is to manage the movement of items throughout the inventory. */
 using System.Collections;
 using System.Collections.Generic;
