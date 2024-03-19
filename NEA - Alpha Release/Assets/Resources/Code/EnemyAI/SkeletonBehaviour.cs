@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s purpose is to manage the actions and behaviour of the skeleton enemy. */
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,6 @@ public class SkeletonBehaviour : MonoBehaviour {
 		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = stats.Locations[stats.Locations.Count - 1];
-		//Debug.Log (location);
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
 
 
@@ -52,7 +51,6 @@ public class SkeletonBehaviour : MonoBehaviour {
 
 		health = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 3];
 		damage = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 4];
-		//speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(1)),5] * 0.5f;
 		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 5];
 
 		Random.InitState (stats.seed + stats.seedoffset);
@@ -64,8 +62,6 @@ public class SkeletonBehaviour : MonoBehaviour {
 		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
 		baseSpeed = Mathf.RoundToInt(baseSpeed * (Random.Range (0.75f, 1.5f) + stats.room * 0.001f));
 		decay = health;
-		//Debug.Log (health + " " + damage + " " + baseSpeed);
-		//stats.enemystatpoints += Mathf.RoundToInt((statVariance + damage + health + baseSpeed) * (stats.Difficulty * 0.1f + 0.3f));
 	}
 	
 	// Update is called once per frame
@@ -94,7 +90,6 @@ public class SkeletonBehaviour : MonoBehaviour {
 					delay = Random.Range(40, 100);
 					angle = Random.Range(-100, 360);
 					wonder = 1;
-					//Debug.Log ("B");
 				}
 			} else {
 				Animation.SetBool ("walk", false);
@@ -138,9 +133,6 @@ public class SkeletonBehaviour : MonoBehaviour {
 		}
 		if (health <= 0) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
-			//GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
-			//Player.xp += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
-			//stats.score += stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 2] * 0.25f;
 			if (IV == true) {
 				stats.kills +=1;
 			}
@@ -151,11 +143,9 @@ public class SkeletonBehaviour : MonoBehaviour {
 	void damaged(int dmg) {
 		if (IV == false) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
-			Debug.Log ("damaged");
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			health -= dmg;
 			stats.LifetimeDamage += dmg;
-			Debug.Log (health);
 			StartCoroutine ("Invincibility");
 		}
 	}

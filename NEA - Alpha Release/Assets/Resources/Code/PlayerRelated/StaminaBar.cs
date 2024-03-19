@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to display the stamina of the player in a clear position to view. */
 using System.Collections;
 using System.Collections.Generic;

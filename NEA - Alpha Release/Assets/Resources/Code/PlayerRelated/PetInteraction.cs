@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to allow the pet to interact between the movement script and the pet interaction script. */
 using System.Collections;
 using System.Collections.Generic;

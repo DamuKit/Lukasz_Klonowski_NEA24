@@ -1,4 +1,4 @@
-﻿/*Created: Sprint 2 - Last Edited Sprint 2
+﻿/*Created: Sprint 3 - Last Edited Sprint 8
 This script’s purpose is to display the health of the player in clear view. */
 using System.Collections;
 using System.Collections.Generic;

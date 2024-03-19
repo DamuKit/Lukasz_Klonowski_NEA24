@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 3 - Last Edited Sprint 8
 This script’s purpose is to hold important commonly needed in multiple scripts while also managing most statistics, some achievements, the background music and the seed. */
 using System.Collections;
 using System.Collections.Generic;
@@ -35,9 +35,9 @@ public class StatsStorage : MonoBehaviour {
 	public float DistanceTravelled;
 	public int Fished;
 	public int consumed;
-	/* array listing enemy id, raw probability, points used, raw hp, damage, speed*/
-	public int[,] Enemies = new int[,] {{0,60/*50*/,20,5,10,3},{1,75/*75*/,45,7,15,5},{2,90/*100*/,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
-	/* array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)  */
+	// array listing enemy id, raw probability, points used, raw hp, damage, speed
+	public int[,] Enemies = new int[,] {{0,60,20,5,10,3},{1,75,45,7,15,5},{2,90,90,30,5,2},{3,0,3,10,15,2},{4,95,5,35,10,1},{5,100,5,15,25,1},{99999,999,999,999,999,999}};
+	// array listing room id, number of spawners, path location x4(n, e, s, w), biome, edgetypes(n, e, s, w)
 	public int[,] Rooms = new int[,] {
 		{000,02,11102,10505,11102,10702,0,1,2,1,2},
 		{001,02,11102,10016,11102,10016,0,1,2,1,2},
@@ -55,6 +55,7 @@ public class StatsStorage : MonoBehaviour {
 		{013,00,00000,00000,00000,11002,0,0,0,0,1},
 		{014,00,00000,11102,11102,00000,0,0,1,1,0}
 	};
+
 	public string[,] Achievements = new string[,] {
 		{"Kill an enemy","","F"},
 		{"Go Fish","","F"},
@@ -83,14 +84,12 @@ public class StatsStorage : MonoBehaviour {
 		{"rooms explored:","0","0","1"},
 		{"","","","0"}
 	};
-
-
 	/* array listing item IDs, item chance*/
 	public int[,] Items = new int[,] {{26,1500,0},{1,1700,0},{2,1800,0},{3,1900,0},{4,2100,0},{5,0000,0}};
-
 	public float Master;
 	public float Music;
 	public float SFX;
+
 	// Use this for initialization
 	void Start () {
 		DistanceTravelled = 0;
@@ -99,7 +98,6 @@ public class StatsStorage : MonoBehaviour {
 		FishingState = 0;
 		Fished = 0;
 		consumed = 0;
-
 		Master = 0.5f;
 		Music = 1;
 		SFX = 1;
@@ -114,25 +112,17 @@ public class StatsStorage : MonoBehaviour {
 		gameSpeed = 1;
 		killall = false;
 		seed = Random.Range(0,99999999);
-		//Rooms.Add(Resources.Load("Prefabs/Room/Room_" + "1") as GameObject);
 		RoomID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Room"));
 		EnemyID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Enemies"));
 		ItemID.AddRange(Resources.LoadAll<GameObject>("Prefabs/Items"));
-		//Rooms.Add(Resources.Load("Prefabs/Room/Room_" + "2") as GameObject);
-		//Object[] subListObjects = Resources.LoadAll("Assets/Prefabs/Room", typeof(GameObject));
 		room = 0;
 		Difficulty = 1;
 		points = 100;
-
 		localDifficulty = 0;
-		//Debug.Log(RoomID.Count);
-		//Object.Instantiate (Rooms[0], this.gameObject.transform.position + new Vector3 (camMov.locX * 24, camMov.locX * 16), Quaternion.identity, Tilemaps.transform);
-		//Debug.Log (EnemyID.Count);
 		Locations.Add ("0.0");
 		Locations.Add ("1.0");
 		LocationID.Add (Rooms[Rooms.GetLength (0)-1, 0]);
 		LocationID.Add (Rooms[Rooms.GetLength (0)-2, 0]);
-
 		enemystatpoints = 0;
 		refreshSeed = seed;
 		Random.InitState (seed);
@@ -143,13 +133,13 @@ public class StatsStorage : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		// Constantly update stats
 		Statistic [3, 1] = LifetimeDamage.ToString ();
 		Statistic [4, 1] = kills.ToString ();
 		Statistic [5, 1] = DistanceTravelled.ToString ("F2"); 
 		Statistic [6, 1] = consumed.ToString ();
 		Statistic [7, 1] = Fished.ToString ();
 		Statistic [8, 1] = (Locations.Count - 2).ToString ();
-
 		{
 			if (float.Parse (Statistic [0, 1]) >= float.Parse (Statistic [0, 3]) & int.Parse (Statistic [0, 2]) <5) {
 				Statistic [0, 2] = (int.Parse (Statistic [0, 2]) + 1).ToString ();
@@ -188,8 +178,7 @@ public class StatsStorage : MonoBehaviour {
 				Statistic [8, 3] = (float.Parse (Statistic [8, 3]) * 3).ToString ();
 			}
 		}
-
-
+		// Update achievements
 		if (score > 1000) {
 			Achievements[9,2] = "T";
 		}
@@ -199,20 +188,19 @@ public class StatsStorage : MonoBehaviour {
 		if (kills >= 100) {
 			Achievements[8,2] = "T";
 		}
-
 		m_audio.volume = Master * Music;
-
+		// Update seed
 		if (refreshSeed != seed) {
 			refreshSeed = seed;
 			GameObject.Find ("CurrentSeed").GetComponent<TMP_Text>().SetText(seed.ToString("D8"));
 			Random.InitState (seed);
 			RandomValues.Clear();
 		}
+		// Create a list of random values
 		if (RandomValues.Count < 10) {
 			RandomValues.Add (Random.value);
-			Debug.Log (RandomValues [RandomValues.Count - 1] + " " + (RandomValues.Count - 1));
 		}
-
+		// Manage background music
 		if (musicstate == 0 & GameObject.Find ("Enemies").transform.childCount > 0) {
 			m_audio.Stop ();
 			musicstate = 1;
@@ -237,8 +225,8 @@ public class StatsStorage : MonoBehaviour {
 		}
 	}
 
+	// Ensures that the text for the seed in the menu displays the current seed
 	public void updateSeed(){
-		//try{
 		if(GameObject.Find ("SeedInput").GetComponent<TMPro.TMP_InputField> ().text.Length > 0){
 			seed = int.Parse(GameObject.Find ("SeedInput").GetComponent<TMPro.TMP_InputField> ().text);
 			Achievements[3,2] = "T";

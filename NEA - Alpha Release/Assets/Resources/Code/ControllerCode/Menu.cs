@@ -26,6 +26,8 @@ public class Menu : MonoBehaviour {
 		stats.Music = Music.value;
 		stats.SFX = SFX.value;
 	}
+
+	// Updates when the menu button is clicked
 	public void ClickedMenuButton(){
 		if (stats.menu == 1) {
 			stats.menu = 0;
@@ -34,11 +36,15 @@ public class Menu : MonoBehaviour {
 			stats.menu = 1;
 		}
 	}
+
+	// Updates when the increasing difficulty button is pressed
 	public void HigherDifficulty(){
 		if (stats.Difficulty != 10) {
 			stats.Difficulty ++;
 		}
 	}
+
+	// Updates when the decreasing difficulty button is pressed
 	public void LowerDifficulty(){
 		if (stats.Difficulty != 1) {
 			stats.Difficulty --;

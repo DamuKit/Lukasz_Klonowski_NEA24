@@ -1,4 +1,4 @@
-﻿/*Created: Sprint 1 - Last Edited Sprint 1
+﻿/*Created: Sprint 1 - Last Edited Sprint 3
 This script’s purpose is to make the camera move to the room location the player is in. */
 using System.Collections;
 using System.Collections.Generic;

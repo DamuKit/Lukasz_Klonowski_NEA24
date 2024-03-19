@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 5 - Last Edited Sprint 7
 This script’s purpose is to hide certain objects when unpaused. */
 using System.Collections;
 using System.Collections.Generic;

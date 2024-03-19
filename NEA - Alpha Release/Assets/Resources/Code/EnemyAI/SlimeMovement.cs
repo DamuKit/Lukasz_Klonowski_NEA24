@@ -1,4 +1,4 @@
-﻿/*Created: Sprint 2 - Last Edited Sprint 4
+﻿/*Created: Sprint 2 - Last Edited Sprint 8
 This script’s purpose is to manage the actions and behaviour of the slime enemy. */
 using System.Collections;
 using System.Collections.Generic;

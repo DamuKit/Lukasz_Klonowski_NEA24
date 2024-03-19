@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour {
-	
 	public StatsStorage stats;
 	public PlayerMovement Player;
 	public InventoryBehaviour inventory;
-	// Use this for initialization
+
+	// initialization
 	void Start () {
-		
 		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		inventory = GameObject.Find ("Inventory").GetComponent<InventoryBehaviour> ();
@@ -24,24 +23,14 @@ public class ItemManager : MonoBehaviour {
 			break;
 		default:
 			break;
-		}
+		}	
+	}
 
-		//stats.Items [int.Parse (this.gameObject.name, 1)];
-			
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	// Runs when touched by the player
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Player") {
-			/*other.gameObject.SendMessage ("itemEffect", int.Parse(this.gameObject.name.Substring(1)));
-			*/
-			//Player.Items [int.Parse (this.gameObject.name.Substring (1))] +=1;
-			//inventory.Locations [inventory.Locations.FindIndex (a => a == "")] = this.gameObject.name.Substring (1) + "001";
-			//if (inventory.Locations.FindIndex (a => a != "") >= 6){
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/pickupCoin"));
+			// Gives the player an item based on what this is attached to
 				switch (this.gameObject.name.Substring (1, 1)) {
 				case("0"):
 					inventory.items.Enqueue (this.gameObject.name.Substring (1,3) + "001");
@@ -52,9 +41,7 @@ public class ItemManager : MonoBehaviour {
 				default:
 					break;
 				}
-
 			Destroy (this.gameObject);
-		//}
 		}
 	}
 }

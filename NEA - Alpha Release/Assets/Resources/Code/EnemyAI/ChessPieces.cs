@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 8 - Last Edited Sprint 8
 This script’s purpose is to manage the actions and behaviour of the chess piece enemy. */
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +31,7 @@ public class ChessPieces : MonoBehaviour {
 	public bool PlayerMove;
 	bool EndTurn;
 	bool FollowedRules;
+
 	// Use this for initialization
 	void Start () {
 		FollowedRules = true;
@@ -47,38 +48,28 @@ public class ChessPieces : MonoBehaviour {
 		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = stats.Locations[stats.Locations.Count - 1];
-		//Debug.Log (location);
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
-
-
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
-
 		health = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 3];
 		damage = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 4];
-		//speed = stats.Enemies[int.Parse(this.gameObject.name.Substring(1)),5] * 0.5f;
 		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 5];
-
 		Random.InitState (stats.seed + stats.seedoffset);
 		stats.seedoffset += 1;
-
 		statVariance = -Mathf.RoundToInt(health) - damage - baseSpeed;
 		//setting random stats
 		health = Mathf.RoundToInt(health * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
 		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
-
-		//Debug.Log (health + " " + damage + " " + baseSpeed);
-		//stats.enemystatpoints += Mathf.RoundToInt((statVariance + damage + health + baseSpeed) * (stats.Difficulty * 0.1f + 0.3f));
 	}
 
 	// Update is called once per frame
 	void Update () {
+		// Turn based movement
 		if (Mathf.RoundToInt(Time.time) % 2 == 0 & this.gameObject.name.Substring (1, 3) == "004") {
 			if (turn == false) {
 				move = true;
 			}
-
 			turn = true;
 			if (Player.moving == true) {
 				PlayerMove = true;
@@ -111,34 +102,31 @@ public class ChessPieces : MonoBehaviour {
 		if (wonder == 1) {
 			speed *= 1f;
 		}
-
 		if (stats.pause == 1) {
 		}
-
 		if (location == (camMov.locX + "." + camMov.locY) & turn == true) {
 			if (delay <= 0) {
 				wonder = 0;
-
+				// Detect player
 				RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), (player.transform.position - transform.position - new Vector3(0, 0.1f))*2);
-
 				if (move == true) {
 					if (DetectPlayer.collider.name == "Player" & Player.hp > 0 & Player.repellant == false & DetectPlayer.distance <= 8) {
 						if (DetectPlayer.distance <= 8) {
+							// Identify the direction the player is in
 							angle = Mathf.Rad2Deg * (Mathf.Atan (Mathf.Abs ((0.5f + 0.5f * Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y)) * (player.transform.position.x - this.transform.position.x) / (player.transform.position.y - this.transform.position.y) + ((0.5f + 0.5f * -Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y))) * (player.transform.position.y - this.transform.position.y) / (player.transform.position.x - this.transform.position.x)))) + 45 * (2 - 2 * Mathf.Sign (player.transform.position.x - this.transform.position.x) + 1 - Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y));
 						}
-
 					} else {
-
+						// Otherwise randomise direction
 						delay = Random.Range (40, 100);
 						angle = Random.Range (-100, 360);
 						wonder = 1;
-						//Debug.Log ("B");
 					}
 					move = false;
 				}
 			} else {
 				delay -= 1;
 			}
+			// Movement
 			if (turn == true) {
 				if (angle <= 360 & angle >= 315 | angle <= 45 & angle >= 0) {
 					this.transform.Translate (0, speed, 0);
@@ -151,7 +139,7 @@ public class ChessPieces : MonoBehaviour {
 				} 
 			}
 		}
-
+		// Invincibility
 		if (IV == true & IVTime == false & attack.Attack == false) {
 			IV = false;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
@@ -159,6 +147,7 @@ public class ChessPieces : MonoBehaviour {
 		if (stats.killall == true) {
 			health = -10;
 		}
+		// On kill
 		if (health <= 0) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			GameObject.Find ("PassiveCodeController").GetComponent<DropGenerator> ().BroadcastMessage ("Item", this.gameObject);
@@ -172,10 +161,11 @@ public class ChessPieces : MonoBehaviour {
 		}
 		HPBar.SendMessage ("HealthReport", health);
 	}
+
+	// Manage damage recieved
 	void damaged(int dmg) {
 		if (IV == false) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
-			Debug.Log ("damaged");
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			if (turn == true) {
 				health -= dmg * 0.25f;
@@ -184,17 +174,18 @@ public class ChessPieces : MonoBehaviour {
 				health -= dmg;
 				stats.LifetimeDamage += dmg;
 			}
-			Debug.Log (health);
 			StartCoroutine ("Invincibility");
 		}
 	}
+
+	// Updates on collision with the player, Dealing damage
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" & Player.invincible == false) {
 			other.gameObject.SendMessage ("Damaged", damage);
-
 		}
 	}
 
+	// Provides brief invincibility to the enemy
 	public IEnumerator Invincibility(){
 		IV = true;
 		IVTime = true;

@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to hide the menu when necessary. */
 using System.Collections;
 using System.Collections.Generic;

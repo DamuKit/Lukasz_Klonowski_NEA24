@@ -10,6 +10,7 @@ public class DropGenerator : MonoBehaviour {
 	float rand;
 	public int refreshSeed;
 	int i;
+
 	// initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -19,15 +20,16 @@ public class DropGenerator : MonoBehaviour {
 		i = 0;
 	}
 	
-	// per frame
+	// Update per frame
 	void Update () {
+		// Seed check
 		if (refreshSeed != stats.seed) {
 			refreshSeed = stats.seed;
 			Random.InitState (stats.seed);
 		}
 	}
 
-	// generate random item
+	// attempt to generate a random item
 	void Item(GameObject thing){
 		i = 0;
 		rand = Random.value;
@@ -39,7 +41,6 @@ public class DropGenerator : MonoBehaviour {
 				}
 			}
 			catch{
-				Debug.Log("Broke");
 				break;
 			}
 			i+=1;

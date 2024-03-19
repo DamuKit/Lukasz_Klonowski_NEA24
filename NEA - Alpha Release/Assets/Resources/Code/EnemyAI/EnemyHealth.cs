@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to display the health of the enemy the object is attached to. */
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour {
 	public int HPMax;
 	public int HP;
 	public int HPpercentage;
+
 	// Use this for initialization
 	void Start () {
 		Animation = GetComponent<Animator>();
@@ -17,7 +18,7 @@ public class EnemyHealth : MonoBehaviour {
 		HPpercentage = 100;
 	}
 	
-	// Update is called once per frame
+	// constantly update the HPpercentage variable to the health of the attached object
 	void Update () {
 		HPpercentage = Mathf.RoundToInt((HP * 1f / (HPMax) * 1f ) * 100);
 		Animation.SetInteger ("HP%", HPpercentage);
@@ -28,10 +29,10 @@ public class EnemyHealth : MonoBehaviour {
 		}
 	}
 
+	// Update health on report from attached object
 	void HealthReport(int health){
 		if (HPMax == -1) {
 			HPMax = health;
-
 		} 
 		HP = health;
 	}

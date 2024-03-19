@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 6 - Last Edited Sprint 8
 This script’s purpose is to make the water animated for aesthetic purposes. */
 using System.Collections;
 using System.Collections.Generic;

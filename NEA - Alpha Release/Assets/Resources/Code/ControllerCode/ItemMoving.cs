@@ -11,7 +11,6 @@ public class ItemMoving : MonoBehaviour {
 	bool held;
 	public CameraMovement camMov;
 	public string placeHolder;
-	//Inventory Slot Locations
 	public int ISLX;
 	public int ISLY;
 	public int positionInList;
@@ -23,7 +22,7 @@ public class ItemMoving : MonoBehaviour {
 	float Describe;
 	bool Described;
 
-	// Use this for initialization
+	// initialization
 	void Start () {
 		Describe = 0;
 		Described = false;
@@ -42,9 +41,9 @@ public class ItemMoving : MonoBehaviour {
 		Animation.SetInteger ("ItemID", int.Parse(currentItem.Substring (0, 3)));
 	}
 
-	// Update is called once per frame
+	// Update per frame
 	void Update () {
-
+		// Check if the mouse hovers for a prolonged period of time & change the state of description
 		if (Input.GetKey (KeyCode.Mouse0) == false & stats.pause == 0 & stats.menu == 1 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5) {
 			if (Describe < 1) {
 				Describe += 1 * Time.deltaTime;
@@ -57,7 +56,6 @@ public class ItemMoving : MonoBehaviour {
 			}
 		}
 		else{
-			
 			if (Describe > 0) {
 				Describe = 0;
 			}
@@ -67,10 +65,7 @@ public class ItemMoving : MonoBehaviour {
 			}
 		}
 
-
-
 		pH2 = "0";
-
 		if (currentPosition < 0) {
 			currentPosition = currentPosition + (28 + 77);
 		}
@@ -80,25 +75,18 @@ public class ItemMoving : MonoBehaviour {
 			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16), Quaternion.identity);
 		}
 
-
 		if (currentItem != invBeh.Locations [currentPosition] & Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4 > -100) {
-			
 			ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
 			ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
-			Debug.Log (ISLY);
 			positionInList = ISLX + ISLY * 11;
 			if (positionInList < 0) {
 				positionInList = positionInList + (28 + 77);
 			}
-
-			//currentItem = invBeh.Locations [positionInList];
-			//currentPosition = positionInList;
 			if(currentItem.Substring(0,3) == invBeh.Locations [positionInList].Substring(0,3) & currentItem.Substring(3,1) == "N"){
 				currentItem = invBeh.Locations [positionInList];
 				currentPosition = positionInList;
 			}
 			else if(currentItem.Substring(0,3) == invBeh.Locations [positionInList].Substring(0,3) & currentItem.Substring(3,3) != invBeh.Locations [positionInList].Substring(3,3)){
-				Debug.Log ("EEE");
 				currentItem = invBeh.Locations [positionInList];
 				currentPosition = positionInList;
 			}
@@ -111,7 +99,6 @@ public class ItemMoving : MonoBehaviour {
 			}
 			ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
 			ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
-			Debug.Log (ISLY);
 			positionInList = ISLX + ISLY * 11;
 			if (positionInList < 0) {
 				positionInList = positionInList + (28 + 77);
@@ -127,12 +114,6 @@ public class ItemMoving : MonoBehaviour {
 				invBeh.Locations [currentPosition] = invBeh.Locations [currentPosition].Substring (0, 3) + "000";
 				stats.holding = false;
 			}
-			Debug.Log ("E");
-			//if((cursor.transform.position.x - camMov.locX * 24 > -11.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f  )|( cursor.transform.position.x - camMov.locX * 24 > -6.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f)){
-				//ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
-			//} if((cursor.transform.position.y - camMov.locY * 16 > -2.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f )|( cursor.transform.position.y - camMov.locY * 16 > 6.5f & cursor.transform.position.y - camMov.locY * 16 < 7.5f & cursor.transform.position.x - camMov.locX * 24 > -6.5f)){
-				//ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
-			//}
 			this.gameObject.transform.SetPositionAndRotation(new Vector2(cursor.transform.position.x, cursor.transform.position.y), Quaternion.identity);
 
 			if (this.gameObject.transform.position.y * -1 + 4 - camMov.locY * 16 > -10) {
@@ -142,13 +123,10 @@ public class ItemMoving : MonoBehaviour {
 				if((cursor.transform.position.y - camMov.locY * 16 > -2.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f )|( cursor.transform.position.y - camMov.locY * 16 > 6.5f & cursor.transform.position.y - camMov.locY * 16 < 7.5f & cursor.transform.position.x - camMov.locX * 24 > -6.5f)){
 					ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4;
 				}
-				Debug.Log (ISLY);
 				positionInList = ISLX + ISLY * 11;
 				if (positionInList < 0) {
 					positionInList = positionInList + (28 + 77);
 				}
-				Debug.Log (positionInList);
-				Debug.Log (currentPosition);
 			}
 		} else if ((Input.GetKeyUp (KeyCode.Mouse0) == true | stats.pause == 1 | stats.menu == 0) & held == true) {
 			if (invBeh.Locations [positionInList].Length > 3) {
@@ -162,9 +140,6 @@ public class ItemMoving : MonoBehaviour {
 							Destroy (this.gameObject);
 						} else {
 							pH2 = invBeh.Locations [positionInList];
-							//invBeh.Locations [positionInList] = (invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 1001).ToString ()).Substring (1, 3));
-							//invBeh.Locations [currentPosition] = pH2.Substring (0, 3) + "999";
-							Debug.Log ("AA");
 
 							invBeh.Locations [currentPosition] = (invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 2000 - stats.stackLimit).ToString ()).Substring (1, 3));
 							invBeh.Locations [positionInList] = pH2.Substring (0, 3) + (1000 + stats.stackLimit).ToString().Substring(1,3);
@@ -177,25 +152,14 @@ public class ItemMoving : MonoBehaviour {
 							if (currentPosition >= 77) {
 								this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x + 5, this.gameObject.transform.position.y + 10);
 							}
-
-							//placeHolder = invBeh.Locations [positionInList];
-							//Destroy (this.gameObject);
-
 						}
-						//invBeh.swapPosition = currentPosition;
-						//invBeh.Locations [positionInList] = "0000000000";
-
-						//Destroy (this.gameObject);
 					}
 				}
 				else if(invBeh.Locations [positionInList] == invBeh.Locations [currentPosition]){
 					pH2 = invBeh.Locations [positionInList];
-					Debug.Log ("AA");
-
 
 					invBeh.swapPosition = currentPosition;
 					currentItem = invBeh.Locations [currentPosition];
-					Debug.Log (currentPosition);
 					this.gameObject.transform.position = new Vector2(Mathf.RoundToInt(currentPosition % 11)-11 + camMov.locX * 24, (Mathf.RoundToInt(currentPosition / 11) - 4)*-1 + camMov.locY * 16);
 					currentPosition = invBeh.swapPosition;
 					if (currentPosition >= 77) {
@@ -203,11 +167,9 @@ public class ItemMoving : MonoBehaviour {
 					}
 					ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x) + 11 - camMov.locX * 24 ;
 					ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y)* -1 + 4 + camMov.locY * 16;
-					Debug.Log (ISLY);
 					positionInList = ISLX + ISLY * 11;
 				}
 			}
-			Debug.Log ("AAA");
 			invBeh.swapPosition = currentPosition;
 			held = false;
 			stats.holding = false;
@@ -217,7 +179,6 @@ public class ItemMoving : MonoBehaviour {
 				invBeh.Locations [currentPosition] = placeHolder;
 				invBeh.PlaceHolder [positionInList] = invBeh.Locations [positionInList];
 				invBeh.PlaceHolder [currentPosition] = invBeh.Locations [currentPosition];
-				Debug.Log (placeHolder);
 			}
 			currentPosition = positionInList;
 
@@ -242,8 +203,5 @@ public class ItemMoving : MonoBehaviour {
 		} else {
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 		}
-
-		//Debug.Log (Vector2.Distance(cursor.transform.position, this.gameObject.transform.position));
-		//Debug.Log (ISLX + " " + ISLY);
 	}
 }

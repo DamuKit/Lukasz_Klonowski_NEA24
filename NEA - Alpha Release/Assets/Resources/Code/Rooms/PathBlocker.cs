@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 3 - Last Edited Sprint 6
 This script’s purpose is to prevent the player from moving offscreen until all enemies are defeated. */
 using System.Collections;
 using System.Collections.Generic;

@@ -7,14 +7,16 @@ using UnityEngine;
 public class Hotbar : MonoBehaviour {
 	public StatsStorage stats;
 	bool hidden;
-	// Use this for initialization
+
+	// initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		hidden = true;
 	}
 	
-	// Update is called once per frame
+	// Update per frame
 	void Update () {
+		//check if the game is paused or not & hide offscreen if paused
 		if (stats.pause == 0 & hidden == false) {
 			this.gameObject.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + 1000);
 			hidden = true;

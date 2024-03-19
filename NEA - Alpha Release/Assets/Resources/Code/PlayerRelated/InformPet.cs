@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s purpose is to allow the pet to know the location of enemies. */
 using System.Collections;
 using System.Collections.Generic;

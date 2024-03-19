@@ -9,14 +9,14 @@ public class ItemAmount : MonoBehaviour {
 	public InventoryBehaviour invBeh;
 	public ItemMoving location;
 
-	// Use this for initialization
+	// initialization
 	void Start () {
 		amount = this.GetComponent<TMPro.TMP_Text> ();
 		invBeh = this.transform.parent.parent.GetComponent<InventoryBehaviour>();
 		location = GetComponentInParent<ItemMoving>();
 	}
 	
-	// Update is called once per frame
+	// Update text handling number of items every frame
 	void Update () {
 		try{
 		amount.SetText(int.Parse(invBeh.Locations[location.currentPosition].Substring(3,3)).ToString());

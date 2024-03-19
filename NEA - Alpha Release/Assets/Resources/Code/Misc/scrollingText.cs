@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 5 - Last Edited Sprint 5
 This script’s purpose is to make the “You died” screen have scrolling text. */
 using System.Collections;
 using System.Collections.Generic;

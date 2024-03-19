@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to manage the behaviour of projectiles and cause them to damage enemies. */
 using System.Collections;
 using System.Collections.Generic;

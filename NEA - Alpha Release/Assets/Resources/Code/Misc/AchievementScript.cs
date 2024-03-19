@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 8 - Last Edited Sprint 8
 This script’s purpose is to manage the text and appearance of achievement and statistic related components in the menu. */
 using System.Collections;
 using System.Collections.Generic;

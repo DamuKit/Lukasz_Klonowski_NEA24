@@ -7,6 +7,7 @@ using TMPro;
 public class MenuText : MonoBehaviour {
 	TextMeshProUGUI text;
 	StatsStorage stats;
+
 	// Use this for initialization
 	void Start () {
 		text = this.gameObject.GetComponent<TextMeshProUGUI> ();
@@ -15,6 +16,7 @@ public class MenuText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Change difficulty text shown based on the current difficulty
 		if (this.gameObject.name == "Difficulty") {
 			switch (stats.Difficulty) {
 			case(1):

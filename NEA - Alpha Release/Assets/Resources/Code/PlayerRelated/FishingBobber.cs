@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 8 - Last Edited Sprint 8
 This script’s purpose is to manage the fishing, allowing the player to obtain items when successful. */
 using System.Collections;
 using System.Collections.Generic;

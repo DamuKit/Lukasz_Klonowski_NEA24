@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 8 - Last Edited Sprint 8
 This script’s purpose is to reveal certain information when fishing to the player. */
 using System.Collections;
 using System.Collections.Generic;

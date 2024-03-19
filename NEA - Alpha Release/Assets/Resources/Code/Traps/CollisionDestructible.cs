@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 8
 This script’s purpose is to allow the object to take damage and be destroyed upon collision. */
 using System.Collections;
 using System.Collections.Generic;

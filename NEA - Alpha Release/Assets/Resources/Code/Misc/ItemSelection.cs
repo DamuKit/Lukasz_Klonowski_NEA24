@@ -1,4 +1,4 @@
-﻿/*Created: Sprint - Last Edited Sprint 
+﻿/*Created: Sprint 7 - Last Edited Sprint 7
 This script’s purpose is to change the position of an object to show the slot being held in the player’s hand. */
 using System.Collections;
 using System.Collections.Generic;
