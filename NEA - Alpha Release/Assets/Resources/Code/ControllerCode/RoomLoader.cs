@@ -20,7 +20,7 @@ public class RoomLoader : MonoBehaviour {
 	public int openings;
 	int roomTest;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Tilemaps = GameObject.Find ("Tilemaps");
@@ -35,7 +35,7 @@ public class RoomLoader : MonoBehaviour {
 		roomTest = 0;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		// Refresh the seed
 		if (refreshSeed != stats.seed) {

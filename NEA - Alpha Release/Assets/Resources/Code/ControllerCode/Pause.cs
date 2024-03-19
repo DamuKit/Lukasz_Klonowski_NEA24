@@ -8,14 +8,14 @@ public class Pause : MonoBehaviour {
 	public StatsStorage stats;
 	int hidden;
 	Vector3 location;
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		hidden = 0;
 		location = this.gameObject.transform.position;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		// Check when escape is pressed & change the state of the menu
 		if (Input.GetKeyDown (KeyCode.Escape) == true && stats.pause == 0 & stats.menu == 1) {

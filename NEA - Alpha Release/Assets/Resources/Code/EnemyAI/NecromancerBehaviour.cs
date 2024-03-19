@@ -30,7 +30,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 	public bool summonCooldown;
 	public bool IVTime;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		IVTime = false;
 		Animation = this.gameObject.GetComponent<Animator> ();
@@ -61,7 +61,7 @@ public class NecromancerBehaviour : MonoBehaviour {
 		summonCooldown = false;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		speed = baseSpeed * 0.5f * Time.deltaTime * stats.pause;
 		if (wonder == 1) {

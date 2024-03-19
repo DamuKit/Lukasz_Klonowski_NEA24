@@ -8,13 +8,13 @@ public class MenuText : MonoBehaviour {
 	TextMeshProUGUI text;
 	StatsStorage stats;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		text = this.gameObject.GetComponent<TextMeshProUGUI> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		// Change difficulty text shown based on the current difficulty
 		if (this.gameObject.name == "Difficulty") {

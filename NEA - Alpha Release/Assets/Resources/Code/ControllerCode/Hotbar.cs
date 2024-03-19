@@ -14,7 +14,7 @@ public class Hotbar : MonoBehaviour {
 		hidden = true;
 	}
 	
-	// Update per frame
+	// Update once per frame
 	void Update () {
 		//check if the game is paused or not & hide offscreen if paused
 		if (stats.pause == 0 & hidden == false) {

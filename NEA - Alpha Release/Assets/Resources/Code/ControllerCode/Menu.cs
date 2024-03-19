@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour {
 	public Slider Music;
 	public Slider SFX;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		Master = GameObject.Find ("MasterVolume").GetComponent<Slider> ();
 		Music = GameObject.Find ("MusicVolume").GetComponent<Slider> ();
@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		Debug.Log (stats.menu);
 		stats.Master = Master.value;

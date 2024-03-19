@@ -8,7 +8,7 @@ public class ScoreTextController : MonoBehaviour {
 	public TMP_Text score;
 	public StatsStorage stats;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		score = this.GetComponent<TMPro.TMP_Text> ();

@@ -35,7 +35,7 @@ public class InventoryBehaviour : MonoBehaviour {
 		swapPosition = 0;
 	}
 	
-	// Update per frame
+	// Update once per frame
 	void Update () {
 		if (items.Count > 0 & stats.pause == 0 & stats.menu == 1) {
 			// Reset

@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour {
 		stats.enemystatpoints = 0;
 	}
 
-	// Update per frame
+	// Update once per frame
 	void Update () {
 		// Determine amount of points to allocate to enemies & spawn
 		limiter = Mathf.RoundToInt(((0.1f * stats.room + 2 * stats.Difficulty + 0.5f * stats.localDifficulty) * stats.points) / stats.Rooms[roomLoader.room, 1] - stats.enemystatpoints);

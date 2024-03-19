@@ -9,7 +9,8 @@ public class Hidemenu : MonoBehaviour {
 	Vector3 location;
 	public CameraMovement camMov;
 	public StatsStorage stats;
-	// Use this for initialization
+
+	// initialization
 	void Start () {
 		camMov = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -17,7 +18,7 @@ public class Hidemenu : MonoBehaviour {
 		location = this.gameObject.transform.position;
 	}
 
-	// Update is called once per frame
+	// Moves the attached object offscreen & onscreen to specific positions based on if the game is paused every frame
 	void Update () {
 		this.gameObject.transform.SetPositionAndRotation (new Vector2(location.x + camMov.locX * 24, location.y + camMov.locY * 16 + 2000 * stats.menu) , Quaternion.identity);
 	}

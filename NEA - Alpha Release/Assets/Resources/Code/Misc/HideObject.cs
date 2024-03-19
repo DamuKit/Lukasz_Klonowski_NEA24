@@ -10,7 +10,8 @@ public class HideObject : MonoBehaviour {
 	int MoveWithCamera = 0;
 	public CameraMovement camMov;
 	public StatsStorage stats;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		camMov = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
@@ -21,19 +22,8 @@ public class HideObject : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
-		//this.gameObject.transform.SetPositionAndRotation (location + new Vector3(0,1000,0) * hidden, Quaternion.identity);
-
-		/*if (Input.GetKeyDown (KeyCode.Escape) == true && hidden == 0) {
-			this.gameObject.transform.Translate (new Vector3 (0, 1000, 0));
-			hidden = 1;
-		}
-		else if (Input.GetKeyDown (KeyCode.Escape) == true && hidden == 1) {
-			this.gameObject.transform.SetPositionAndRotation (new Vector2(location.x + camMov.locX * 24 * MoveWithCamera, location.y + camMov.locY * 16 * MoveWithCamera) , Quaternion.identity);
-			hidden = 0;
-
-		}*/
 		this.gameObject.transform.SetPositionAndRotation (new Vector2(location.x + camMov.locX * 24 * MoveWithCamera, location.y + camMov.locY * 16 * MoveWithCamera + 1000 * stats.pause) , Quaternion.identity);
 	}
 }

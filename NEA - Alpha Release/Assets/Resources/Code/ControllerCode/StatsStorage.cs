@@ -90,7 +90,7 @@ public class StatsStorage : MonoBehaviour {
 	public float Music;
 	public float SFX;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		DistanceTravelled = 0;
 		LifetimeDamage = 0;
@@ -130,7 +130,7 @@ public class StatsStorage : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		
 		// Constantly update stats

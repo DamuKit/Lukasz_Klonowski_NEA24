@@ -20,7 +20,7 @@ public class DropGenerator : MonoBehaviour {
 		i = 0;
 	}
 	
-	// Update per frame
+	// Update once per frame
 	void Update () {
 		// Seed check
 		if (refreshSeed != stats.seed) {

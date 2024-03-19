@@ -22,16 +22,15 @@ public class SkeletonBehaviour : MonoBehaviour {
 	public int baseSpeed;
 	int wonder;
 	public float decay;
-
 	public float speed;
 	public float health;
 	public int damage;
 	public EnemyHealth HPBar;
 	Animator Animation;
 	public bool IVTime;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
-		
 		IVTime = false;
 		Animation = this.gameObject.GetComponent<Animator> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
@@ -43,19 +42,14 @@ public class SkeletonBehaviour : MonoBehaviour {
 		camMov = Cam.GetComponent<CameraMovement> ();
 		location = stats.Locations[stats.Locations.Count - 1];
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
-
-
 		player = GameObject.FindGameObjectWithTag ("Player");
 		Player = player.GetComponent<PlayerMovement> ();
 		delay = 0;
-
 		health = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 3];
 		damage = stats.Enemies [int.Parse(this.gameObject.name.Substring(1)), 4];
 		baseSpeed = stats.Enemies [int.Parse (this.gameObject.name.Substring (1)), 5];
-
 		Random.InitState (stats.seed + stats.seedoffset);
 		stats.seedoffset += 1;
-
 		statVariance = -Mathf.RoundToInt(health) - damage - baseSpeed;
 		//setting random stats
 		health = Mathf.RoundToInt(health * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
@@ -64,29 +58,27 @@ public class SkeletonBehaviour : MonoBehaviour {
 		decay = health;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		speed = baseSpeed * 0.5f * Time.deltaTime * stats.pause;
 		if (wonder == 1) {
 			speed *= 0.5f;
 		}
-
 		if (stats.pause == 1) {
 			health -= decay * 0.1f * Time.deltaTime;
 		}
-
 		if (location == (camMov.locX + "." + camMov.locY)) {
 			if (delay <= 0) {
 				wonder = 0;
 				Animation.SetBool ("walk", true);
-
+				// Detect player
 				RaycastHit2D DetectPlayer = Physics2D.Raycast (this.gameObject.transform.position - new Vector3(0, 0.1f), (player.transform.position - transform.position - new Vector3(0, 0.1f))*2);
-
 				if (DetectPlayer.collider.name == "Player" & Player.hp > 0 & Player.repellant == false & DetectPlayer.distance <= 5) {
+					// Identify the direction the player is in
 					angle = Mathf.Rad2Deg * (Mathf.Atan (Mathf.Abs ((0.5f + 0.5f * Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y)) * (player.transform.position.x - this.transform.position.x) / (player.transform.position.y - this.transform.position.y) + ((0.5f + 0.5f * -Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y))) * (player.transform.position.y - this.transform.position.y) / (player.transform.position.x - this.transform.position.x)))) + 45 * (2 - 2 * Mathf.Sign (player.transform.position.x - this.transform.position.x) + 1 - Mathf.Sign (player.transform.position.x - this.transform.position.x) * Mathf.Sign (player.transform.position.y - this.transform.position.y));
 				}
 				else {
-					
+					// Otherwise randomise direction
 					delay = Random.Range(40, 100);
 					angle = Random.Range(-100, 360);
 					wonder = 1;
@@ -95,6 +87,7 @@ public class SkeletonBehaviour : MonoBehaviour {
 				Animation.SetBool ("walk", false);
 				delay -= 1;
 			}
+			// Movement
 			if (angle <= 360 & angle >= 337.5 | angle <= 22.5 & angle >= 0) {
 				this.transform.Translate (0, speed, 0);
 			} else if (angle >= 22.5 && angle <= 67.5) {
@@ -114,6 +107,7 @@ public class SkeletonBehaviour : MonoBehaviour {
 			}
 		}
 		if (angle >= 0) {
+			// Identify direction for sprite
 			if (angle <= 360 & angle >= 315 | angle <= 45 & angle >= 0) {
 				Animation.SetInteger ("Direction", 0);
 			} else if (angle >= 45 & angle <= 135) {
@@ -124,6 +118,7 @@ public class SkeletonBehaviour : MonoBehaviour {
 				Animation.SetInteger ("Direction", 3);
 			}
 		}
+		// Invincibility
 		if (IV == true & IVTime == false & attack.Attack == false) {
 			IV = false;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
@@ -131,6 +126,7 @@ public class SkeletonBehaviour : MonoBehaviour {
 		if (stats.killall == true) {
 			health = -10;
 		}
+		// On kill
 		if (health <= 0) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
 			if (IV == true) {
@@ -140,6 +136,8 @@ public class SkeletonBehaviour : MonoBehaviour {
 		}
 		HPBar.SendMessage ("HealthReport", health);
 	}
+
+	// Taking Damage
 	void damaged(int dmg) {
 		if (IV == false) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
@@ -149,14 +147,16 @@ public class SkeletonBehaviour : MonoBehaviour {
 			StartCoroutine ("Invincibility");
 		}
 	}
+
+	// Colliding with the player
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" & Player.invincible == false) {
 			other.gameObject.SendMessage ("Debuff", Random.Range(1,4) );
 			other.gameObject.SendMessage ("Damaged", damage);
-
 		}
 	}
 
+	// Invincbility
 	public IEnumerator Invincibility(){
 		IV = true;
 		IVTime = true;

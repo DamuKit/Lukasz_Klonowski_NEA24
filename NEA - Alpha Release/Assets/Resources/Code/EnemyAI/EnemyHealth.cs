@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour {
 	public int HP;
 	public int HPpercentage;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		Animation = GetComponent<Animator>();
 		HP = -1;

@@ -32,7 +32,7 @@ public class ChessPieces : MonoBehaviour {
 	bool EndTurn;
 	bool FollowedRules;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		FollowedRules = true;
 		turn = false;
@@ -63,7 +63,7 @@ public class ChessPieces : MonoBehaviour {
 		damage = Mathf.RoundToInt(damage * (Random.Range (0.75f, 1.5f) + stats.room * 0.1f * (stats.Difficulty - 2/3)* 3));
 	}
 
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		// Turn based movement
 		if (Mathf.RoundToInt(Time.time) % 2 == 0 & this.gameObject.name.Substring (1, 3) == "004") {
