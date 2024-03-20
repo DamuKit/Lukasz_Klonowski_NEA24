@@ -47,6 +47,7 @@ public class ItemMoving : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Mouse0) == false & stats.pause == 0 & stats.menu == 1 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5) {
 			if (Describe < 1) {
 				Describe += 1 * Time.deltaTime;
+				// Describe the item
 				if (GameObject.Find ("Cursor").GetComponent<Cursor> ().Displaying > 0) {
 					Describe = 1;
 				}
@@ -56,6 +57,7 @@ public class ItemMoving : MonoBehaviour {
 			}
 		}
 		else{
+			// Allow other items to be described quickly afterwards
 			if (Describe > 0) {
 				Describe = 0;
 			}
@@ -64,17 +66,16 @@ public class ItemMoving : MonoBehaviour {
 				Described = false;
 			}
 		}
-
 		pH2 = "0";
 		if (currentPosition < 0) {
 			currentPosition = currentPosition + (28 + 77);
 		}
 		if (currentPosition < 77) {
+			// Move to a position based on the item's location
 			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16 + 1000 * stats.pause), Quaternion.identity);
 		} else {
 			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16), Quaternion.identity);
 		}
-
 		if (currentItem != invBeh.Locations [currentPosition] & Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4 > -100) {
 			ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
 			ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
@@ -104,18 +105,19 @@ public class ItemMoving : MonoBehaviour {
 				positionInList = positionInList + (28 + 77);
 			}
 		}
-
+		// Check if the mouse is pressed on the item
 		if (Input.GetKeyDown (KeyCode.Mouse0) == true & stats.pause == 0 & stats.menu == 1 & Vector2.Distance(cursor.transform.position, this.gameObject.transform.position) < 0.5 & stats.holding == false) {
 			stats.holding = true;
 			held = true;
 		}
 		if ((Input.GetKey (KeyCode.Mouse0) == true & stats.pause == 0 & stats.menu == 1) & held == true) {
 			if (Input.GetKey (KeyCode.LeftControl) == true) {
+				// Delete the item
 				invBeh.Locations [currentPosition] = invBeh.Locations [currentPosition].Substring (0, 3) + "000";
 				stats.holding = false;
 			}
+			// Move the item with the cursor
 			this.gameObject.transform.SetPositionAndRotation(new Vector2(cursor.transform.position.x, cursor.transform.position.y), Quaternion.identity);
-
 			if (this.gameObject.transform.position.y * -1 + 4 - camMov.locY * 16 > -10) {
 				if ((cursor.transform.position.x - camMov.locX * 24 > -11.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f & cursor.transform.position.y - camMov.locY * 16 < 4.5f) | (cursor.transform.position.x - camMov.locX * 24 > -6.5f & cursor.transform.position.x - camMov.locX * 24 < -0.5f)) {
 					ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
@@ -128,25 +130,23 @@ public class ItemMoving : MonoBehaviour {
 					positionInList = positionInList + (28 + 77);
 				}
 			}
+			// Move the item to the new slot
 		} else if ((Input.GetKeyUp (KeyCode.Mouse0) == true | stats.pause == 1 | stats.menu == 0) & held == true) {
 			if (invBeh.Locations [positionInList].Length > 3) {
 				if (invBeh.Locations [positionInList].Substring (3, 1) != "N") {
 					if (invBeh.Locations [positionInList].Substring (0, 3) == invBeh.Locations [currentPosition].Substring (0, 3) & positionInList != currentPosition) {
 						if (int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) <= stats.stackLimit) {
+							// Leave some items behind
 							invBeh.Locations [currentPosition] = invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 1000).ToString ()).Substring (1, 3);
 							invBeh.swapPosition = currentPosition;
 							invBeh.Locations [positionInList] = "0000000000";
-
 							Destroy (this.gameObject);
 						} else {
 							pH2 = invBeh.Locations [positionInList];
-
 							invBeh.Locations [currentPosition] = (invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 2000 - stats.stackLimit).ToString ()).Substring (1, 3));
 							invBeh.Locations [positionInList] = pH2.Substring (0, 3) + (1000 + stats.stackLimit).ToString().Substring(1,3);
-
 							invBeh.swapPosition = currentPosition;
 							currentItem = invBeh.Locations [currentPosition];
-
 							this.gameObject.transform.position = new Vector2(Mathf.RoundToInt(currentPosition % 11)-11 + camMov.locX * 24, (Mathf.RoundToInt(currentPosition / 11) - 4)*-1 + camMov.locY * 16);
 							currentPosition = invBeh.swapPosition;
 							if (currentPosition >= 77) {
@@ -181,8 +181,8 @@ public class ItemMoving : MonoBehaviour {
 				invBeh.PlaceHolder [currentPosition] = invBeh.Locations [currentPosition];
 			}
 			currentPosition = positionInList;
-
 		}
+		// Display items in hotbar
 		if (ISLY == -3) {
 			if (stats.pause == 0 & hidden == false) {
 				this.gameObject.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + 1000);
@@ -192,10 +192,12 @@ public class ItemMoving : MonoBehaviour {
 				hidden = false;
 			}
 		}
+		// Delete empty items
 		if (currentItem.Substring (3, 3) == "000") {
 			invBeh.Locations [currentPosition] = "0000000000";
 			Destroy (this.gameObject);
 		}
+		// Change colour if in a hand
 		if (currentPosition == invBeh.MainHandPosition + 77 ) {
 			gameObject.GetComponent<SpriteRenderer> ().color = new Color(0.8f,0.8f,0.8f,1);
 		} else if (currentPosition == invBeh.OffHandPosition + 77) {

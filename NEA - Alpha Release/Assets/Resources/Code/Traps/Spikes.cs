@@ -12,7 +12,7 @@ public class Spikes : MonoBehaviour {
 	bool playerIN;
 	bool hit;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		state = 0;
 		activate = false;
@@ -22,17 +22,17 @@ public class Spikes : MonoBehaviour {
 		playerIN = false;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// initiate trap activation
 		if (activate == true) {
 			state += 1;
 			if (state >= 80 & state <=110 & hit == false & playerIN == true) {
-				//Player.hp -= 0.2f * Player.maxhp;
 				Player.SendMessage ("Damaged", 0.2f * Player.maxhp);
 				hit = true;
-				Debug.Log(state);
 			}
 		}
+		// damage player after a certain delay
 		if (state >= 150) {
 			activate = false;
 			hit = false;
@@ -41,6 +41,7 @@ public class Spikes : MonoBehaviour {
 		}
 	}
 
+	// Check when the player is in the trigger & activate the trap
 	private void OnTriggerEnter2D(Collider2D other) {
 		if(other.gameObject.tag == "Player"){
 			playerIN = true;
@@ -51,6 +52,8 @@ public class Spikes : MonoBehaviour {
 			Animation.SetBool ("Active", true);
 		}
 	}
+
+	// Check if the player has left to not deal damage to them
 	private void OnTriggerExit2D(Collider2D other){
 		if (other.gameObject.tag == "Player") {
 			playerIN = false;

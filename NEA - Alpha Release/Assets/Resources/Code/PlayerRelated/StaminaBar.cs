@@ -8,14 +8,16 @@ public class StaminaBar : MonoBehaviour {
 	float stamina;
 	PlayerMovement player;
 	Animator animation;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		player = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
 		animation = this.gameObject.GetComponent<Animator> ();
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Update the stamina animation to reflect on the current stamina
 		stamina =  Mathf.RoundToInt((player.stamina * 1f / (player.maxStamina) * 1f ) * 100);
 		animation.SetFloat ("stamina%", stamina);
 	}

@@ -10,7 +10,8 @@ public class CollisionDestructible : MonoBehaviour {
 	int health;
 	bool IV;
 	public EnemyHealth HPBar;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
@@ -19,7 +20,7 @@ public class CollisionDestructible : MonoBehaviour {
 		IV = false;
 	}
 	
-	// Update is called once per frame
+	// Destroy when no health
 	void Update () {
 		if (health <= 0) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/explosion"));
@@ -27,6 +28,7 @@ public class CollisionDestructible : MonoBehaviour {
 		}
 	}
 
+	// Take damage when touching the player
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (IV == false) {
@@ -34,11 +36,11 @@ public class CollisionDestructible : MonoBehaviour {
 				StartCoroutine ("Damaged");
 				health -= Mathf.RoundToInt (attack.damage);
 			}
-			//Destroy (this.gameObject);
 		}
 		HPBar.SendMessage ("HealthReport", health);
 	}
 
+	// invincibility
 	public IEnumerator Damaged(){
 		IV = true;
 		gameObject.GetComponent<SpriteRenderer> ().color = Color.red;

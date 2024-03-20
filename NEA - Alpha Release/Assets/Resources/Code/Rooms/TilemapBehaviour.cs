@@ -14,7 +14,7 @@ public class TilemapBehaviour : MonoBehaviour {
 	int j;
 	int k;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		TilesA.AddRange(Resources.LoadAll<TileBase>("tilesets/Liquid/water"));
 		TilesB.AddRange(Resources.LoadAll<TileBase>("tilesets/Liquid/waterfall"));
@@ -26,9 +26,9 @@ public class TilemapBehaviour : MonoBehaviour {
 		k = 0;
 	}
 	
-	// Update is called once per frame
+	// Animates the water
 	void Update () {
-		
+		// Changes all tiles with the next state to animate the water at reqular intervals
 		if (j == 20) {
 			if (cycleA <= 3) {
 				for (int i = TilesA.Count - 2; i >= 0; i -= 1) { 

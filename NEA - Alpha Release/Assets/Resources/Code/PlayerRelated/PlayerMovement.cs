@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour {
 				Animation.SetBool ("dash", false);
 				dashing = false;
 			}
-			// This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor
+			// This section checks the angle of the mouse cursor from the player to change the player animation to face the cursor
 			if (Input.mousePosition.x - (Display.main.systemWidth / 2) >= 0 & Input.mousePosition.y - (Display.main.systemHeight / 2) >= 0) {
 			}
 			if (angle >= 45 && angle <= 135) {
@@ -302,7 +302,6 @@ public class PlayerMovement : MonoBehaviour {
 		case(4):
 			StartCoroutine ("repellantBuff");
 			break;
-
 		case(22):
 			GunCrate (Random.value);
 			break;
@@ -318,7 +317,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	// 
 	// Manage debuffs
 	void Debuff(int debuff){
 		switch (debuff) {

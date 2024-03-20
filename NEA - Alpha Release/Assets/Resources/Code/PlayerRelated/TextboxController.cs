@@ -16,21 +16,15 @@ public class TextboxController : MonoBehaviour {
 	public List<string> inputElements = new List<string> ();
 	PlayerMovement Player;
 	int[] dialogue = new int[] {0};
-
-	// Use this for initialization
-
-	//12 spaces shown at a time
 	[TextAreaAttribute]
 	public string text;
 
-
-
+	// Initialization
 	void Start () {
 		camMov = GameObject.Find ("Main Camera").GetComponent<CameraMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Player = GameObject.Find ("Player").GetComponent<PlayerMovement> ();
 		Tilemaps = GameObject.Find ("Tilemaps");
-		//text = textbox[textbox.Capacity];
 		chat = this.GetComponent<TMPro.TMP_Text> ();
 		textbox.Add("W, A, S, D to move");
 		textbox.Add("Left mouse to use item in main hand, right click for right hand");
@@ -47,18 +41,17 @@ public class TextboxController : MonoBehaviour {
 		processSaver = "e";
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		if(processSaver != (textbox [textbox.Count - 1]).ToString()){
 			processSaver = (textbox [textbox.Count - 1]).ToString();
 			textPlaceHolder = processSaver;
 			split ();
-
-
 			chat.text = textbox[textbox.Count-12] + "\n" + textbox[textbox.Count-11] + "\n" + textbox[textbox.Count-10] + "\n" + textbox[textbox.Count-9] + "\n" + textbox[textbox.Count-8] + "\n" + textbox[textbox.Count-7] + "\n" + textbox[textbox.Count-6] + "\n" + textbox[textbox.Count-5] + "\n" + textbox[textbox.Count-4] + "\n" + textbox[textbox.Count-3] + "\n" + textbox[textbox.Count-2] + "\n" + textbox[textbox.Count-1];
 			if (inputElements.Count > 0) {
+				// Checks which command was input
 				switch (inputElements [0].ToLower ()) {
-				//Help Command
+				// Help Command
 				case("/help"):
 					{
 						textbox.Add ("/help <int>");
@@ -71,8 +64,7 @@ public class TextboxController : MonoBehaviour {
 						textbox.Add ("[Page 1/1]");
 					}
 					break;
-
-				//clearchat command
+				// clearchat command
 				case("/clearchat"):
 					{
 						textbox.Add ("");
@@ -89,20 +81,17 @@ public class TextboxController : MonoBehaviour {
 						textbox.Add ("");
 					}
 					break;
-
-			
-				
-					
-					break;
-				//difficulty command
+				// difficulty command
 				case("/difficulty"):
 					{
+						// Changes the difficulty based on input, does not have an upper limit
 						try {
 							if (int.Parse (inputElements [1]) > 0) {
 								stats.Difficulty = int.Parse (inputElements [1]);
 								textbox.Add ("Difficulty Changed");
 							}
 						} catch {
+							// errors
 							try {
 								inputElements [1].ToLower ();
 								textbox.Add ("ITE001: Input must be integer");
@@ -113,10 +102,11 @@ public class TextboxController : MonoBehaviour {
 						}
 					}
 					break;
-				//seed command
+				// seed command
 				case("/seed"):
 					{
 						try {
+							// Change the seed
 							if (int.Parse (inputElements [1]) > 0) {
 								if (int.Parse (inputElements [1]) >= 0 & int.Parse (inputElements [1]) <= 1000000000) {
 									stats.seed = int.Parse (inputElements [1]);
@@ -125,6 +115,7 @@ public class TextboxController : MonoBehaviour {
 								}
 							}
 						} catch {
+							// errors
 							try {
 								inputElements [1].ToLower ();
 								textbox.Add ("ITE001: Input must be integer N");
@@ -134,8 +125,9 @@ public class TextboxController : MonoBehaviour {
 						}
 					}
 					break;
-
+				// gamble command
 				case("/gamble"):
+					// randomly generate a number
 					if (Random.value > 0.75) {
 						stats.score *= 2;
 						textbox.Add ("You win");
@@ -144,14 +136,16 @@ public class TextboxController : MonoBehaviour {
 						textbox.Add ("You Lose");
 					}
 					break;
-
+				// roll command
 				case("/roll"):
 					try {
+						// generates a random number between two values
 						textbox.Add ((Random.Range (int.Parse (inputElements [1]), int.Parse (inputElements [2]))).ToString ());
 					} catch {
 						try {
 							textbox.Add (Random.Range (0, int.Parse (inputElements [1])).ToString ());
 						} catch {
+							// errors
 							try {
 								inputElements [1].ToLower ();
 								textbox.Add ("ITE001: Input must be integer N");
@@ -161,7 +155,7 @@ public class TextboxController : MonoBehaviour {
 						}
 					}
 					break;
-
+				// op commands
 				case("/op"):
 					stats.Achievements[4,2] = "T";
 					try{
@@ -169,13 +163,16 @@ public class TextboxController : MonoBehaviour {
 						//heal command
 						case("heal"):
 							try {
+								// heals the player
 								if (int.Parse (inputElements [2]) > 0) {
 									Player.hp += int.Parse(inputElements [2]);
 									textbox.Add ("Cheater successfully healed");
 								}else if (int.Parse (inputElements [2]) < 0) {
+									// damages the player
 									Player.hp += int.Parse(inputElements [2]);
 									textbox.Add ("Cheater successfully... damaged?");
 								} else if (int.Parse (inputElements [2]) ==0) {
+									// does nothing other than text
 									Player.hp += int.Parse(inputElements [2]);
 									switch(dialogue[0]){
 									case(0):
@@ -247,6 +244,7 @@ public class TextboxController : MonoBehaviour {
 								}
 							} catch {
 								try {
+									// error
 									inputElements [2].ToLower ();
 									textbox.Add ("ITE001: Input must be integer");
 										
@@ -256,35 +254,41 @@ public class TextboxController : MonoBehaviour {
 							}
 							
 							break;
-
+						// killall command
 						case("killall"):
 							StartCoroutine ("killall");
 							textbox.Add ("Enemies successfully killed");
 							break;
-								
+						// coordinate comand
 						case("coordinate"):
 							switch(inputElements [2].ToLower ()){
 							case("display"):
+								// Displays the current location of the player
 								textbox.Add (camMov.locX + ", " + camMov.locY);
 								break;
 							case("set"):
+								// generates a new room in a designated area
 								try{
 									stats.Locations.Add(int.Parse(inputElements [3].ToLower ()) + "." + int.Parse(inputElements [4].ToLower ()));
 									stats.LocationID.Add(int.Parse(inputElements [5].ToLower ()));
 									Object.Instantiate (stats.RoomID[int.Parse(inputElements [5].ToLower ())], new Vector3 (int.Parse(inputElements [3].ToLower ()) * 24, int.Parse(inputElements [4].ToLower ()) * 16), Quaternion.identity, Tilemaps.transform);
 								}catch{
+									// error
 									textbox.Add ("ITE007: Invalid input");
 								}
 								break;
 							}
 							break;
+						// give command
 						case("give"):
 							try{
+								// gives the player an item
 								if(inputElements [2].Substring(3,1) == "N"){
 									if((int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 199 & int.Parse(inputElements [2].Substring(4,4)) >= 0000)){
 									GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
 									textbox.Add ("Given " + inputElements [2]);
 									}
+									// errors
 									else if(int.Parse(inputElements [2].Substring(0,3)) >=100 & int.Parse(inputElements [2].Substring(0,3)) <= 199){
 										textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
 									}
@@ -292,10 +296,12 @@ public class TextboxController : MonoBehaviour {
 										textbox.Add ("Failed to give " + inputElements [2] + ": Not Real.");
 									}
 								}
+								// successful
 								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 99 & int.Parse(inputElements [2].Substring(3,3)) >= 0){
 										GameObject.Find("Inventory").GetComponent<InventoryBehaviour>().items.Enqueue(inputElements [2]);
 										textbox.Add ("Given " + inputElements [2]);
 									}
+								// errors
 								else if(int.Parse(inputElements [2].Substring(0,3)) >=0 & int.Parse(inputElements [2].Substring(0,3)) <= 99){
 									textbox.Add ("Failed to give " + inputElements [2] + ": Invalid Input. :");
 								}
@@ -318,14 +324,13 @@ public class TextboxController : MonoBehaviour {
 						textbox.Add ("006: Missing Input");
 					}
 					break;
-
+					// space for adding new commands in the future
 				//case(""):
 				//break;
 
-				//no existing command
-
 				default:
 					{
+						// default error
 						textbox.Add ("CTE001: unknown command");
 					}
 					break;
@@ -347,9 +352,10 @@ public class TextboxController : MonoBehaviour {
 	001: unknown command
 */
 	}
+
+	// Separates the command into segments for working with
 	public void split(){
 		if(textPlaceHolder.StartsWith("/")){
-			
 			textPlaceHolder += " .";
 			inputElements.Clear();
 			do{
@@ -358,6 +364,8 @@ public class TextboxController : MonoBehaviour {
 			}while(textPlaceHolder.Contains(" "));
 		}
 	}
+
+	// Causes all enemies to die briefly
 	public IEnumerator killall(){
 		stats.killall = true;
 		yield return new WaitForSeconds (1f);

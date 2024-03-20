@@ -11,7 +11,8 @@ public class DestructibleGrave : MonoBehaviour {
 	public Attacking attack;
 	public bool end;
 	public EnemyHealth HPBar;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 		HPBar = gameObject.transform.Find("EnemyHP").GetComponent<EnemyHealth>();
@@ -21,7 +22,7 @@ public class DestructibleGrave : MonoBehaviour {
 		end = false;
 	}
 	
-	// Update is called once per frame
+	// Manage Invincibility & destroy when zero health
 	void Update () {
 		if (IV == true & attack.Attack == false) {
 			IV = false;
@@ -33,14 +34,13 @@ public class DestructibleGrave : MonoBehaviour {
 		}
 		HPBar.SendMessage ("HealthReport", health);
 	}
+
+	// Process damage from the player
 	void damaged(int dmg) {
 		if (IV == false) {
 			Player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/MeleeAttack"));
-			Debug.Log ("damaged");
-
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			health -= dmg;
-			Debug.Log (health);
 			IV = true;
 		}
 	}

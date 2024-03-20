@@ -12,15 +12,17 @@ public class SmoothCollission : MonoBehaviour {
 		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 	}
 	
-	// Update once per frame
+	// Check then the object is touching a wall
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.name == "Walls" | other.gameObject.name == "T001") {
+			// lock movement
 			Player.lockmovement [int.Parse (this.gameObject.name.Substring (0, 1))] = 0;
 		}
 	}
 
-	// 
+	// Check when the object is no longer touching a wall
 	private void OnTriggerExit2D(Collider2D other){
+		// unlock movement
 		if (other.gameObject.name == "Walls" | other.gameObject.name == "T001") {
 			Player.lockmovement [int.Parse (this.gameObject.name.Substring (0, 1))] = 1;
 		}
