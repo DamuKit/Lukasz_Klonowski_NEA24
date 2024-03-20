@@ -9,19 +9,20 @@ public class HealthBar : MonoBehaviour {
 	public StatsStorage stats;
 	public PlayerMovement Player;
 	Animator Animation;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Animation = GetComponent<Animator>();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Change the animation based on the player's health
 		Animation.SetFloat ("Hp%", Mathf.RoundToInt((Player.hp * 1f / (Player.maxhp) * 1f ) * 100));
-
 		if (Player.hp <= 0 & Time.timeScale > 0) {
+			// Slow down game speed over time
 			stats.gameSpeed = stats.gameSpeed * 0.99f;
-			Debug.Log (stats.gameSpeed);
 			if (stats.gameSpeed < 0.00000001) {
 				stats.gameSpeed = 0;
 			}
@@ -33,6 +34,7 @@ public class HealthBar : MonoBehaviour {
 		}
 	}
 
+	// Load death scene after death lasts longer than two seconds
 	public IEnumerator Dead(){
 		yield return new WaitForSeconds (2f);
 		if (Player.hp <= 0) {

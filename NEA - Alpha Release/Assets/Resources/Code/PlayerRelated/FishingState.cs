@@ -8,7 +8,8 @@ public class FishingState : MonoBehaviour {
 	Animator Animation;
 	int state;
 	public float Life;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Animation = this.gameObject.GetComponent<Animator> ();
 		state = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ().FishingState;
@@ -16,8 +17,9 @@ public class FishingState : MonoBehaviour {
 		Life = 3;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Determine appearance based on the state of catching the fish & disappear over a short time
 		Life -= 1 * Time.deltaTime;
 		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, Mathf.Pow(Life / 3,5));
 		if (Life <= 0) {

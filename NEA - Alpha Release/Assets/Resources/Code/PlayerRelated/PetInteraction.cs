@@ -7,18 +7,22 @@ using UnityEngine;
 public class PetInteraction : MonoBehaviour {
 	public float focusDistance;
 	public float angle;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		angle = -1;
 	}
 
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Reset direction and angle every frame
 		focusDistance = 1000;
 		angle = -1;
 	}
 
+	// 
 	public void Focus(float[] Info) {
+		// Update info to be based on closest enemy
 		if(focusDistance > Info[0]){
 			focusDistance = Info[0];
 			angle = Info[1];

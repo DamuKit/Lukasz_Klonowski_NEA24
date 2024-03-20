@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class NameShortener : MonoBehaviour {
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
+		// Shorten the name
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
 	}
 }

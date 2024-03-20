@@ -7,13 +7,14 @@ using TMPro;
 
 public class scrollingText : MonoBehaviour {
 	float scroll;
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		scroll = 1;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Move the attached gameobject upwards constantly
 		this.gameObject.transform.Translate (0, 5 * Mathf.Log(scroll, 2) * Time.deltaTime, 0);
 		scroll += 1000 / scroll;
 	}

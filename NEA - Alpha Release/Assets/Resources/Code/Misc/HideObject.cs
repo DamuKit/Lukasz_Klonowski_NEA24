@@ -22,7 +22,7 @@ public class HideObject : MonoBehaviour {
 		}
 	}
 	
-	// Update once per frame
+	// Moves the attached object offscreen & onscreen to specific positions based on if the game is paused every frame
 	void Update () {
 		this.gameObject.transform.SetPositionAndRotation (new Vector2(location.x + camMov.locX * 24 * MoveWithCamera, location.y + camMov.locY * 16 * MoveWithCamera + 1000 * stats.pause) , Quaternion.identity);
 	}

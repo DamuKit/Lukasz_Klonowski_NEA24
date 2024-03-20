@@ -24,7 +24,8 @@ public class Attacking : MonoBehaviour {
 	GameObject Bobber;
 	public int location;
 	float Defend;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Defend = 0;
 		Bobber = Resources.Load<GameObject> ("Prefabs/UI/Bobber");
@@ -45,11 +46,11 @@ public class Attacking : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		dashtest = false;
+		// Check if the player is holding an item which allows dashing
 		try{
-
 			if(invBeh.Locations [invBeh.OffHandPosition + 77].Substring (0, 3) == "101"){
 				dashtest = true;
 			}
@@ -67,13 +68,11 @@ public class Attacking : MonoBehaviour {
 			shieldWield = true;
 		} else {
 			shieldWield = false;
-			Debug.Log (invBeh.Locations [invBeh.OffHandPosition + 77] + invBeh.Locations [invBeh.MainHandPosition + 77]);
 		}
-		//Debug.Log (playerMovement.angle + "e");
+		// Rotate the melee hitbox around the player to face the mouse
 		this.gameObject.transform.rotation = Quaternion.identity;
 		this.gameObject.transform.Rotate (0, 0, -playerMovement.angle + 180);
-
-		//Debug.Log (counter);
+		// Check for interaction
 		if (counter <=0 && Attack == false & playerMovement.hp >0 & stats.pause == 1) {
 			if (Input.GetKeyDown (KeyCode.Mouse0) == true) {
 				Interact (invBeh.MainHandPosition + 77);
@@ -82,8 +81,8 @@ public class Attacking : MonoBehaviour {
 				Interact(invBeh.OffHandPosition + 77);
 			}
 		}
+		// Cooldown
 		if (Attack == true) {
-			
 			if (counter <= 0) {
 				Attack = false;
 				counter = cooldownLim; 
@@ -100,14 +99,17 @@ public class Attacking : MonoBehaviour {
 		}
 	}
 
+	// Causes items to be used by the player
 	public void Interact(int slot){
 		try{
 			switch(invBeh.Locations[slot].Substring(0,1)){
 			case("0"):
+				// Items
 				if(invBeh.Locations[slot].Substring(0,3) == "026" | invBeh.Locations[slot].Substring(0,3) == "005"){
 				}
 				else if(invBeh.Locations[slot].Substring(0,3) == "022" || invBeh.Locations[slot].Substring(0,3) == "023" || invBeh.Locations[slot].Substring(0,3) == "024" || invBeh.Locations[slot].Substring(0,3) == "025"){
 					try{
+						// Allow items to be consumes
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "026");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "026" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
@@ -118,8 +120,7 @@ public class Attacking : MonoBehaviour {
 							stats.consumed +=1;
 						}
 					}
-					catch{
-							
+					catch{	
 						}
 				}
 				else{
@@ -130,6 +131,7 @@ public class Attacking : MonoBehaviour {
 				}
 				break;
 			case("1"):
+				// tools
 				if(cooldown == false){
 					if(invBeh.Locations[slot].Substring(0,3) == "100"){
 						Attack = true;
@@ -150,13 +152,13 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.8f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),10,10,0,0,1};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
 							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						}
 					}
+						// fishing rod
 					if(invBeh.Locations[slot].Substring(0,3) == "103"){
 						if(fishing == false){
 							fishing = true;
@@ -166,13 +168,13 @@ public class Attacking : MonoBehaviour {
 							GameObject.Find("Bobber(Clone)").GetComponent<FishingBobber>().catching = true;
 						}
 					}
+					// guns
 					if(invBeh.Locations[slot].Substring(0,3) == "104"){
 						location = invBeh.Locations.FindIndex(a => a.Substring (0, 3) == "021");
 						if(int.Parse(invBeh.Locations[location].Substring(3,3)) >0){
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 1.2f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),3,15,0,0,0};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
@@ -185,7 +187,6 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 1f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),13,8,0,1,1};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
@@ -198,7 +199,6 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 3f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),15,15,-2,0,1};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
@@ -213,7 +213,6 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 3f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),5,10,0,0,1};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
@@ -228,7 +227,6 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.1f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),5,7,1,0,0};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
@@ -241,13 +239,13 @@ public class Attacking : MonoBehaviour {
 							invBeh.Locations [location] = "021" + (int.Parse(invBeh.Locations[location].Substring(3,3)) - 1 + 2000).ToString().Substring(1,3);
 							invBeh.PlaceHolder [location] = invBeh.Locations [location];
 							StartCoroutine ("Cooldown", 0.1f);
-							Debug.Log("A");
 							playerMovement.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Shoot"));
 							ProjectileStats = new float[] {Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3)),15,10,-1,2,2};
 							Position = this.gameObject.transform.position + new Vector3(Mathf.Sin(playerMovement.angle * Mathf.Deg2Rad) * 0.55f, Mathf.Cos(playerMovement.angle * Mathf.Deg2Rad) * 0.25f, 0);
 							Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/P000Bullet"), Position, Quaternion.identity);
 						}
 					}
+					// melee
 					if(invBeh.Locations[slot].Substring(0,3) == "110"){
 						Attack = true;
 						StartCoroutine ("Cooldown", 0.6f);
@@ -276,10 +274,10 @@ public class Attacking : MonoBehaviour {
 						playerMovement.SendMessage ("attack");
 						weaponDamage = Mathf.Pow(10,int.Parse(invBeh.Locations[slot].Substring(4,1))) * int.Parse(invBeh.Locations[slot].Substring(5,3));
 					}
-
 				}
 				break;
 			case("2"):
+				// space for new items
 				break;
 			default:
 				break;
@@ -288,17 +286,19 @@ public class Attacking : MonoBehaviour {
 		catch{}
 	}
 
+	// Check if an enemy is in the hitbox of the melee attack
 	private void OnTriggerStay2D(Collider2D other) {
 		if (other.gameObject.tag == "Enemy") {
+			// damage the enemy
 			if (Attack == true & playerMovement.dashing == false) {
 				other.gameObject.SendMessage ("damaged", (weaponDamage + damage) * (1 + damagebuff * 0.25f));
 			} else if (playerMovement.dashing == true) {
 				other.gameObject.SendMessage ("damaged", damage * (0.5f + damagebuff * 0.125f));
 			}
-			//Destroy (other.gameObject);
 		}
 	}
 
+	// Cooldown
 	public IEnumerator Cooldown(float time){
 		cooldown = true;
 		yield return new WaitForSeconds (time);

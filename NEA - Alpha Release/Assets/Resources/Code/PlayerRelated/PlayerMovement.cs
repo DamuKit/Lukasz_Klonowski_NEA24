@@ -38,18 +38,14 @@ public class PlayerMovement : MonoBehaviour {
 	public bool confused;
 	InventoryBehaviour InvBeh;
 	public float Defence;
-
 	float speedbuff;
 	float DistanceMoved;
 
-	// Use this for initialization
+	// Initialization
 	void Start () {
 		Defence = 0;
 		InvBeh = GameObject.Find ("Inventory").GetComponent<InventoryBehaviour> ();
 		m_audio = this.gameObject.GetComponent<AudioSource> ();
-
-		//m_audio.clip = Resources.Load<AudioClip>("Prefabs/Audio/hitHurt.wav");
-		//m_audio.PlayOneShot(Resources.Load<AudioClip>("Prefabs/Audio/hitHurt.wav"));
 		interact = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		speedbuff = 0;
 		speed = 0.05f;
@@ -83,29 +79,25 @@ public class PlayerMovement : MonoBehaviour {
 		stats.Statistic [0, 1] = level.ToString();
 		stats.Statistic [1, 1] = maxhp.ToString ();
 		stats.Statistic [2, 1] = interact.damage.ToString ();
-
-
 		m_audio.volume = stats.Master * stats.SFX;
-
-		
 		if (stats.pause == 1 & wither == true) {
 			hp -= maxhp * 0.01f * Time.deltaTime;
 		}
+		// Prevent health from going lower than zero
 		if (hp < 0) {
 			hp = 0;
 		} else if (hp > maxhp) {
 			hp = maxhp;
 		}
+		// Manage stamina
 		if (stamina < maxStamina) {
 			stamina += (1.5f + 0.15f * stamina) * Time.deltaTime;
 		}
 		if (stamina > maxStamina) {
 			stamina = maxStamina;
 		}
-
 		speed = (2.5f + speedbuff) * Time.deltaTime * stats.gameSpeed * stats.pause;
-
-		//Debug.Log (speed);
+		// Manage IV frames
 		if (ivFrames == true) {
 			invincible = true;
 			ivDuration = 100;
@@ -116,13 +108,9 @@ public class PlayerMovement : MonoBehaviour {
 		} else{
 			invincible = false;
 		}
-
 		moving = false;
-
 		Angle();
-		//Debug.Log (angle);
-
-		/* This section checks input to allow the player to move */
+		// This section checks input to allow the player to move
 		if (hp > 0 & stats.pause != 0) {
 			Animation.SetBool ("walk", false);
 			if (Input.GetKey (KeyCode.A) == true && dashing == false) {
@@ -131,7 +119,6 @@ public class PlayerMovement : MonoBehaviour {
 				} else {
 					this.transform.Translate (-speed * lockmovement [3], 0, 0);
 				}
-
 				moving = true;
 				Animation.SetBool ("walk", true);
 			} else if (Input.GetKey (KeyCode.D) == true && dashing == false) {
@@ -143,7 +130,6 @@ public class PlayerMovement : MonoBehaviour {
 				moving = true;
 				Animation.SetBool ("walk", true);
 			}
-
 			if (Input.GetKey (KeyCode.W) == true && dashing == false) {
 				if (confused == true) {
 					this.transform.Translate (0, -speed * lockmovement [2], 0);
@@ -164,8 +150,7 @@ public class PlayerMovement : MonoBehaviour {
 			if (moving == true) {
 				stats.DistanceTravelled += speed;
 			}
-
-			/* This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames.*/
+			// This provides a dash which prevents other actions from ocurring. This occurs for a number of frames and checks the angle of the player initially to move them in those frames
 			if (Input.GetKeyDown (KeyCode.LeftShift) == true && dashing == false & interact.shieldWield == true & stamina > 40) {
 				stamina -= 30;
 				interact.Attack = true;
@@ -174,9 +159,7 @@ public class PlayerMovement : MonoBehaviour {
 				Animation.SetBool ("dash", true);
 				Animation.Play ("Dash");
 			}
-
 			if (dashing == true && duration > 0) {
-
 				interact.counter = 0.25f;
 				ivFrames = true;
 				ivDuration = 1;
@@ -205,46 +188,34 @@ public class PlayerMovement : MonoBehaviour {
 				} else if (dashDirection >= 292.5 && dashDirection <= 337.5) {
 					this.transform.Translate (-1.5f * speed * lockmovement [3], 1.5f * speed * lockmovement [0], 0);
 				}
-
 			} else if(dashing == true) {
 				duration = durationLim;
 				Animation.SetBool ("dash", false);
 				dashing = false;
 			}
-
-			/* This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor. */
+			// This section checks the angle of the pmouse cursor from the player to change the player animation to face the cursor
 			if (Input.mousePosition.x - (Display.main.systemWidth / 2) >= 0 & Input.mousePosition.y - (Display.main.systemHeight / 2) >= 0) {
-				//Debug.Log ("e");
 			}
 			if (angle >= 45 && angle <= 135) {
-				//Debug.Log((this.transform.position.x / camerasizex)* (Display.main.systemWidth/2));
-				//Debug.Log (Input.mousePosition.x - (Display.main.systemWidth / 2));
 				direction = "right";
-				//Debug.Log ("Right");
 				Animation.SetBool ("right", true);
 				Animation.SetBool ("left", false);
 				Animation.SetBool ("up", false);
 				Animation.SetBool ("down", false);
-
 			} else if (angle >= 225 && angle <= 315) {
 				direction = "left";
-				//Debug.Log ("Left");
 				Animation.SetBool ("left", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("up", false);
 				Animation.SetBool ("down", false);
-
 			} else if (angle >= 315 | angle <= 45) {
 				direction = "up";
-				//Debug.Log ("up");
 				Animation.SetBool ("up", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("left", false);
 				Animation.SetBool ("down", false);
-
 			} else if (angle >= 135 && angle <= 225) {
 				direction = "down";
-				//Debug.Log ("down");
 				Animation.SetBool ("down", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("left", false);
@@ -254,20 +225,10 @@ public class PlayerMovement : MonoBehaviour {
 		} else if (hp <=0){
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 		}
-
-		/*if(Input.GetKey (KeyCode.Mouse0) == true){
-			Object.Instantiate (Slime, new Vector3(0, 0, 0), Quaternion.identity);
-		}*/
-		//-(camMov.locX * camerasizex)
-		//-(camMov.locY * camerasizey) (((this.transform.position.y -(camMov.locY * camerasizey))/ camerasizey)
-
-
-
+		// Level up
 		if (xp >= level * level * 0.03f+ 100) {
 			xp -= level * level * 0.03f+ 100;
 			level += 1;
-
-			Debug.Log ("Level Up!");
 			interact.damage += 0.25f;
 			hp*= 1.1f;
 			maxhp *= 1.005f;
@@ -275,6 +236,8 @@ public class PlayerMovement : MonoBehaviour {
 			m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/LevelUp"));
 		}
 	}
+
+	// Manage damage being recieved
 	public void Damaged(int damage) {
 		if (invincible == false) {
 			if (damage > 2 *Defence) {
@@ -287,7 +250,8 @@ public class PlayerMovement : MonoBehaviour {
 			m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/hitHurt"));
 		}
 	}
-	/* This function provides the angle of the mouse cursor from the character.*/
+
+	// This function provides the angle of the mouse cursor from the character
 	public void Angle () {
 		if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) >= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {
 			angle = (Mathf.Atan (Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2))) / (Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))))) * Mathf.Rad2Deg);
@@ -301,7 +265,7 @@ public class PlayerMovement : MonoBehaviour {
 		else if (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)) <= 0 & 0 <= Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2))) {
 			angle = (270 + Mathf.Atan ((Mathf.Abs (Input.mousePosition.y - (Display.main.systemHeight / 2) - (((this.transform.position.y - (camMov.locY * camerasizey * 2)) / camerasizey) * (Display.main.systemHeight / 2)))) / Mathf.Abs (Input.mousePosition.x - (Display.main.systemWidth / 2) - (((this.transform.position.x - (camMov.locX * camerasizex * 2)) / camerasizex) * (Display.main.systemWidth / 2)))) * Mathf.Rad2Deg);
 		}
-
+		// Reverse direction
 		if (confused == true) {
 			angle = (angle + 180);
 			if (angle > 360) {
@@ -309,16 +273,20 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 	}
+
+	// Play animation for attacking
 	void attack(){
 		Animation.Play ("Attack");
 	}
+
+	// Increase defence when shielding
 	void Shield(float p){
 		Defence = p;
 	}
-	void itemEffect(int item){
-		
-		switch (item) {
 
+	// Manage effects from using items
+	void itemEffect(int item){
+		switch (item) {
 		case(1):
 			hp += 0.15f * maxhp;
 			if (hp > maxhp) {
@@ -335,52 +303,6 @@ public class PlayerMovement : MonoBehaviour {
 			StartCoroutine ("repellantBuff");
 			break;
 
-		case(6):
-			//StartCoroutine ("-");
-			break;
-		case(7):
-			//StartCoroutine ("-");
-			break;
-		case(8):
-			//StartCoroutine ("-");
-			break;
-		case(9):
-			//StartCoroutine ("-");
-			break;
-		case(10):
-			//StartCoroutine ("-");
-			break;
-		case(11):
-			//StartCoroutine ("-");
-			break;
-		case(12):
-			//StartCoroutine ("-");
-			break;
-		case(13):
-			//StartCoroutine ("-");
-			break;
-		case(14):
-			//StartCoroutine ("-");
-			break;
-		case(15):
-			//StartCoroutine ("-");
-			break;
-		case(16):
-			//StartCoroutine ("-");
-			break;
-		case(17):
-			//StartCoroutine ("-");
-			break;
-		case(18):
-			//StartCoroutine ("-");
-			break;
-		case(19):
-			//StartCoroutine ("-");
-			break;
-		case(20):
-			//StartCoroutine ("-");
-			break;
-
 		case(22):
 			GunCrate (Random.value);
 			break;
@@ -394,9 +316,10 @@ public class PlayerMovement : MonoBehaviour {
 			RandomCrate (Random.value);
 			break;
 		}
-
-
 	}
+
+	// 
+	// Manage debuffs
 	void Debuff(int debuff){
 		switch (debuff) {
 		case(1):
@@ -412,6 +335,8 @@ public class PlayerMovement : MonoBehaviour {
 			break;
 		}
 	}
+
+	// Provide a random gun
 	public void GunCrate(float p){
 		if (p < 0.15) {
 			InvBeh.items.Enqueue ("102N" + DmgCalc(1));
@@ -430,6 +355,8 @@ public class PlayerMovement : MonoBehaviour {
 		} 
 		InvBeh.items.Enqueue ("021" + (Random.Range (30, 90) + 1000).ToString ().Substring (1, 3));
 	}
+
+	// Provide a random melee weapon
 	public void MeleeCrate(float p){
 		if (p < 0.3) {
 			InvBeh.items.Enqueue ("100N" + DmgCalc (2));
@@ -445,6 +372,8 @@ public class PlayerMovement : MonoBehaviour {
 			InvBeh.items.Enqueue ("101N" + DmgCalc (1));
 		} 
 	}
+
+	// Provide a random potion
 	public void PotionCrate(float p){
 		if (p < 0.25) {
 			InvBeh.items.Enqueue ("001" + "005");
@@ -456,6 +385,8 @@ public class PlayerMovement : MonoBehaviour {
 			InvBeh.items.Enqueue ("004" + "005");
 		}
 	}
+
+	// Provide a random item
 	public void RandomCrate(float p){
 		if (p > 0.5) {
 			InvBeh.items.Enqueue (Random.Range(100,113).ToString() + "N" + DmgCalc (Random.Range(10,50)*0.1f));
@@ -464,6 +395,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	// Calculate damage for weapons and guns
 	public string DmgCalc(float multiplier){
 		if((Mathf.RoundToInt(level * 0.2f * interact.damage)).ToString ().Length <3){
 			return(((Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier + 100)).ToString ().Length - 3).ToString () + (Mathf.RoundToInt(level * 0.2f * interact.damage * multiplier)).ToString ("D3"));
@@ -473,16 +405,21 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	// Increase damage from the damage buff
 	public IEnumerator damageBuff(){
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
 		yield return new WaitForSeconds (10f);
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff -= 1;
 	}
+
+	// Increase speed from the speed buff
 	public IEnumerator speedBuff(){
 		speedbuff += 0.3f;
 		yield return new WaitForSeconds (10f);
 		speedbuff -= 0.3f;
 	}
+
+	// Repel enemies from the repellant buff
 	public IEnumerator repellantBuff(){
 		repellant = true;
 		repellantStack++;
@@ -492,16 +429,22 @@ public class PlayerMovement : MonoBehaviour {
 			repellant = false;
 		}
 	}
+
+	// Provides wither debuff
 	public IEnumerator Wither(){
 		wither = true;
 		yield return new WaitForSeconds (5f);
 		wither = false;
 	}
+
+	// Provides weak debuff
 	public IEnumerator Weak(){
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff -= 1;
 		yield return new WaitForSeconds (10f);
 		GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().damagebuff += 1;
 	}
+
+	// provides confusion debuff
 	public IEnumerator Confused(){
 		confused = true;
 		yield return new WaitForSeconds (5f);

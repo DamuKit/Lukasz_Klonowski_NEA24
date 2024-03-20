@@ -18,7 +18,7 @@ public class Hidemenu : MonoBehaviour {
 		location = this.gameObject.transform.position;
 	}
 
-	// Moves the attached object offscreen & onscreen to specific positions based on if the game is paused every frame
+	// Moves the attached object offscreen & onscreen to specific positions based on the state of the menu every frame
 	void Update () {
 		this.gameObject.transform.SetPositionAndRotation (new Vector2(location.x + camMov.locX * 24, location.y + camMov.locY * 16 + 2000 * stats.menu) , Quaternion.identity);
 	}

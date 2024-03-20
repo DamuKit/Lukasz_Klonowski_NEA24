@@ -19,7 +19,8 @@ public class FishingBobber : MonoBehaviour {
 	PlayerMovement player;
 	bool InitialFishCatch;
 	InventoryBehaviour invBeh;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		invBeh = GameObject.Find("Inventory").GetComponentInParent<InventoryBehaviour> ();
 		InitialFishCatch = false;
@@ -33,12 +34,12 @@ public class FishingBobber : MonoBehaviour {
 		Water = GameObject.Find ("Tilemaps").transform.GetChild (stats.Locations.IndexOf (CamMov.locX + "." + CamMov.locY)).transform.Find ("Walls").GetComponent<TilemapBehaviour>();
 		origin = this.gameObject.transform.position;
 		fishTime = 0;
-		//Debug.Log (GameObject.Find ("Tilemaps").transform.GetChild (stats.Locations.IndexOf (CamMov.locX + "." + CamMov.locY)).transform.Find ("Walls").name);
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
 		try{
+			// Check if in a water tile
 			if (Water.TilesA.Contains (Water.liquids.GetTile (Water.liquids.WorldToCell(this.transform.position)))) {
 				if (fishing == false) {
 					destroy -=1;
@@ -47,25 +48,19 @@ public class FishingBobber : MonoBehaviour {
 					player.m_audio.PlayOneShot(Resources.Load<AudioClip>("Audio/Fishing1"));
 				}
 			}
-			//else{
-			//	GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
-			//	Destroy (this.gameObject);
-			//}
 		}
 		catch{
-			//GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
-			//Destroy (this.gameObject);
 		}
-		
+		// Destroy the fishing bobber
 		if (destroy == 2) {
 			GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
 			Destroy (this.gameObject);
 		}
+		// start fishing
 		if (fishing == true) {
 			duration += 1 * Time.deltaTime;
-			//this.transform.position = origin + new Vector2 (0, 0.05f * Mathf.Sin (duration * 3));
 			this.gameObject.transform.SetPositionAndRotation (origin + new Vector2 (0, 0.05f * Mathf.Sin (duration * 3)), Quaternion.identity);
-
+			// Check when the fish is caught
 			if (duration > fishTime) {
 				if (InitialFishCatch == false) {
 					InitialFishCatch = true;
@@ -73,46 +68,45 @@ public class FishingBobber : MonoBehaviour {
 					fish = Random.value;
 					stats.FishingState = 0;
 					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
-
 				}
 				this.gameObject.transform.Rotate (0, 0, Mathf.Sin (duration * 5) * 10);
+				// Successful catch
 				if (catching == true) {
 					GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
-					Debug.Log ("Catch");
 					caught ();
 					stats.FishingState = 1;
 					stats.Achievements[1,2] = "T";
 					stats.Fished += 1;
 					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
-
 				}
+				// Late catch
 				if (duration > fishTime + 3) {
 					fish = Random.Range (50, 150) * 0.1f;
 					duration = 0;
 					InitialFishCatch = false;
 					stats.FishingState = 2;
 					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
-
 				}
 			} else {
+				// Cancel fishing
 				if (catching == true) {
 					GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
-					Debug.Log ("Didnt Catch");
 					stats.FishingState = 2;
 					Object.Instantiate (Resources.Load<GameObject>("Prefabs/UI/FishState"), this.gameObject.transform.position + new Vector3 (0,1,0), Quaternion.identity);
 					Destroy (this.gameObject);
 				}
 			}
 		}
+		// Stop if too far away
 		if (Vector2.Distance (this.gameObject.transform.position, player.transform.position) > 5) {
 			GameObject.Find ("AttackHitBox").GetComponent<Attacking> ().fishing = false;
-			Debug.Log ("Too Far");
 			Destroy (this.gameObject);
 		}
 	}
+
+	// Randomise item caught from fishing
 	public void caught(){
 		if (fish < 0.05) {
-
 		} else if (fish < 0.1) {
 			invBeh.items.Enqueue ("006001");
 		} else if (fish < 0.15) {
@@ -155,6 +149,7 @@ public class FishingBobber : MonoBehaviour {
 		Destroy (this.gameObject);
 	}
 
+	// Delay on destruction to allow code to finish
 	public IEnumerator Destroy(){
 		yield return new WaitForSeconds (1f);
 		destroy += 1;

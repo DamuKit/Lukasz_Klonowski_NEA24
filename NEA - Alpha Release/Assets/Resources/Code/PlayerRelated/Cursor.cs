@@ -11,24 +11,28 @@ public class Cursor : MonoBehaviour {
 	public TMP_Text Description;
 	public float Displaying;
 	bool CurrentDisplay;
-	// Use this for initialization
+
+	// Initialization
 	void Start () {
 		Description = this.gameObject.transform.GetChild (0).GetChild (0).gameObject.GetComponent<TMP_Text> ();
 		Displaying = 0;
 		CurrentDisplay = false;
 	}
 	
-	// Update is called once per frame
+	// Update once per frame
 	void Update () {
+		// Constantly moves to the position of the mouse cursor in the in-game world
 		this.gameObject.transform.SetPositionAndRotation(new Vector3 ((Input.mousePosition.x - (Display.main.systemWidth / 2)) / Display.main.systemWidth * playerMovement.camerasizex * 2 + (camMov.locX * playerMovement.camerasizex * 2), (Input.mousePosition.y - (Display.main.systemHeight / 2)) / Display.main.systemHeight * playerMovement.camerasizey * 2 + (camMov.locY * playerMovement.camerasizey * 2), 0), Quaternion.identity);
 		this.gameObject.transform.Rotate (0, 0, 135);
 		if (CurrentDisplay == false & Displaying > 0) {
 			Displaying -= 1 * Time.deltaTime;
 		}
 	}
+
+	// Used for describing items from the inventory
 	public void Describe(string item){
-		
 		if (item.Substring (0, 1) == "0") {
+			// Identification of item
 			if (int.Parse (item.Substring (3, 3)) > 1) {
 				Description.SetText (Identify(item.Substring (0, 3)) + " x" + (int.Parse(item.Substring (3, 3))).ToString());
 			} else {
@@ -36,8 +40,10 @@ public class Cursor : MonoBehaviour {
 			}
 		} else if (item.Substring (0, 1) == "1") {
 			if (item.Substring (0, 3) == "103") {
+				// Seperately identify fishing rod due to being a damageless tool
 				Description.SetText ("Fishing Rod");
 			} else {
+				// Identify damage of weapons or number of items
 				if(Mathf.Pow (10, int.Parse (item.Substring (4, 1))) * int.Parse (item.Substring (5, 3)) > 0){
 					Description.SetText (Identify(item.Substring (0, 3)) + " +" + (Mathf.Pow (10, int.Parse (item.Substring (4, 1))) * int.Parse (item.Substring (5, 3))).ToString () + " Bonus");
 				}
@@ -46,17 +52,24 @@ public class Cursor : MonoBehaviour {
 				}
 			}
 		}
+		// Show text
 		this.gameObject.transform.GetChild (0).gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0.5f);
 		CurrentDisplay = true;
 		Displaying = 1;
 	}
+
+	// Used to stop showing item text
 	public void stop(){
+		// hide text
 		this.gameObject.transform.GetChild (0).gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 		Description.SetText ("");
 		CurrentDisplay = false;
 	}
+
+	// Used to identify objects names from IDs from the inventory
 	private string Identify(string item){
 		switch (item) {
+		// Items
 		case("001"):
 			return("Hearts");
 			break;
@@ -135,7 +148,7 @@ public class Cursor : MonoBehaviour {
 		case("026"):
 			return("Coin");
 			break;
-
+			// Weapons & Tools
 		case("100"):
 			return("Sword");
 			break;
