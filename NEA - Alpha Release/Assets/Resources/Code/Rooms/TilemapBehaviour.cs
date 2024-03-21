@@ -29,6 +29,7 @@ public class TilemapBehaviour : MonoBehaviour {
 	// Animates the water
 	void Update () {
 		// Changes all tiles with the next state to animate the water at reqular intervals
+		// tilemap swapping | Nov 17 2023 | https://docs.unity3d.com/2018.2/Documentation/ScriptReference/Tilemaps.Tilemap.SwapTile.html
 		if (j == 20) {
 			if (cycleA <= 3) {
 				for (int i = TilesA.Count - 2; i >= 0; i -= 1) { 

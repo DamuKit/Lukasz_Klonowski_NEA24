@@ -61,6 +61,7 @@ public class ItemMoving : MonoBehaviour {
 			if (Describe > 0) {
 				Describe = 0;
 			}
+			// Show description text
 			if (Described == true & Describe < 3) {
 				GameObject.Find ("Cursor").SendMessage ("stop");
 				Described = false;
@@ -76,13 +77,16 @@ public class ItemMoving : MonoBehaviour {
 		} else {
 			this.gameObject.transform.SetPositionAndRotation (new Vector2 (ISLX - 11 + camMov.locX * 24, (ISLY - 4) * -1 + camMov.locY * 16), Quaternion.identity);
 		}
+		// Check if the item needs to be moved around after another item has caused a swap
 		if (currentItem != invBeh.Locations [currentPosition] & Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16) * -1 + 4 > -100) {
+			// update current position
 			ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x - camMov.locX * 24) + 11;
 			ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y - camMov.locY * 16)* -1 + 4;
 			positionInList = ISLX + ISLY * 11;
 			if (positionInList < 0) {
 				positionInList = positionInList + (28 + 77);
 			}
+			// Change variables to focus on this item
 			if(currentItem.Substring(0,3) == invBeh.Locations [positionInList].Substring(0,3) & currentItem.Substring(3,1) == "N"){
 				currentItem = invBeh.Locations [positionInList];
 				currentPosition = positionInList;
@@ -92,6 +96,7 @@ public class ItemMoving : MonoBehaviour {
 				currentPosition = positionInList;
 			}
 			else{
+				// Update position
 				this.gameObject.transform.position = new Vector2(Mathf.RoundToInt(invBeh.swapPosition % 11)-11 + camMov.locX * 24, (Mathf.RoundToInt(invBeh.swapPosition / 11) - 4)*-1 + camMov.locY * 16);
 				currentPosition = invBeh.swapPosition;
 				if (currentPosition >= 77) {
@@ -136,17 +141,19 @@ public class ItemMoving : MonoBehaviour {
 				if (invBeh.Locations [positionInList].Substring (3, 1) != "N") {
 					if (invBeh.Locations [positionInList].Substring (0, 3) == invBeh.Locations [currentPosition].Substring (0, 3) & positionInList != currentPosition) {
 						if (int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) <= stats.stackLimit) {
-							// Leave some items behind
+							// Leave some items behind in original slot while making new slot a full stack if there are existing items
 							invBeh.Locations [currentPosition] = invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 1000).ToString ()).Substring (1, 3);
 							invBeh.swapPosition = currentPosition;
 							invBeh.Locations [positionInList] = "0000000000";
 							Destroy (this.gameObject);
 						} else {
+							// Swap item's original slot with the new item slot
 							pH2 = invBeh.Locations [positionInList];
 							invBeh.Locations [currentPosition] = (invBeh.Locations [positionInList].Substring (0, 3) + ((int.Parse (invBeh.Locations [positionInList].Substring (3, 3)) + int.Parse (invBeh.Locations [currentPosition].Substring (3, 3)) + 2000 - stats.stackLimit).ToString ()).Substring (1, 3));
 							invBeh.Locations [positionInList] = pH2.Substring (0, 3) + (1000 + stats.stackLimit).ToString().Substring(1,3);
 							invBeh.swapPosition = currentPosition;
 							currentItem = invBeh.Locations [currentPosition];
+							// Move to new slot
 							this.gameObject.transform.position = new Vector2(Mathf.RoundToInt(currentPosition % 11)-11 + camMov.locX * 24, (Mathf.RoundToInt(currentPosition / 11) - 4)*-1 + camMov.locY * 16);
 							currentPosition = invBeh.swapPosition;
 							if (currentPosition >= 77) {
@@ -156,15 +163,17 @@ public class ItemMoving : MonoBehaviour {
 					}
 				}
 				else if(invBeh.Locations [positionInList] == invBeh.Locations [currentPosition]){
+					// Swap item's original slot with the new item slot
 					pH2 = invBeh.Locations [positionInList];
-
 					invBeh.swapPosition = currentPosition;
 					currentItem = invBeh.Locations [currentPosition];
+					// Move to new slot
 					this.gameObject.transform.position = new Vector2(Mathf.RoundToInt(currentPosition % 11)-11 + camMov.locX * 24, (Mathf.RoundToInt(currentPosition / 11) - 4)*-1 + camMov.locY * 16);
 					currentPosition = invBeh.swapPosition;
 					if (currentPosition >= 77) {
 						this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x + 5, this.gameObject.transform.position.y + 10);
 					}
+					// Determine item position
 					ISLX = Mathf.RoundToInt (this.gameObject.transform.position.x) + 11 - camMov.locX * 24 ;
 					ISLY = Mathf.RoundToInt (this.gameObject.transform.position.y)* -1 + 4 + camMov.locY * 16;
 					positionInList = ISLX + ISLY * 11;
@@ -174,6 +183,7 @@ public class ItemMoving : MonoBehaviour {
 			held = false;
 			stats.holding = false;
 			if (pH2 == "0") {
+				// Swap item positions
 				placeHolder = invBeh.Locations [positionInList];
 				invBeh.Locations [positionInList] = invBeh.Locations [currentPosition];
 				invBeh.Locations [currentPosition] = placeHolder;

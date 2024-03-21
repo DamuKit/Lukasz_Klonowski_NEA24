@@ -91,6 +91,7 @@ public class InventoryBehaviour : MonoBehaviour {
 				}
 				else{
 					// create item if non-stackable
+					// Finding index of an item in a list | Dec 4 2023 | https://discussions.unity.com/t/how-to-find-index-of-a-list/171549
 					Locations [Locations.FindIndex (a => a == "0000000000")] = items.Peek ();
 				}
 			}
