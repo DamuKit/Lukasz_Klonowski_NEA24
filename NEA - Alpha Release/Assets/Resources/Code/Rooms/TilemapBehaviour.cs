@@ -18,7 +18,6 @@ public class TilemapBehaviour : MonoBehaviour {
 	void Start () {
 		TilesA.AddRange(Resources.LoadAll<TileBase>("tilesets/Liquid/water"));
 		TilesB.AddRange(Resources.LoadAll<TileBase>("tilesets/Liquid/waterfall"));
-		Debug.Log (TilesA.Count);
 		liquids = GetComponent<Tilemap> ();
 		cycleA = 1;
 		cycleB = 1;

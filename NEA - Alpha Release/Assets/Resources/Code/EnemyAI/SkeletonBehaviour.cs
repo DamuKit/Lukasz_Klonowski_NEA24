@@ -5,17 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SkeletonBehaviour : MonoBehaviour {
-	
-	bool onscreen = false;
 	public StatsStorage stats;
 	public Attacking attack;
 	bool IV;
 	public CameraMovement camMov;
 	public PlayerMovement Player;
-	public RoomLoader roomLoader;
 	public string location;
 	public GameObject player;
-	public GameObject Cam;
 	public float angle;
 	public int delay;
 	public int statVariance;
@@ -37,9 +33,7 @@ public class SkeletonBehaviour : MonoBehaviour {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		IV = false;
-		Cam = GameObject.FindGameObjectWithTag("MainCamera");
-		roomLoader = GameObject.Find ("PassiveCodeController").GetComponent<RoomLoader> ();
-		camMov = Cam.GetComponent<CameraMovement> ();
+		camMov = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement> ();
 		location = stats.Locations[stats.Locations.Count - 1];
 		this.gameObject.name = (this.gameObject.name.Substring (0, 4));
 		player = GameObject.FindGameObjectWithTag ("Player");

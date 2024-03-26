@@ -14,8 +14,6 @@ public class PlayerMovement : MonoBehaviour {
 	Animator Animation;
 	Attacking interact;
 	public CameraMovement camMov;
-	public GameObject Slime;
-	string direction;
 	public bool moving;
 	public bool dashing;
 	public float camerasizex;
@@ -31,7 +29,6 @@ public class PlayerMovement : MonoBehaviour {
 	public float xp;
 	public int level;
 	public int[] lockmovement = new int[] {1,1,1,1};
-	public int[] Items = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	public bool repellant;
 	int repellantStack;
 	public bool wither;
@@ -39,7 +36,6 @@ public class PlayerMovement : MonoBehaviour {
 	InventoryBehaviour InvBeh;
 	public float Defence;
 	float speedbuff;
-	float DistanceMoved;
 
 	// Initialization
 	void Start () {
@@ -52,7 +48,6 @@ public class PlayerMovement : MonoBehaviour {
 		dashDirection = 0f;
 		durationLim = 15;
 		duration = durationLim;
-		direction = "down";
 		moving = false;
 		dashing = false;
 		camerasizex = 12f;
@@ -194,28 +189,22 @@ public class PlayerMovement : MonoBehaviour {
 				dashing = false;
 			}
 			// This section checks the angle of the mouse cursor from the player to change the player animation to face the cursor
-			if (Input.mousePosition.x - (Display.main.systemWidth / 2) >= 0 & Input.mousePosition.y - (Display.main.systemHeight / 2) >= 0) {
-			}
 			if (angle >= 45 && angle <= 135) {
-				direction = "right";
 				Animation.SetBool ("right", true);
 				Animation.SetBool ("left", false);
 				Animation.SetBool ("up", false);
 				Animation.SetBool ("down", false);
 			} else if (angle >= 225 && angle <= 315) {
-				direction = "left";
 				Animation.SetBool ("left", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("up", false);
 				Animation.SetBool ("down", false);
 			} else if (angle >= 315 | angle <= 45) {
-				direction = "up";
 				Animation.SetBool ("up", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("left", false);
 				Animation.SetBool ("down", false);
 			} else if (angle >= 135 && angle <= 225) {
-				direction = "down";
 				Animation.SetBool ("down", true);
 				Animation.SetBool ("right", false);
 				Animation.SetBool ("left", false);

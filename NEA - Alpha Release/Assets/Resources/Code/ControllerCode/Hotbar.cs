@@ -16,7 +16,7 @@ public class Hotbar : MonoBehaviour {
 	
 	// Update once per frame
 	void Update () {
-		//check if the game is paused or not & hide offscreen if paused
+		//check if the game is paused or not & displace the hotbar when it is supposed to be offscreen
 		if (stats.pause == 0 & hidden == false) {
 			this.gameObject.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + 1000);
 			hidden = true;

@@ -9,7 +9,6 @@ public class DestructibleGrave : MonoBehaviour {
 	int health;
 	bool IV;
 	public Attacking attack;
-	public bool end;
 	public EnemyHealth HPBar;
 
 	// Initialization
@@ -19,7 +18,6 @@ public class DestructibleGrave : MonoBehaviour {
 		attack = GameObject.Find ("AttackHitBox").GetComponent<Attacking> ();
 		IV = false;
 		health = 20;
-		end = false;
 	}
 	
 	// Manage Invincibility & destroy when zero health

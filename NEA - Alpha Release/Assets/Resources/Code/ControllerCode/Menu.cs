@@ -21,7 +21,6 @@ public class Menu : MonoBehaviour {
 	
 	// Update once per frame
 	void Update () {
-		Debug.Log (stats.menu);
 		stats.Master = Master.value;
 		stats.Music = Music.value;
 		stats.SFX = SFX.value;

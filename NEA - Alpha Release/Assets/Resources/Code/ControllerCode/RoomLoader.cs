@@ -9,14 +9,12 @@ public class RoomLoader : MonoBehaviour {
 	public StatsStorage stats;
 	private GameObject Tilemaps;
 	public string roomlocation;
-	public int lastRoom;
 	public int placeholder;
 	public CameraMovement camMov;
 	public int room;
 	public int refreshSeed;
 	public int[,] Testing = new int[,] {{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 	public List<GameObject> RoomOptions = new List<GameObject>();
-	int n;
 	public int openings;
 	int roomTest;
 
@@ -24,12 +22,10 @@ public class RoomLoader : MonoBehaviour {
 	void Start () {
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
 		Tilemaps = GameObject.Find ("Tilemaps");
-		//Cam = GameObject.Find ("Main Camera");
 		camMov = GameObject.Find ("Main Camera").GetComponent<CameraMovement> ();
 		Random.InitState (stats.seed);
 		refreshSeed = stats.seed;
 		room = 0;
-		lastRoom = -1;
 		placeholder = 0;
 		openings = 1;
 		roomTest = 0;
@@ -43,7 +39,6 @@ public class RoomLoader : MonoBehaviour {
 			Random.InitState (stats.seed);
 		}
 		roomlocation = (camMov.locX + "." + camMov.locY);
-
 		if (stats.Locations.FindIndex(a => a == roomlocation) != -1) {
 			stats.room = stats.Locations.FindIndex(a => a == roomlocation);
 		} else {
@@ -127,7 +122,6 @@ public class RoomLoader : MonoBehaviour {
 						RoomOptions.RemoveAt (i);
 					}
 				}
-
 			}
 			// Determine randomly which room to generate out of the available options
 			room = Mathf.RoundToInt ((RoomOptions.Count) * randomVal - 0.5f);
@@ -139,10 +133,6 @@ public class RoomLoader : MonoBehaviour {
 			catch{
 				stats.Locations.RemoveAt (stats.Locations.Count - 1);
 			}
-			lastRoom = room;
 		}
-
-		
 	}
-
 }

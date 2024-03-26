@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HideObject : MonoBehaviour {
-	int hidden;
 	Vector3 location;
 	int MoveWithCamera = 0;
 	public CameraMovement camMov;
@@ -15,7 +14,6 @@ public class HideObject : MonoBehaviour {
 	void Start () {
 		camMov = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement> ();
 		stats = GameObject.Find ("PassiveCodeController").GetComponent<StatsStorage> ();
-		hidden = 0;
 		location = this.gameObject.transform.position;
 		if (this.name == "Inventory") {
 			MoveWithCamera = 1;

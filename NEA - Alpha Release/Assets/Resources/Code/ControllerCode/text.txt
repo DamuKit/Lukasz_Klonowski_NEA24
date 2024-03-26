@@ -1,3 +1,0 @@
-idea for how inventory can work
-items are in a list, each with a unique position
-list has a limited amount of space and swaping items will swap their positions on the list

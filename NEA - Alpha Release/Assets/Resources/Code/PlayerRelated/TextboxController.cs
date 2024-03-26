@@ -16,8 +16,6 @@ public class TextboxController : MonoBehaviour {
 	public List<string> inputElements = new List<string> ();
 	PlayerMovement Player;
 	int[] dialogue = new int[] {0};
-	[TextAreaAttribute]
-	public string text;
 
 	// Initialization
 	void Start () {
