@@ -9654,7 +9654,6 @@ MonoBehaviour:
   camMov: {fileID: 0}
   chat: {fileID: 0}
   inputElements: []
-  text: 
 --- !u!1 &604604503
 GameObject:
   m_ObjectHideFlags: 0
@@ -14048,7 +14047,6 @@ MonoBehaviour:
   randomVal: 0
   stats: {fileID: 0}
   roomlocation: 
-  lastRoom: 0
   placeholder: 0
   camMov: {fileID: 0}
   room: 0

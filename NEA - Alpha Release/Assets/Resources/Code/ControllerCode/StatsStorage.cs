@@ -141,42 +141,42 @@ public class StatsStorage : MonoBehaviour {
 		Statistic [7, 1] = Fished.ToString ();
 		Statistic [8, 1] = (Locations.Count - 2).ToString ();
 		{
-			if (float.Parse (Statistic [0, 1]) >= float.Parse (Statistic [0, 3]) & int.Parse (Statistic [0, 2]) <5) {
-				Statistic [0, 2] = (int.Parse (Statistic [0, 2]) + 1).ToString ();
-				Statistic [0, 3] = (float.Parse (Statistic [0, 3]) * 3).ToString ();
-			}
-			if (float.Parse (Statistic [1, 1]) >= float.Parse (Statistic [1, 3]) & int.Parse (Statistic [1, 2]) <5) {
-				Statistic [1, 2] = (int.Parse (Statistic [1, 2]) + 1).ToString ();
-				Statistic [1, 3] = (float.Parse (Statistic [1, 3]) * 3).ToString ();
-			}
-			if (float.Parse (Statistic [2, 1]) >= float.Parse (Statistic [2, 3]) & int.Parse (Statistic [2, 2]) <5) {
-				Statistic [2, 2] = (int.Parse (Statistic [2, 2]) + 1).ToString ();
-				Statistic [2, 3] = (float.Parse (Statistic [2, 3]) * 3).ToString ();
-			}
-			if (float.Parse (Statistic [3, 1]) >= float.Parse (Statistic [3, 3]) & int.Parse (Statistic [3, 2]) <5) {
-				Statistic [3, 2] = (int.Parse (Statistic [3, 2]) + 1).ToString ();
-				Statistic [3, 3] = (float.Parse (Statistic [3, 3]) * 5).ToString ();
-			}
-			if (float.Parse (Statistic [4, 1]) >= float.Parse (Statistic [4, 3]) & int.Parse (Statistic [4, 2]) <5) {
-				Statistic [4, 2] = (int.Parse (Statistic [4, 2]) + 1).ToString ();
-				Statistic [4, 3] = (float.Parse (Statistic [4, 3]) * 10).ToString ();
-			}
-			if (float.Parse (Statistic [5, 1]) >= float.Parse (Statistic [5, 3]) & int.Parse (Statistic [5, 2]) <5) {
-				Statistic [5, 2] = (int.Parse (Statistic [5, 2]) + 1).ToString ();
-				Statistic [5, 3] = (float.Parse (Statistic [5, 3]) * 5).ToString ();
-			}
-			if (float.Parse (Statistic [6, 1]) >= float.Parse (Statistic [6, 3]) & int.Parse (Statistic [6, 2]) <5) {
-				Statistic [6, 2] = (int.Parse (Statistic [6, 2]) + 1).ToString ();
-				Statistic [6, 3] = (float.Parse (Statistic [6, 3]) * 3).ToString ();
-			}
-			if (float.Parse (Statistic [7, 1]) >= float.Parse (Statistic [7, 3]) & int.Parse (Statistic [7, 2]) <5) {
-				Statistic [7, 2] = (int.Parse (Statistic [7, 2]) + 1).ToString ();
-				Statistic [7, 3] = (float.Parse (Statistic [7, 3]) * 5).ToString ();
-			}
-			if (float.Parse (Statistic [8, 1]) >= float.Parse (Statistic [8, 3]) & int.Parse (Statistic [8, 2]) <5) {
-				Statistic [8, 2] = (int.Parse (Statistic [8, 2]) + 1).ToString ();
-				Statistic [8, 3] = (float.Parse (Statistic [8, 3]) * 3).ToString ();
-			}
+		if (float.Parse (Statistic [0, 1]) >= float.Parse (Statistic [0, 3]) & int.Parse (Statistic [0, 2]) <5) {
+			Statistic [0, 2] = (int.Parse (Statistic [0, 2]) + 1).ToString ();
+			Statistic [0, 3] = (float.Parse (Statistic [0, 3]) * 3).ToString ();
+		}
+		if (float.Parse (Statistic [1, 1]) >= float.Parse (Statistic [1, 3]) & int.Parse (Statistic [1, 2]) <5) {
+			Statistic [1, 2] = (int.Parse (Statistic [1, 2]) + 1).ToString ();
+			Statistic [1, 3] = (float.Parse (Statistic [1, 3]) * 3).ToString ();
+		}
+		if (float.Parse (Statistic [2, 1]) >= float.Parse (Statistic [2, 3]) & int.Parse (Statistic [2, 2]) <5) {
+			Statistic [2, 2] = (int.Parse (Statistic [2, 2]) + 1).ToString ();
+			Statistic [2, 3] = (float.Parse (Statistic [2, 3]) * 3).ToString ();
+		}
+		if (float.Parse (Statistic [3, 1]) >= float.Parse (Statistic [3, 3]) & int.Parse (Statistic [3, 2]) <5) {
+			Statistic [3, 2] = (int.Parse (Statistic [3, 2]) + 1).ToString ();
+			Statistic [3, 3] = (float.Parse (Statistic [3, 3]) * 5).ToString ();
+		}
+		if (float.Parse (Statistic [4, 1]) >= float.Parse (Statistic [4, 3]) & int.Parse (Statistic [4, 2]) <5) {
+			Statistic [4, 2] = (int.Parse (Statistic [4, 2]) + 1).ToString ();
+			Statistic [4, 3] = (float.Parse (Statistic [4, 3]) * 10).ToString ();
+		}
+		if (float.Parse (Statistic [5, 1]) >= float.Parse (Statistic [5, 3]) & int.Parse (Statistic [5, 2]) <5) {
+			Statistic [5, 2] = (int.Parse (Statistic [5, 2]) + 1).ToString ();
+			Statistic [5, 3] = (float.Parse (Statistic [5, 3]) * 5).ToString ();
+		}
+		if (float.Parse (Statistic [6, 1]) >= float.Parse (Statistic [6, 3]) & int.Parse (Statistic [6, 2]) <5) {
+			Statistic [6, 2] = (int.Parse (Statistic [6, 2]) + 1).ToString ();
+			Statistic [6, 3] = (float.Parse (Statistic [6, 3]) * 3).ToString ();
+		}
+		if (float.Parse (Statistic [7, 1]) >= float.Parse (Statistic [7, 3]) & int.Parse (Statistic [7, 2]) <5) {
+			Statistic [7, 2] = (int.Parse (Statistic [7, 2]) + 1).ToString ();
+			Statistic [7, 3] = (float.Parse (Statistic [7, 3]) * 5).ToString ();
+		}
+		if (float.Parse (Statistic [8, 1]) >= float.Parse (Statistic [8, 3]) & int.Parse (Statistic [8, 2]) <5) {
+			Statistic [8, 2] = (int.Parse (Statistic [8, 2]) + 1).ToString ();
+			Statistic [8, 3] = (float.Parse (Statistic [8, 3]) * 3).ToString ();
+		}
 		}
 		// Update achievements
 		if (score > 1000) {
@@ -209,7 +209,6 @@ public class StatsStorage : MonoBehaviour {
 			} else {
 				m_audio.clip = Resources.Load<AudioClip> ("Audio/music/BattleTheme2");
 			}
-			m_audio.clip = Resources.Load<AudioClip> ("Audio/music/BattleTheme2");
 			m_audio.Play ();
 		}
 		else if(musicstate == 1 & GameObject.Find ("Enemies").transform.childCount == 0){
